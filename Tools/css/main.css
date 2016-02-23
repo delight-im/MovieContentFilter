@@ -1,0 +1,27 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	padding: 8px;
+}
+fieldset {
+	padding: 8px 16px;
+}
+input, select, textarea {
+	display: block;
+	width: 100%;
+	margin-bottom: 12px;
+}
+textarea {
+	min-height: 120px;
+}
+button {
+	display: block;
+	margin: 12px 0;
+	padding: 4px 8px;
+}

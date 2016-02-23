@@ -1,0 +1,77 @@
+WEBVTT Movie Content Filter 1.0.0
+
+NOTE
+START 00:00:06.000
+END 00:58:04.000
+
+00:02:32.000 --> 00:02:56.000
+violence=medium
+fear=high
+death=high
+
+00:02:59.000 --> 00:03:08.000
+violence=medium=video
+fear=high=video
+death=high=video
+
+00:05:18.000 --> 00:05:40.000
+violence=low=video
+fear=high=video
+
+00:05:48.000 --> 00:06:02.000
+fear=high=video
+
+00:06:32.000 --> 00:06:59.000
+violence=high
+fear=high
+death=high
+
+00:13:08.000 --> 00:13:16.000
+violence=high
+death=high
+
+00:14:32.000 --> 00:16:00.000
+violence=medium=video
+death=high=video
+
+00:17:46.000 --> 00:18:12.000
+death=medium=video
+
+00:18:44.000 --> 00:18:49.000
+death=medium=video
+
+00:19:20.000 --> 00:19:26.000
+death=medium=video
+
+00:29:20.000 --> 00:31:05.000
+nudity=medium=video
+
+00:33:00.000 --> 00:34:20.000
+nudity=medium=video
+
+00:48:44.000 --> 00:48:48.000
+nudity=low=video
+
+00:49:08.000 --> 00:49:30.000
+nudity=low=video
+sex=low=video
+
+00:49:48.000 --> 00:50:02.000
+violence=medium=video
+death=medium=video
+
+00:50:02.000 --> 00:50:05.000
+nudity=low=video
+
+00:51:58.000 --> 00:52:12.000
+nudity=low=video
+
+00:54:34.000 --> 00:54:57.000
+nudity=low=video
+sex=low=video
+
+00:57:00.000 --> 00:57:23.000
+sex=low=video
+
+00:57:55.000 --> 00:58:00.000
+violence=low=video

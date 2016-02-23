@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Movie Content Filter</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<form action="" method="post" onsubmit="return false;">
+		<fieldset>
+			<legend>Input</legend>
+			<p>
+				<label for="sourceText">Source text (<code>.mcf</code>)</label>
+				<textarea id="sourceText" name="sourceText"></textarea>
+			</p>
+		</fieldset>
+		<fieldset>
+			<legend>Synchronization</legend>
+			<p>
+				<label for="fileStartTime">Start of <i>actual</i> film material, which is <i>after</i> any opening title sequences, credits or company logos</label>
+				<input type="text" id="fileStartTime" name="fileStartTime" value="00:00:00.000">
+			</p>
+			<p>
+				<label for="fileEndTime">End of <i>actual</i> film material, which is <i>before</i> any closing credits or company logos</label>
+				<input type="text" id="fileEndTime" name="fileEndTime" value="00:00:00.000">
+			</p>
+		</fieldset>
+		<fieldset>
+			<legend>Preferences</legend>
+			<p>
+				<label for="death">Death</label>
+				<select id="death" name="death" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="drugs">Drugs</label>
+				<select id="drugs" name="drugs" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="fear">Fear</label>
+				<select id="fear" name="fear" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="gambling">Gambling</label>
+				<select id="gambling" name="gambling" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="language">Language</label>
+				<select id="language" name="language" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="nudity">Nudity</label>
+				<select id="nudity" name="nudity" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="sex">Sex</label>
+				<select id="sex" name="sex" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="violence">Violence</label>
+				<select id="violence" name="violence" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+			<p>
+				<label for="weapons">Weapons</label>
+				<select id="weapons" name="weapons" size="1">
+					<option value="low">Filter low, medium and high severity</option>
+					<option value="medium">Filter medium and high severity</option>
+					<option value="high">Filter high severity</option>
+					<option value="">Do not filter</option>
+				</select>
+			</p>
+		</fieldset>
+		<fieldset>
+			<legend>Output</legend>
+			<p>
+				<label for="videoLocation">Video location (only required for VLC media player)</label>
+				<input type="text" id="videoLocation" name="videoLocation" value="file:///Movie.mp4">
+			</p>
+			<p>
+				<button type="button" id="convert-to-xspf">Convert to <strong>XSPF</strong> for VLC media player</button>
+				<button type="button" id="convert-to-m3u">Convert to <strong>M3U</strong> for VLC media player</button>
+				<button type="button" id="convert-to-edl">Convert to <strong>EDL</strong> for MPlayer</button>
+			</p>
+		</fieldset>
+	</form>
+	<script src="js/MovieContentFilter.js"></script>
+	<script src="js/FileSaver.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
