@@ -50,6 +50,10 @@ The format is a strict subset of the [W3C WebVTT](https://developer.mozilla.org/
     * `sex`
     * `violence`
     * `weapons`
+    * `racism`
+    * `homophobia`
+    * `sexism`
+    * `transphobia`
  1. The *severity* must be one of:
     * `low`
     * `medium`
