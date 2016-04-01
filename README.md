@@ -24,10 +24,13 @@ Film makers should *not* censor *anything*. They should release the film in the 
 
 ## How it works
 
- * A simple text file (`.mcf` extension) per movie is used to store filters.
- * These filters let you customize playback by skipping video, audio, or both.
- * You can control filtering by choosing from various categories and severity levels.
- * The content of the filter files follows the specification described below.
+ 1. The community tags the source material with filterable categories, or some commercial provider sells complete filter files.
+    * A simple text file (`.mcf` extension) per movie is used to store filters.
+    * These filters let you customize playback by skipping either video, audio, or both.
+    * The content of the filter files follows the specification described below.
+ 2. *You* decide what you want to filter out and what you want to see.
+    * You can adjust the filtering by choosing from various categories and severity levels.
+    * Use your media player's UI, plugins or our ["transpiler"](Tools/) to apply your selections.
 
 ## Specification
 
