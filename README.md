@@ -1,6 +1,6 @@
 # Movie Content Filter
 
-Watch movies with the *freedom* to filter
+Watch movies with the freedom (not) to filter
 
 Some people are bothered by blood and violence, some by swearing, some by nothing at all. Decide what *you* want to see.
 
