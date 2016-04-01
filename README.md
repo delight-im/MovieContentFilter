@@ -2,13 +2,17 @@
 
 Watch movies with the freedom (not) to filter
 
-Some people are bothered by blood and violence, some by swearing, some by nothing at all. Decide what *you* want to see.
+## Motivation
 
-Filter video and audio without having to change the original source material.
+Movies and TV shows are like a good dinner: Do you really want to miss out on the whole experience just because you don't like the sprouts?
 
-Be your own moral authority when it comes to what's appropriate and what's not.
+Filter video and audio without having to change the original source material. No derivative videos needed!
+
+This project is not about censorship or automated filtering. It's about choice. You decide what is shown and what is not. There are better solutions than [complex rating systems](https://en.wikipedia.org/wiki/Motion_picture_rating_system) forced upon you by government agencies and industry committees.
 
 Buying special media players and getting proprietary filters really shouldn't be necessary.
+
+Film makers should *not* censor *anything*. They should release the film in the best, most complete and most artistic way possible.
 
 ## Use cases
 
