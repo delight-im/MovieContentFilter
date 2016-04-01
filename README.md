@@ -40,16 +40,7 @@ The format is a strict subset of the [W3C WebVTT](https://developer.mozilla.org/
  1. WebVTT cue payloads must contain WebVTT cue texts only.
  1. WebVTT cue texts must consist of one or more WebVTT cue text spans exclusively.
  1. WebVTT cue text spans must consist of a *category*, a single `U+003D EQUALS SIGN` character and the *severity*. Optionally, after another single `U+003D EQUALS SIGN` character as the divider, a *channel* may be included to describe that the filter affects video only or audio only. If omitted, this denotes that both are affected.
- 1. The *category* must be one of:
-    * `death`
-    * `drugs`
-    * `fear`
-    * `gambling`
-    * `language`
-    * `nudity`
-    * `sex`
-    * `violence`
-    * `weapons`
+ 1. The *category* must be one of the strings from [this hierarchy](categories.json). It may either be one of the top-level categories or one of their respective subcategories. Any entry that describes a subcategory implicitly describes the parent category as well.
  1. The *severity* must be one of:
     * `low`
     * `medium`
