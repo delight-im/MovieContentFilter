@@ -17,10 +17,10 @@
 "use strict";
 
 function convertFilters(outputFormat) {
-	var sourceText = document.getElementById("sourceText").value;
-	var fileStartTime = document.getElementById("fileStartTime").value;
-	var fileEndTime = document.getElementById("fileEndTime").value;
-	var videoLocation = document.getElementById("videoLocation").value;
+	var sourceText = $("#sourceText").val();
+	var fileStartTime = $("#fileStartTime").val();
+	var fileEndTime = $("#fileEndTime").val();
+	var videoLocation = $("#videoLocation").val();
 
 	var mcf;
 
@@ -32,15 +32,15 @@ function convertFilters(outputFormat) {
 		return;
 	}
 
-	mcf.setPreference("death", document.getElementById("death").value);
-	mcf.setPreference("drugs", document.getElementById("drugs").value);
-	mcf.setPreference("fear", document.getElementById("fear").value);
-	mcf.setPreference("gambling", document.getElementById("gambling").value);
-	mcf.setPreference("language", document.getElementById("language").value);
-	mcf.setPreference("nudity", document.getElementById("nudity").value);
-	mcf.setPreference("sex", document.getElementById("sex").value);
-	mcf.setPreference("violence", document.getElementById("violence").value);
-	mcf.setPreference("weapons", document.getElementById("weapons").value);
+	mcf.setPreference("death", $("#death").val());
+	mcf.setPreference("drugs", $("#drugs").val());
+	mcf.setPreference("fear", $("#fear").val());
+	mcf.setPreference("gambling", $("#gambling").val());
+	mcf.setPreference("language", $("#language").val());
+	mcf.setPreference("nudity", $("#nudity").val());
+	mcf.setPreference("sex", $("#sex").val());
+	mcf.setPreference("violence", $("#violence").val());
+	mcf.setPreference("weapons", $("#weapons").val());
 
 	mcf.setVideoLocation(videoLocation);
 
@@ -112,12 +112,12 @@ function saveTextToFile(text, filename, mimeType) {
 	}
 }
 
-(function (document) {
-	var fileStartTimeElement = document.getElementById("fileStartTime");
-	var fileEndTimeElement = document.getElementById("fileEndTime");
+$(document).ready(function () {
+	var fileStartTimeElement = $("#fileStartTime");
+	var fileEndTimeElement = $("#fileEndTime");
 	var container;
 
-	document.getElementById("sourceText").addEventListener("input", function (e) {
+	$("#sourceText").on("input", function (e) {
 		try {
 			container = MovieContentFilter.parseContainer(e.target.value);
 		}
@@ -129,19 +129,19 @@ function saveTextToFile(text, filename, mimeType) {
 			return;
 		}
 
-		fileStartTimeElement.value = container[2];
-		fileEndTimeElement.value = container[3];
-	}, false);
+		fileStartTimeElement.val(container[2]);
+		fileEndTimeElement.val(container[3]);
+	});
 
-	document.getElementById("convert-to-xspf").addEventListener("click", function () {
+	$("#convert-to-xspf").click(function () {
 		convertFilters("xspf");
 	});
 
-	document.getElementById("convert-to-m3u").addEventListener("click", function () {
+	$("#convert-to-m3u").click(function () {
 		convertFilters("m3u");
 	});
 
-	document.getElementById("convert-to-edl").addEventListener("click", function () {
+	$("#convert-to-edl").click(function () {
 		convertFilters("edl");
 	});
-})(document);
+});
