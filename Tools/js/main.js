@@ -32,15 +32,11 @@ function convertFilters(outputFormat) {
 		return;
 	}
 
-	mcf.setPreference("death", $("#death").val());
-	mcf.setPreference("drugs", $("#drugs").val());
-	mcf.setPreference("fear", $("#fear").val());
-	mcf.setPreference("gambling", $("#gambling").val());
-	mcf.setPreference("language", $("#language").val());
-	mcf.setPreference("nudity", $("#nudity").val());
-	mcf.setPreference("sex", $("#sex").val());
-	mcf.setPreference("violence", $("#violence").val());
-	mcf.setPreference("weapons", $("#weapons").val());
+	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
+		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
+			mcf.setPreference(topLevelCategory, $("#preference-"+topLevelCategory).val());
+		}
+	}
 
 	mcf.setVideoLocation(videoLocation);
 
@@ -112,7 +108,40 @@ function saveTextToFile(text, filename, mimeType) {
 	}
 }
 
+function initPreferencesForm() {
+	var target = $("#preferences");
+	var htmlBuffer = [];
+	var numSeverities = MovieContentFilter.Schema.severities.length;
+	var severity;
+	var severitiesIncluded = [];
+
+	htmlBuffer.push("<legend>Preferences</legend>");
+
+	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
+		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
+			htmlBuffer.push("<p><label for=\"preference-"+topLevelCategory+"\">"+capitalizeFirstLetter(topLevelCategory)+"</label><select id=\"preference-"+topLevelCategory+"\" name=\"preference-"+topLevelCategory+"\" size=\"1\"><option value=\"\"> -- Do not filter anything --</option>");
+
+			severitiesIncluded.length = 0;
+			for (var i = numSeverities - 1; i >= 0; i--) {
+				severity = MovieContentFilter.Schema.severities[i];
+				severitiesIncluded.unshift(severity);
+				htmlBuffer.push("<option value=\""+severity+"\">Filter "+severitiesIncluded.join("/")+" severity</option>");
+			}
+
+			htmlBuffer.push("</select></p>");
+		}
+	}
+
+	target.append(htmlBuffer.join(""));
+}
+
+function capitalizeFirstLetter(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 $(document).ready(function () {
+	initPreferencesForm();
+
 	var fileStartTimeElement = $("#fileStartTime");
 	var fileEndTimeElement = $("#fileEndTime");
 	var container;

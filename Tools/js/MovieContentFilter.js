@@ -18,17 +18,7 @@
 
 function MovieContentFilter(version, fileStartTime, fileEndTime) {
 	var cues = [];
-	var preferences = {
-		"death": null,
-		"drugs": null,
-		"fear": null,
-		"gambling": null,
-		"language": null,
-		"nudity": null,
-		"sex": null,
-		"violence": null,
-		"weapons": null
-	};
+	var preferences = {};
 	var videoLocation = null;
 
 	this.addCue = function (startTime, endTime, category, severity, channel) {
@@ -43,12 +33,7 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 
 	this.getSelectedCues = function () {
 		return cues.filter(function (element) {
-			if (preferences.hasOwnProperty(element.category)) {
-				return MovieContentFilter.isSevereEnough(element.severity, preferences[element.category]);
-			}
-			else {
-				return true;
-			}
+			return MovieContentFilter.shouldCueBeFiltered(element.category, element.severity, preferences);
 		});
 	};
 
@@ -257,6 +242,45 @@ MovieContentFilter.parse = function (sourceText) {
 	}
 
 	return mcf;
+};
+
+MovieContentFilter.shouldCueBeFiltered = function (cueCategory, cueSeverity, preferences) {
+	// if the category to examine is in the list of preferences
+	if (preferences.hasOwnProperty(cueCategory)) {
+		// if the detected severity is sufficient to justify filtering
+		if (MovieContentFilter.isSevereEnough(cueSeverity, preferences[cueCategory])) {
+			// filter the cue
+			return true;
+		}
+	}
+
+	// find the parent category (if any)
+	var parentCategory = MovieContentFilter.findParentCategory(cueCategory);
+
+	// filter the cue if it's parent category is to be filtered
+	return parentCategory !== null && MovieContentFilter.shouldCueBeFiltered(parentCategory, cueSeverity, preferences);
+};
+
+MovieContentFilter.findParentCategory = function (category) {
+	// if the category to examine is one of the top-level categories
+	if (MovieContentFilter.Schema.categories.hasOwnProperty(category)) {
+		// there is no parent
+		return null;
+	}
+
+	// for each top-level category
+	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
+		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
+			// if the category to examine is a child of the current top-level category
+			if (MovieContentFilter.Schema.categories[topLevelCategory].indexOf(category) > -1) {
+				// the current top-level category is the parent
+				return topLevelCategory;
+			}
+		}
+	}
+
+	// the category is unknown
+	return null;
 };
 
 MovieContentFilter.isSevereEnough = function (actualSeverity, requiredSeverity) {
