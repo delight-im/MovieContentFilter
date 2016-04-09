@@ -8,7 +8,6 @@ Convert your `.mcf` files to XSPF, M3U or EDL files and apply synchronization
 
    ```
    $ npm install -g uglify-js
-   $ npm install -g browserify
    ```
 
  * Building the schema
