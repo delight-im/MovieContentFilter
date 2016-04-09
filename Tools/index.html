@@ -27,6 +27,18 @@
 			</p>
 		</fieldset>
 		<fieldset>
+			<legend>Output</legend>
+			<p>
+				<label for="videoLocation">Video location (only required for VLC media player)</label>
+				<input type="text" id="videoLocation" name="videoLocation" value="file:///Movie.mp4">
+			</p>
+			<p>
+				<button type="button" id="convert-to-xspf">Convert to <strong>XSPF</strong> for VLC media player</button>
+				<button type="button" id="convert-to-m3u">Convert to <strong>M3U</strong> for VLC media player</button>
+				<button type="button" id="convert-to-edl">Convert to <strong>EDL</strong> for MPlayer</button>
+			</p>
+		</fieldset>
+		<fieldset>
 			<legend>Preferences</legend>
 			<p>
 				<label for="death">Death</label>
@@ -108,18 +120,6 @@
 					<option value="high">Filter high severity</option>
 					<option value="">Do not filter</option>
 				</select>
-			</p>
-		</fieldset>
-		<fieldset>
-			<legend>Output</legend>
-			<p>
-				<label for="videoLocation">Video location (only required for VLC media player)</label>
-				<input type="text" id="videoLocation" name="videoLocation" value="file:///Movie.mp4">
-			</p>
-			<p>
-				<button type="button" id="convert-to-xspf">Convert to <strong>XSPF</strong> for VLC media player</button>
-				<button type="button" id="convert-to-m3u">Convert to <strong>M3U</strong> for VLC media player</button>
-				<button type="button" id="convert-to-edl">Convert to <strong>EDL</strong> for MPlayer</button>
 			</p>
 		</fieldset>
 	</form>
