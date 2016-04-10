@@ -55,15 +55,21 @@ function convertFilters(outputFormat) {
 	// for every top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
+			// get and apply the preference
 			mcf.setPreference(topLevelCategory, $("#"+createCategoryKey(topLevelCategory, null)).val());
 
 			// for every subcategory
 			for (var i = 0; i < MovieContentFilter.Schema.categories[topLevelCategory].length; i++) {
 				childCategory = MovieContentFilter.Schema.categories[topLevelCategory][i];
+
+				// get and apply the preference
 				mcf.setPreference(childCategory, $("#"+createCategoryKey(childCategory, topLevelCategory)).val());
 			}
 		}
 	}
+
+	// save the preferences to the persistent storage
+	McfSession.storage.setString(McfSession.STORAGE_KEY_PREFERENCES, mcf.getPreferencesJson());
 
 	mcf.setVideoLocation(videoLocation);
 
@@ -129,8 +135,6 @@ function convertFilters(outputFormat) {
 	catch (e) {
 		alert(e);
 	}
-
-	McfSession.storage.setString(McfSession.STORAGE_KEY_PREFERENCES, mcf.getPreferencesJson());
 }
 
 function saveTextToFile(text, filename, mimeType) {
