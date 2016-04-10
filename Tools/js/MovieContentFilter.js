@@ -262,19 +262,30 @@ MovieContentFilter.shouldCueBeFiltered = function (cueCategory, cueSeverity, pre
 		}
 	}
 
-	// find the parent category (if any)
-	var parentCategory = MovieContentFilter.findParentCategory(cueCategory);
+	// find the parent categories (if any)
+	var parentCategories = MovieContentFilter.findParentCategories(cueCategory);
 
-	// filter the cue if it's parent category is to be filtered
-	return parentCategory !== null && MovieContentFilter.shouldCueBeFiltered(parentCategory, cueSeverity, preferences);
+	// for each parent category
+	for (var i = 0; i < parentCategories.length; i++) {
+		// if the parent category is to be filtered
+		if (MovieContentFilter.shouldCueBeFiltered(parentCategories[i], cueSeverity, preferences)) {
+			// filter the cue
+			return true;
+		}
+	}
+
+	// otherwise do not filter the cue
+	return false;
 };
 
-MovieContentFilter.findParentCategory = function (category) {
+MovieContentFilter.findParentCategories = function (category) {
 	// if the category to examine is one of the top-level categories
 	if (MovieContentFilter.Schema.categories[category]) {
 		// there is no parent
-		return null;
+		return [];
 	}
+
+	var parents = [];
 
 	// for each top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
@@ -282,13 +293,12 @@ MovieContentFilter.findParentCategory = function (category) {
 			// if the category to examine is a child of the current top-level category
 			if (MovieContentFilter.Schema.categories[topLevelCategory].indexOf(category) > -1) {
 				// the current top-level category is the parent
-				return topLevelCategory;
+				parents.push(topLevelCategory);
 			}
 		}
 	}
 
-	// the category is unknown
-	return null;
+	return parents;
 };
 
 MovieContentFilter.isSevereEnough = function (actualSeverity, requiredSeverity) {
