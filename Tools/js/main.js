@@ -251,15 +251,15 @@ $(document).ready(function () {
 		fileEndTimeElement.val(container[3]);
 	});
 
-	$("#convert-to-xspf").click(function () {
+	$(".mcf-convert-to-xspf").click(function () {
 		convertFilters("xspf");
 	});
 
-	$("#convert-to-m3u").click(function () {
+	$(".mcf-convert-to-m3u").click(function () {
 		convertFilters("m3u");
 	});
 
-	$("#convert-to-edl").click(function () {
+	$(".mcf-convert-to-edl").click(function () {
 		convertFilters("edl");
 	});
 });
