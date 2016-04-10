@@ -25,6 +25,7 @@ function convertFilters(outputFormat) {
 	var fileStartTime = $("#fileStartTime").val();
 	var fileEndTime = $("#fileEndTime").val();
 	var videoLocation = $("#videoLocation").val();
+	var childCategory;
 
 	var mcf;
 
@@ -51,9 +52,16 @@ function convertFilters(outputFormat) {
 		return;
 	}
 
+	// for every top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
 			mcf.setPreference(topLevelCategory, $("#preference-"+topLevelCategory).val());
+
+			// for every subcategory
+			for (var i = 0; i < MovieContentFilter.Schema.categories[topLevelCategory].length; i++) {
+				childCategory = MovieContentFilter.Schema.categories[topLevelCategory][i];
+				mcf.setPreference(childCategory, $("#preference-"+childCategory).val());
+			}
 		}
 	}
 
@@ -194,15 +202,27 @@ function createPreferenceForCategory(category, label, initialPreferences) {
 function initPreferencesForm(initialPreferences) {
 	var target = $("#preferences");
 	var htmlBuffer = [];
-	var html;
+	var categoryHtml;
+	var parentCategoryLabel;
+	var childCategory;
+	var childCategoryLabel;
 
 	htmlBuffer.push("<legend>Preferences</legend>");
 
-	// for every category
+	// for every top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
-			html = createPreferenceForCategory(topLevelCategory, capitalizeFirstLetter(topLevelCategory), initialPreferences);
-			htmlBuffer.push(html);
+			parentCategoryLabel = "<strong>"+capitalizeFirstLetter(topLevelCategory)+"</strong>";
+			categoryHtml = createPreferenceForCategory(topLevelCategory, parentCategoryLabel, initialPreferences);
+			htmlBuffer.push(categoryHtml);
+
+			// for every subcategory
+			for (var i = 0; i < MovieContentFilter.Schema.categories[topLevelCategory].length; i++) {
+				childCategory = MovieContentFilter.Schema.categories[topLevelCategory][i];
+				childCategoryLabel = parentCategoryLabel+" &gt; "+capitalizeFirstLetter(childCategory);
+				categoryHtml = createPreferenceForCategory(childCategory, childCategoryLabel, initialPreferences);
+				htmlBuffer.push(categoryHtml);
+			}
 		}
 	}
 
