@@ -37,3 +37,6 @@ button {
 .mcf-disabled {
 	color: #777;
 }
+select:not(.mcf-disabled) {
+	background: #ff0;
+}
