@@ -50,13 +50,13 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 
 		timestamp = MovieContentFilter.CUE_TIMESTAMP_REGEX.exec(desiredFileStartTimestamp);
 		if (timestamp === null) {
-			throw "Invalid start time of actual film material given";
+			throw new MovieContentFilter.InvalidTargetStartTime();
 		}
 		var desiredFileStartTime = MovieContentFilter.cueTimingToSeconds(timestamp[1], timestamp[2], timestamp[3], timestamp[4]);
 
 		timestamp = MovieContentFilter.CUE_TIMESTAMP_REGEX.exec(desiredFileEndTimestamp);
 		if (timestamp === null) {
-			throw "Invalid end time of actual film material given";
+			throw new MovieContentFilter.InvalidTargetEndTime();
 		}
 		var desiredFileEndTime = MovieContentFilter.cueTimingToSeconds(timestamp[1], timestamp[2], timestamp[3], timestamp[4]);
 
@@ -195,7 +195,7 @@ MovieContentFilter.parseContainer = function (sourceText) {
 	var container = MovieContentFilter.CONTAINER_REGEX.exec(sourceText);
 
 	if (container === null) {
-		throw "Invalid source text";
+		throw new MovieContentFilter.InvalidSourceTextException();
 	}
 
 	return container;
@@ -208,13 +208,13 @@ MovieContentFilter.parse = function (sourceText) {
 
 	timestamp = MovieContentFilter.CUE_TIMESTAMP_REGEX.exec(container[2]);
 	if (timestamp === null) {
-		throw "Invalid file start time";
+		throw new MovieContentFilter.InvalidSourceStartTime();
 	}
 	var fileStartTime = MovieContentFilter.cueTimingToSeconds(timestamp[1], timestamp[2], timestamp[3], timestamp[4]);
 
 	timestamp = MovieContentFilter.CUE_TIMESTAMP_REGEX.exec(container[3]);
 	if (timestamp === null) {
-		throw "Invalid file end time";
+		throw new MovieContentFilter.InvalidSourceEndTime();
 	}
 	var fileEndTime = MovieContentFilter.cueTimingToSeconds(timestamp[1], timestamp[2], timestamp[3], timestamp[4]);
 
@@ -230,7 +230,7 @@ MovieContentFilter.parse = function (sourceText) {
 				var cueEndTime = MovieContentFilter.cueTimingToSeconds(cueTimings[5], cueTimings[6], cueTimings[7], cueTimings[8]);
 
 				if (cueEndTime <= cueStartTime) {
-					throw "End time (`"+cueEndTime+"`) must be later than start time (`"+cueStartTime+"`) in `"+cueComponents[0]+"`";
+					throw new MovieContentFilter.InvalidCueTimings(cueStartTime, cueEndTime);
 				}
 
 				for (var i = 1; i < cueComponents.length; i++) {
@@ -358,3 +358,13 @@ MovieContentFilter.CUE_BLOCKS_REGEX = /(?:^|\r?\n\r?\n)([\s\S]+?)(?=\r?\n\r?\n|\
 MovieContentFilter.NEWLINE_REGEX = /\r?\n/;
 MovieContentFilter.CUE_TIMESTAMP_REGEX = /^([0-9]{2,}?):([0-9]{2}?):([0-9]{2}?).([0-9]{3}?)/;
 MovieContentFilter.CUE_TIMINGS_REGEX = /^([0-9]{2,}?):([0-9]{2}?):([0-9]{2}?).([0-9]{3}?) --> ([0-9]{2,}?):([0-9]{2}?):([0-9]{2}?).([0-9]{3}?)/;
+
+MovieContentFilter.InvalidSourceTextException = function () {};
+MovieContentFilter.InvalidSourceStartTime = function () {};
+MovieContentFilter.InvalidSourceEndTime = function () {};
+MovieContentFilter.InvalidTargetStartTime = function () {};
+MovieContentFilter.InvalidTargetEndTime = function () {};
+MovieContentFilter.InvalidCueTimings = function (start, end) {
+	this.start = start;
+	this.end = end;
+};
