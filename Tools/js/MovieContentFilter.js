@@ -173,6 +173,11 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 
 		return lines.join("\n");
 	};
+
+	this.getPreferencesJson = function () {
+		return JSON.stringify(preferences);
+	};
+
 }
 
 MovieContentFilter.cueTimingToSeconds = function (hourStr, minuteStr, secondStr, millisecondStr) {
@@ -246,7 +251,7 @@ MovieContentFilter.parse = function (sourceText) {
 
 MovieContentFilter.shouldCueBeFiltered = function (cueCategory, cueSeverity, preferences) {
 	// if the category to examine is in the list of preferences
-	if (preferences.hasOwnProperty(cueCategory)) {
+	if (preferences[cueCategory]) {
 		// if the detected severity is sufficient to justify filtering
 		if (MovieContentFilter.isSevereEnough(cueSeverity, preferences[cueCategory])) {
 			// filter the cue
@@ -263,7 +268,7 @@ MovieContentFilter.shouldCueBeFiltered = function (cueCategory, cueSeverity, pre
 
 MovieContentFilter.findParentCategory = function (category) {
 	// if the category to examine is one of the top-level categories
-	if (MovieContentFilter.Schema.categories.hasOwnProperty(category)) {
+	if (MovieContentFilter.Schema.categories[category]) {
 		// there is no parent
 		return null;
 	}

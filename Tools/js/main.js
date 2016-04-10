@@ -16,6 +16,10 @@
 
 "use strict";
 
+var McfSession = {};
+McfSession.STORAGE_KEY_PREFERENCES = "preferences";
+McfSession.storage = new AbstractStorage();
+
 function convertFilters(outputFormat) {
 	var sourceText = $("#sourceText").val();
 	var fileStartTime = $("#fileStartTime").val();
@@ -93,6 +97,8 @@ function convertFilters(outputFormat) {
 	catch (e) {
 		alert(e);
 	}
+
+	McfSession.storage.setString(McfSession.STORAGE_KEY_PREFERENCES, mcf.getPreferencesJson());
 }
 
 function saveTextToFile(text, filename, mimeType) {
@@ -108,7 +114,7 @@ function saveTextToFile(text, filename, mimeType) {
 	}
 }
 
-function initPreferencesForm() {
+function initPreferencesForm(initialPreferences) {
 	var target = $("#preferences");
 	var htmlBuffer = [];
 	var numSeverities = MovieContentFilter.Schema.severities.length;
@@ -125,7 +131,13 @@ function initPreferencesForm() {
 			for (var i = numSeverities - 1; i >= 0; i--) {
 				severity = MovieContentFilter.Schema.severities[i];
 				severitiesIncluded.unshift(severity);
-				htmlBuffer.push("<option value=\""+severity+"\">Filter "+severitiesIncluded.join("/")+" severity</option>");
+				htmlBuffer.push("<option value=\""+severity+"\"");
+
+				if (initialPreferences[topLevelCategory] && initialPreferences[topLevelCategory] === severity) {
+					htmlBuffer.push(" selected=\"selected\"");
+				}
+
+				htmlBuffer.push(">Filter "+severitiesIncluded.join("/")+" severity</option>");
 			}
 
 			htmlBuffer.push("</select></p>");
@@ -140,7 +152,9 @@ function capitalizeFirstLetter(str) {
 }
 
 $(document).ready(function () {
-	initPreferencesForm();
+	var initialPreferences = McfSession.storage.getObject(McfSession.STORAGE_KEY_PREFERENCES, {});
+
+	initPreferencesForm(initialPreferences);
 
 	var fileStartTimeElement = $("#fileStartTime");
 	var fileEndTimeElement = $("#fileEndTime");
