@@ -38,7 +38,10 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 	};
 
 	this.setPreference = function (category, requiredSeverity) {
-		preferences[category] = requiredSeverity;
+		// if the preference has not yet been set or if the new value is broader
+		if (!preferences[category] || MovieContentFilter.isSevereEnough(preferences[category], requiredSeverity)) {
+			preferences[category] = requiredSeverity;
+		}
 	};
 
 	this.setVideoLocation = function (location) {
