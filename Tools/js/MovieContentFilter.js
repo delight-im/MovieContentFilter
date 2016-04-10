@@ -98,7 +98,7 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 		for (var i = 0; i < selectedCues.length; i++) {
 			lines.push("\t\t<track>");
 			lines.push("\t\t\t<title>#"+(i + 1)+"</title>");
-			lines.push("\t\t\t<location>"+videoLocation+"</location>");
+			lines.push("\t\t\t<location>"+encodeURI(videoLocation)+"</location>");
 			lines.push("\t\t\t<extension application=\"http://www.videolan.org/vlc/playlist/0\">");
 			lines.push("\t\t\t\t<vlc:id>"+i+"</vlc:id>");
 			lines.push("\t\t\t\t<vlc:option>start-time="+selectedCues[i].startTime.toFixed(3)+"</vlc:option>");
