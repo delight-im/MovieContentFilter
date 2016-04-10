@@ -220,6 +220,9 @@ MovieContentFilter.parse = function (sourceText) {
 
 	var mcf = new MovieContentFilter(container[1], fileStartTime, fileEndTime);
 
+	// reset the global regex to start searching from the beginning again
+	MovieContentFilter.CUE_BLOCKS_REGEX.lastIndex = 0;
+
 	var cueBlock;
 	while ((cueBlock = MovieContentFilter.CUE_BLOCKS_REGEX.exec(container[4])) !== null) {
 		var cueComponents = cueBlock[1].split(MovieContentFilter.NEWLINE_REGEX);
