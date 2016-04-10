@@ -138,68 +138,71 @@ function saveTextToFile(text, filename, mimeType) {
 	}
 }
 
+function createPreferenceForCategory(category, label, initialPreferences) {
+	var htmlBuffer = [];
+	var optionsBuffer = [];
+	var severitiesIncluded = [];
+	var severity;
+
+	// first assume that filters are not enabled
+	var enabled = false;
+
+	// for every severity level
+	for (var i = MovieContentFilter.Schema.severities.length - 1; i >= 0; i--) {
+		severity = MovieContentFilter.Schema.severities[i];
+		severitiesIncluded.unshift(severity);
+		optionsBuffer.push("<option value=\""+severity+"\"");
+
+		// if the current option is to be selected by default
+		if (initialPreferences[category] && initialPreferences[category] === severity) {
+			// apply the selection
+			optionsBuffer.push(" selected=\"selected\"");
+
+			// remember that the current filter is enabled
+			enabled = true;
+		}
+
+		optionsBuffer.push(">Filter "+severitiesIncluded.join("/")+" severity</option>");
+	}
+
+	// add the first part of the select box to the HTML buffer
+	htmlBuffer.push("<p><label for=\"preference-"+category+"\">"+label+"</label><select id=\"preference-"+category+"\" name=\"preference-"+category+"\" size=\"1\"");
+
+	// if the filter is enabled
+	if (enabled) {
+		// do not append a class name
+		htmlBuffer.push(" class=\"\"");
+	}
+	// if the filter is not enabled
+	else {
+		// append a class name symbolizing the state
+		htmlBuffer.push(" class=\"mcf-disabled\"");
+	}
+
+	// add the next part of the select box to the HTML buffer
+	htmlBuffer.push("><option value=\"\"> -- Do not filter anything --</option>");
+
+	// append all options to the HTML buffer
+	htmlBuffer = htmlBuffer.concat(optionsBuffer);
+
+	// add the last part of the select box to the HTML buffer
+	htmlBuffer.push("</select></p>");
+
+	return htmlBuffer.join("");
+}
+
 function initPreferencesForm(initialPreferences) {
 	var target = $("#preferences");
 	var htmlBuffer = [];
-	var optionsBuffer = [];
-	var enabled;
-	var numSeverities = MovieContentFilter.Schema.severities.length;
-	var severity;
-	var severitiesIncluded = [];
+	var html;
 
 	htmlBuffer.push("<legend>Preferences</legend>");
 
 	// for every category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
-			// first assume that filters are not enabled
-			enabled = false;
-
-			// for every severity level
-			for (var i = numSeverities - 1; i >= 0; i--) {
-				severity = MovieContentFilter.Schema.severities[i];
-				severitiesIncluded.unshift(severity);
-				optionsBuffer.push("<option value=\""+severity+"\"");
-
-				// if the current option is to be selected by default
-				if (initialPreferences[topLevelCategory] && initialPreferences[topLevelCategory] === severity) {
-					// apply the selection
-					optionsBuffer.push(" selected=\"selected\"");
-
-					// remember that the current filter is enabled
-					enabled = true;
-				}
-
-				optionsBuffer.push(">Filter "+severitiesIncluded.join("/")+" severity</option>");
-			}
-
-			// add the first part of the select box to the HTML buffer
-			htmlBuffer.push("<p><label for=\"preference-"+topLevelCategory+"\">"+capitalizeFirstLetter(topLevelCategory)+"</label><select id=\"preference-"+topLevelCategory+"\" name=\"preference-"+topLevelCategory+"\" size=\"1\"");
-
-			// if the filter is enabled
-			if (enabled) {
-				// do not append a class name
-				htmlBuffer.push(" class=\"\"");
-			}
-			// if the filter is not enabled
-			else {
-				// append a class name symbolizing the state
-				htmlBuffer.push(" class=\"mcf-disabled\"");
-			}
-
-			// add the next part of the select box to the HTML buffer
-			htmlBuffer.push("><option value=\"\"> -- Do not filter anything --</option>");
-
-			// append all options to the HTML buffer
-			htmlBuffer = htmlBuffer.concat(optionsBuffer);
-
-			// add the last part of the select box to the HTML buffer
-			htmlBuffer.push("</select></p>");
-
-			// clear the list of included severities that is only valid per single select box
-			severitiesIncluded.length = 0;
-			// clear the buffer of options that is only valid per single select box
-			optionsBuffer.length = 0;
+			html = createPreferenceForCategory(topLevelCategory, capitalizeFirstLetter(topLevelCategory), initialPreferences);
+			htmlBuffer.push(html);
 		}
 	}
 
