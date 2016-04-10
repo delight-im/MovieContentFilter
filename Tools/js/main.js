@@ -118,6 +118,7 @@ function initPreferencesForm(initialPreferences) {
 	var target = $("#preferences");
 	var htmlBuffer = [];
 	var optionsBuffer = [];
+	var enabled;
 	var numSeverities = MovieContentFilter.Schema.severities.length;
 	var severity;
 	var severitiesIncluded = [];
@@ -127,6 +128,8 @@ function initPreferencesForm(initialPreferences) {
 	// for every category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
+			// first assume that filters are not enabled
+			enabled = false;
 
 			// for every severity level
 			for (var i = numSeverities - 1; i >= 0; i--) {
@@ -138,6 +141,9 @@ function initPreferencesForm(initialPreferences) {
 				if (initialPreferences[topLevelCategory] && initialPreferences[topLevelCategory] === severity) {
 					// apply the selection
 					optionsBuffer.push(" selected=\"selected\"");
+
+					// remember that the current filter is enabled
+					enabled = true;
 				}
 
 				optionsBuffer.push(">Filter "+severitiesIncluded.join("/")+" severity</option>");
@@ -145,6 +151,17 @@ function initPreferencesForm(initialPreferences) {
 
 			// add the first part of the select box to the HTML buffer
 			htmlBuffer.push("<p><label for=\"preference-"+topLevelCategory+"\">"+capitalizeFirstLetter(topLevelCategory)+"</label><select id=\"preference-"+topLevelCategory+"\" name=\"preference-"+topLevelCategory+"\" size=\"1\"");
+
+			// if the filter is enabled
+			if (enabled) {
+				// do not append a class name
+				htmlBuffer.push(" class=\"\"");
+			}
+			// if the filter is not enabled
+			else {
+				// append a class name symbolizing the state
+				htmlBuffer.push(" class=\"mcf-disabled\"");
+			}
 
 			// add the next part of the select box to the HTML buffer
 			htmlBuffer.push("><option value=\"\"> -- Do not filter anything --</option>");
@@ -163,6 +180,22 @@ function initPreferencesForm(initialPreferences) {
 	}
 
 	target.append(htmlBuffer.join(""));
+
+	// whenever the value for a preference changes
+	target.on("change", "select", function () {
+		var self = $(this);
+
+		// if the filter is now enabled
+		if (this.value) {
+			// remove the class name symbolizing the disabled state
+			self.removeClass("mcf-disabled");
+		}
+		// if the filter is not enabled anymore
+		else {
+			// add the class name symbolizing the disabled state
+			self.addClass("mcf-disabled");
+		}
+	});
 }
 
 function capitalizeFirstLetter(str) {
