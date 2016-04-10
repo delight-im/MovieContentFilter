@@ -45,7 +45,7 @@ function convertFilters(outputFormat) {
 	mcf.setVideoLocation(videoLocation);
 
 	if (videoLocation === "") {
-		alert("Please set the video location");
+		alert("Please set the location of your video source in the 'Synchronization' section");
 		return;
 	}
 
