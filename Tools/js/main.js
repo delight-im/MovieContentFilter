@@ -55,12 +55,12 @@ function convertFilters(outputFormat) {
 	// for every top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
-			mcf.setPreference(topLevelCategory, $("#preference-"+topLevelCategory).val());
+			mcf.setPreference(topLevelCategory, $("#"+createCategoryKey(topLevelCategory, null)).val());
 
 			// for every subcategory
 			for (var i = 0; i < MovieContentFilter.Schema.categories[topLevelCategory].length; i++) {
 				childCategory = MovieContentFilter.Schema.categories[topLevelCategory][i];
-				mcf.setPreference(childCategory, $("#preference-"+childCategory).val());
+				mcf.setPreference(childCategory, $("#"+createCategoryKey(childCategory, topLevelCategory)).val());
 			}
 		}
 	}
@@ -146,11 +146,31 @@ function saveTextToFile(text, filename, mimeType) {
 	}
 }
 
-function createPreferenceForCategory(category, label, initialPreferences) {
+function createCategoryKey(category, parentCategory) {
+	if (parentCategory === null) {
+		return "preference-"+category;
+	}
+	else {
+		return "preference-"+parentCategory+"-"+category;
+	}
+}
+
+function createCategoryLabel(category, parentCategory) {
+	if (parentCategory === null) {
+		return "<strong>"+capitalizeFirstLetter(category)+"</strong>";
+	}
+	else {
+		return "<strong>"+capitalizeFirstLetter(parentCategory)+"</strong> &gt; "+capitalizeFirstLetter(category);
+	}
+}
+
+function createPreferenceForCategory(category, parentCategory, initialPreferences) {
 	var htmlBuffer = [];
 	var optionsBuffer = [];
 	var severitiesIncluded = [];
 	var severity;
+	var key = createCategoryKey(category, parentCategory);
+	var label = createCategoryLabel(category, parentCategory);
 
 	// first assume that filters are not enabled
 	var enabled = false;
@@ -174,7 +194,7 @@ function createPreferenceForCategory(category, label, initialPreferences) {
 	}
 
 	// add the first part of the select box to the HTML buffer
-	htmlBuffer.push("<p><label for=\"preference-"+category+"\">"+label+"</label><select id=\"preference-"+category+"\" name=\"preference-"+category+"\" size=\"1\"");
+	htmlBuffer.push("<p><label for=\""+key+"\">"+label+"</label><select id=\""+key+"\" name=\""+key+"\" size=\"1\"");
 
 	// if the filter is enabled
 	if (enabled) {
@@ -203,24 +223,20 @@ function initPreferencesForm(initialPreferences) {
 	var target = $("#preferences");
 	var htmlBuffer = [];
 	var categoryHtml;
-	var parentCategoryLabel;
 	var childCategory;
-	var childCategoryLabel;
 
 	htmlBuffer.push("<legend>Preferences</legend>");
 
 	// for every top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
-			parentCategoryLabel = "<strong>"+capitalizeFirstLetter(topLevelCategory)+"</strong>";
-			categoryHtml = createPreferenceForCategory(topLevelCategory, parentCategoryLabel, initialPreferences);
+			categoryHtml = createPreferenceForCategory(topLevelCategory, null, initialPreferences);
 			htmlBuffer.push(categoryHtml);
 
 			// for every subcategory
 			for (var i = 0; i < MovieContentFilter.Schema.categories[topLevelCategory].length; i++) {
 				childCategory = MovieContentFilter.Schema.categories[topLevelCategory][i];
-				childCategoryLabel = parentCategoryLabel+" &gt; "+capitalizeFirstLetter(childCategory);
-				categoryHtml = createPreferenceForCategory(childCategory, childCategoryLabel, initialPreferences);
+				categoryHtml = createPreferenceForCategory(childCategory, topLevelCategory, initialPreferences);
 				htmlBuffer.push(categoryHtml);
 			}
 		}
