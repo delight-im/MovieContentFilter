@@ -32,7 +32,22 @@ function convertFilters(outputFormat) {
 		mcf = MovieContentFilter.parse(sourceText);
 	}
 	catch (e) {
-		alert(e);
+		if (e instanceof MovieContentFilter.InvalidSourceTextException) {
+			alert("Please paste some valid '.mcf' source text in the 'Input' section");
+		}
+		else if (e instanceof MovieContentFilter.InvalidSourceStartTime) {
+			alert("Your '.mcf' source text has an invalid overall start time");
+		}
+		else if (e instanceof MovieContentFilter.InvalidSourceEndTime) {
+			alert("Your '.mcf' source text has an invalid overall end time");
+		}
+		else if (e instanceof MovieContentFilter.InvalidCueTimings) {
+			alert("Your '.mcf' source text contains invalid cue timings ('"+e.start+"' and '"+e.end+"')");
+		}
+		else {
+			alert("Unexpected error while parsing the source");
+		}
+
 		return;
 	}
 
@@ -81,7 +96,16 @@ function convertFilters(outputFormat) {
 		outputText = retrieveOutputFunc.call(mcf, fileStartTime, fileEndTime);
 	}
 	catch (e) {
-		alert(e);
+		if (e instanceof MovieContentFilter.InvalidTargetStartTime) {
+			alert("Please enter a valid overall start time in the 'Synchronization' section");
+		}
+		else if (e instanceof MovieContentFilter.InvalidTargetEndTime) {
+			alert("Please enter a valid overall end time in the 'Synchronization' section");
+		}
+		else {
+			alert("Unexpected error during export");
+		}
+
 		return;
 	}
 
