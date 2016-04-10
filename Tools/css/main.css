@@ -12,6 +12,13 @@ body {
 fieldset {
 	padding: 8px 16px;
 }
+legend {
+	margin: 4px 8px;
+	padding: 2px 4px;
+	background-color: #008000;
+	color: #fff;
+	font-weight: bold;
+}
 input, select, textarea {
 	display: block;
 	width: 100%;
