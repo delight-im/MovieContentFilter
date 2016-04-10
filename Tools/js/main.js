@@ -117,30 +117,48 @@ function saveTextToFile(text, filename, mimeType) {
 function initPreferencesForm(initialPreferences) {
 	var target = $("#preferences");
 	var htmlBuffer = [];
+	var optionsBuffer = [];
 	var numSeverities = MovieContentFilter.Schema.severities.length;
 	var severity;
 	var severitiesIncluded = [];
 
 	htmlBuffer.push("<legend>Preferences</legend>");
 
+	// for every category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
-			htmlBuffer.push("<p><label for=\"preference-"+topLevelCategory+"\">"+capitalizeFirstLetter(topLevelCategory)+"</label><select id=\"preference-"+topLevelCategory+"\" name=\"preference-"+topLevelCategory+"\" size=\"1\"><option value=\"\"> -- Do not filter anything --</option>");
 
-			severitiesIncluded.length = 0;
+			// for every severity level
 			for (var i = numSeverities - 1; i >= 0; i--) {
 				severity = MovieContentFilter.Schema.severities[i];
 				severitiesIncluded.unshift(severity);
-				htmlBuffer.push("<option value=\""+severity+"\"");
+				optionsBuffer.push("<option value=\""+severity+"\"");
 
+				// if the current option is to be selected by default
 				if (initialPreferences[topLevelCategory] && initialPreferences[topLevelCategory] === severity) {
-					htmlBuffer.push(" selected=\"selected\"");
+					// apply the selection
+					optionsBuffer.push(" selected=\"selected\"");
 				}
 
-				htmlBuffer.push(">Filter "+severitiesIncluded.join("/")+" severity</option>");
+				optionsBuffer.push(">Filter "+severitiesIncluded.join("/")+" severity</option>");
 			}
 
+			// add the first part of the select box to the HTML buffer
+			htmlBuffer.push("<p><label for=\"preference-"+topLevelCategory+"\">"+capitalizeFirstLetter(topLevelCategory)+"</label><select id=\"preference-"+topLevelCategory+"\" name=\"preference-"+topLevelCategory+"\" size=\"1\"");
+
+			// add the next part of the select box to the HTML buffer
+			htmlBuffer.push("><option value=\"\"> -- Do not filter anything --</option>");
+
+			// append all options to the HTML buffer
+			htmlBuffer = htmlBuffer.concat(optionsBuffer);
+
+			// add the last part of the select box to the HTML buffer
 			htmlBuffer.push("</select></p>");
+
+			// clear the list of included severities that is only valid per single select box
+			severitiesIncluded.length = 0;
+			// clear the buffer of options that is only valid per single select box
+			optionsBuffer.length = 0;
 		}
 	}
 
