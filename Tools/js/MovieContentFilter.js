@@ -83,6 +83,8 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 
 		lines.push("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 		lines.push("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\" xmlns:vlc=\"http://www.videolan.org/vlc/playlist/ns/0/\">");
+		lines.push("\t<creator>MovieContentFilter</creator>");
+		lines.push("\t<info>https://github.com/delight-im/MovieContentFilter</info>");
 		lines.push("\t<trackList>");
 
 		var selectedCues = this.getSelectedCues();
