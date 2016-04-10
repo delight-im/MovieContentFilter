@@ -10,9 +10,11 @@ body {
 	padding: 8px;
 }
 fieldset {
+	margin-bottom: 12px;
 	padding: 8px 16px;
+	border: 2px solid #008000;
 }
-legend {
+fieldset legend {
 	margin: 4px 8px;
 	padding: 2px 4px;
 	background-color: #008000;
