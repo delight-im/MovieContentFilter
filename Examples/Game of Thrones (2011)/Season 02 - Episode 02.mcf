@@ -1,0 +1,30 @@
+WEBVTT Movie Content Filter 1.0.0
+
+NOTE
+START 00:01:54.500
+END 00:52:09.500
+
+00:04:20.000 --> 00:04:49.000
+violence=low
+
+00:05:27.500 --> 00:05:31.000
+language=medium=audio
+
+00:15:45.000 --> 00:16:39.000
+violence=high=video
+
+00:17:54.000 --> 00:20:06.000
+nudity=high
+sex=high
+
+00:20:28.500 --> 00:20:47.000
+nudity=medium=video
+sex=low=video
+
+00:48:30.500 --> 00:49:59.000
+nudity=medium
+sex=medium
+
+00:49:59.000 --> 00:52:09.500
+fear=medium
+violence=low
