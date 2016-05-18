@@ -44,3 +44,7 @@ input[readonly], textarea[readonly] {
 #preferences select:not(.mcf-disabled) {
 	background: #ff0;
 }
+p.intro {
+	color: #777;
+	margin-bottom: 24px;
+}
