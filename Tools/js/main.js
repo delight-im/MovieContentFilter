@@ -265,13 +265,108 @@ function initPreferencesForm(initialPreferences) {
 	});
 }
 
+function initExamplesForm() {
+	var target = $("#sourceType");
+	var htmlBuffer = [];
+
+	// create the empty default option
+	htmlBuffer.push("<option value=\"\">Any movie or TV show that I have an \".mcf\" file for</option>");
+
+	var entry;
+	var lastParent = null;
+
+	// for every exemplary movie or TV show
+	for (var i = 0; i < MovieContentFilter.Examples.length; i++) {
+		entry = MovieContentFilter.Examples[i];
+
+		// if the current entry belongs to a new parent
+		if (entry.parent !== lastParent) {
+			// if there has been another entry previously
+			if (lastParent !== null) {
+				// close the previous options group
+				htmlBuffer.push("</optgroup>");
+			}
+
+			// open the next options group
+			htmlBuffer.push("<optgroup label=\"");
+			htmlBuffer.push(entry.parent);
+			htmlBuffer.push("\">");
+
+			// remember the new parent
+			lastParent = entry.parent;
+		}
+
+		// add the current entry as an option
+		htmlBuffer.push("<option value=\"");
+		htmlBuffer.push(entry.path);
+		htmlBuffer.push("\">");
+		htmlBuffer.push(entry.parent);
+		htmlBuffer.push(" - ");
+		htmlBuffer.push(entry.name);
+		htmlBuffer.push("</option>");
+	}
+
+	// if there were entries available
+	if (lastParent !== null) {
+		// close the last options group
+		htmlBuffer.push("</optgroup>");
+	}
+
+	// update the select field with the built HTML content
+	target.html(htmlBuffer.join(""));
+
+	// listen for changes on the select field
+	target.change(function () {
+		var pasteArea = $("#sourceText");
+
+		if (this.value === "") {
+			// clear the paste area
+			pasteArea.val("");
+
+			// make the paste area editable
+			pasteArea.prop("readonly", false);
+		}
+		else {
+			// prevent the paste area from being edited
+			pasteArea.prop("readonly", true);
+
+			$.ajax({
+				url: this.value,
+				method: "GET",
+				mimeType: "text/plain; charset=utf-8",
+				dataType: "text",
+				cache: false,
+				success: function (data) {
+					// insert the loaded filter into the paste area
+					pasteArea.val(data);
+					// trigger the `input` event on the paste area
+					pasteArea.trigger("input");
+				},
+				error: function () {
+					// if the document had been served on a file URL
+					if (window.location.protocol === "file:") {
+						// explain to the user why AJAX requests do not work on file URLs
+						alert("Loading existing filters does not work when running this tool on your local machine without any web server.\n\nYou may change your web browser's security policy for file URLs, but you usually should not do that.");
+					}
+					// if the document had been served by a web server
+					else {
+						// tell the user that the request failed
+						alert("The requested filter could not be loaded. Please check your internet connection.");
+					}
+				}
+			});
+		}
+	});
+}
+
 function capitalizeFirstLetter(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 $(document).ready(function () {
-	var initialPreferences = McfSession.storage.getObject(McfSession.STORAGE_KEY_PREFERENCES, {});
+	initExamplesForm();
 
+	var initialPreferences = McfSession.storage.getObject(McfSession.STORAGE_KEY_PREFERENCES, {});
 	initPreferencesForm(initialPreferences);
 
 	var fileStartTimeElement = $("#fileStartTime");
