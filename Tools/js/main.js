@@ -18,6 +18,7 @@
 
 var McfSession = {};
 McfSession.STORAGE_KEY_PREFERENCES = "preferences";
+McfSession.STORAGE_KEY_LAST_SAVED = "last_saved_timestamp_ms";
 McfSession.storage = new AbstractStorage();
 
 function convertFilters(outputFormat) {
@@ -70,6 +71,9 @@ function convertFilters(outputFormat) {
 
 	// save the preferences to the persistent storage
 	McfSession.storage.setString(McfSession.STORAGE_KEY_PREFERENCES, mcf.getPreferencesJson());
+
+	// remember when the preferences have been saved the last time
+	McfSession.storage.setObject(McfSession.STORAGE_KEY_LAST_SAVED, Date.now());
 
 	mcf.setVideoLocation(videoLocation);
 
@@ -223,14 +227,26 @@ function createPreferenceForCategory(category, parentCategory, initialPreference
 	return htmlBuffer.join("");
 }
 
-function initPreferencesForm(initialPreferences) {
+function initPreferencesForm(initialPreferences, lastTimeSaved) {
 	var target = $("#preferences");
 	var htmlBuffer = [];
 	var categoryHtml;
 	var childCategory;
 
-	htmlBuffer.push("<div id=\"preferences-collapsed\"><p class=\"intro\">Did you use this tool before? Your selections should usually have been saved so that you do not have to enter them again.</p><p>If you want to keep all criteria unchanged, you do not need to review all the preferences a second time.</p><button type=\"button\" onclick=\"$('#preferences-collapsed').hide(); $('#preferences-expanded').show();\">Show preferences</button></div>");
-	htmlBuffer.push("<div id=\"preferences-expanded\" style=\"display:none;\">");
+	// if the preferences had previously been saved already
+	if (typeof lastTimeSaved === "number") {
+		var lastTimeSavedObj = new Date(lastTimeSaved);
+
+		htmlBuffer.push("<div id=\"preferences-collapsed\"><p class=\"intro\">If you want to keep all criteria unchanged, you do not need to review all the preferences again.</p><p>Your selections should have been saved so that you do not have to enter them again. The last time your preferences have been saved was: ");
+		htmlBuffer.push(lastTimeSavedObj.toLocaleString());
+		htmlBuffer.push("</p><button type=\"button\" onclick=\"$('#preferences-collapsed').hide(); $('#preferences-expanded').show();\">Show preferences</button></div>");
+		htmlBuffer.push("<div id=\"preferences-expanded\" style=\"display:none;\">");
+	}
+	// if the preferences had never been saved previously
+	else {
+		htmlBuffer.push("<div id=\"preferences-expanded\">");
+	}
+
 	htmlBuffer.push("<p class=\"intro\">Please choose your <i>personal</i> criteria for content filtering below. Those will let you adjust precisely what types of content to block and what types of content to accept. Please take some time to check all criteria thoroughly.</p>");
 
 	// for every top-level category
@@ -371,7 +387,8 @@ $(document).ready(function () {
 	initExamplesForm();
 
 	var initialPreferences = McfSession.storage.getObject(McfSession.STORAGE_KEY_PREFERENCES, {});
-	initPreferencesForm(initialPreferences);
+	var lastTimeSaved = McfSession.storage.getObject(McfSession.STORAGE_KEY_LAST_SAVED, null);
+	initPreferencesForm(initialPreferences, lastTimeSaved);
 
 	var fileStartTimeElement = $("#fileStartTime");
 	var fileEndTimeElement = $("#fileEndTime");
