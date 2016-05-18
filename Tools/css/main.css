@@ -34,6 +34,10 @@ button {
 	margin: 12px 0;
 	padding: 4px 8px;
 }
+input[readonly], textarea[readonly] {
+	background-color: #eee;
+	color: #777;
+}
 #preferences select .mcf-disabled {
 	color: #777;
 }
