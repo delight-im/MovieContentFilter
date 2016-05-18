@@ -34,7 +34,7 @@ function convertFilters(outputFormat) {
 	}
 	catch (e) {
 		if (e instanceof MovieContentFilter.InvalidSourceTextException) {
-			alert("Please paste some valid '.mcf' source text in the 'Input' section");
+			alert("Please paste some valid '.mcf' source text in the 'Load general filter' section");
 		}
 		else if (e instanceof MovieContentFilter.InvalidSourceStartTime) {
 			alert("Your '.mcf' source text has an invalid overall start time");
@@ -124,7 +124,7 @@ function convertFilters(outputFormat) {
 	}
 
 	if (outputText === "") {
-		alert("Nothing found to filter, please adjust your preferences");
+		alert("It seems your media file does not contain anything that should be filtered based on your selected preferences.\n\nThat means the content already meets your preferences and can probably be viewed as-is.\n\nYou may adjust your criteria in order to increase or reduce the set of included filters.");
 		return;
 	}
 
@@ -229,7 +229,9 @@ function initPreferencesForm(initialPreferences) {
 	var categoryHtml;
 	var childCategory;
 
-	htmlBuffer.push("<legend>Preferences</legend>");
+	htmlBuffer.push("<div id=\"preferences-collapsed\"><p class=\"intro\">Did you use this tool before? Your selections should usually have been saved so that you do not have to enter them again.</p><p>If you want to keep all criteria unchanged, you do not need to review all the preferences a second time.</p><button type=\"button\" onclick=\"$('#preferences-collapsed').hide(); $('#preferences-expanded').show();\">Show preferences</button></div>");
+	htmlBuffer.push("<div id=\"preferences-expanded\" style=\"display:none;\">");
+	htmlBuffer.push("<p class=\"intro\">Please choose your <i>personal</i> criteria for content filtering below. Those will let you adjust precisely what types of content to block and what types of content to accept. Please take some time to check all criteria thoroughly.</p>");
 
 	// for every top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
@@ -245,6 +247,8 @@ function initPreferencesForm(initialPreferences) {
 			}
 		}
 	}
+
+	htmlBuffer.push("</div>");
 
 	target.append(htmlBuffer.join(""));
 

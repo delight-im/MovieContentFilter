@@ -9,9 +9,10 @@
 <body>
 	<form action="" method="post" onsubmit="return false;">
 		<fieldset>
-			<legend>Input</legend>
+			<legend>1. Load general filter</legend>
+			<p class="intro">Please open a <i>general</i> filter (usually ".mcf") for a movie or TV show. That filter will be customized so that you can download your <i>personal</i> filter at the end. You may either open a ".mcf" file and copy its content to the large text field below, or you may choose one of our existing filters from the list. If you cannot find your movie yet, why not try to <a target="_blank" href="https://github.com/delight-im/MovieContentFilter">create your first own filter</a> today?&nbsp;:) We will be happy to help you!</p>
 			<p>
-				<label for="sourceType">What movie or TV show do you want to download a personal filter for? (<a target="_blank" href="https://github.com/delight-im/MovieContentFilter">Submit new filters</a>)</label>
+				<label for="sourceType">What movie or TV show do you want to download a personal filter for?</label>
 				<select id="sourceType" name="sourceType" size="1"></select>
 			</p>
 			<p>
@@ -20,34 +21,33 @@
 			</p>
 		</fieldset>
 		<fieldset>
-			<legend>Synchronization</legend>
+			<legend>2. Synchronization</legend>
+			<p class="intro">Having imported the <i>general</i> filter's content, the start and end time of the film source should have been added below. The start and end time are displayed as seen by the creators of the <i>general</i> filter. Please check if this matches with your movie source. Why is this necessary? Because movies are distributed in multiple versions, some shorter and some longer, and some versions even differ in playback speed. For example, one version of your favorite film may be 1.05&times; the speed of another version. Our filters can only be applied correctly if the start and end times are synchronized. Most commonly, you do not have to make any significant changes.</p>
 			<p>
-				<label for="fileStartTime">Start of <i>actual</i> film material, which is <i>after</i> any opening title sequences, credits or company logos</label>
+				<label for="fileStartTime">When does the actual film material <i>start</i>? (Which is <i>after</i> any opening title sequences, credits or company logos!)</label>
 				<input type="text" id="fileStartTime" name="fileStartTime" value="00:00:00.000">
 			</p>
 			<p>
-				<label for="fileEndTime">End of <i>actual</i> film material, which is <i>before</i> any closing credits or company logos</label>
+				<label for="fileEndTime">When does the actual film material <i>end</i>? (Which is <i>before</i> any closing credits or company logos!)</label>
 				<input type="text" id="fileEndTime" name="fileEndTime" value="00:00:00.000">
 			</p>
+		</fieldset>
+		<fieldset>
+			<legend>3. Do you use VLC media player?</legend>
+			<p class="intro">If you use <a target="_blank" href="https://www.videolan.org/vlc/">VLC media player</a> to play your videos, please enter the path ("URI") to the film source on your device. For convenience, we have added a standard location that would play the file "Movie.mp4" from whatever directory you later open your <i>personal</i> filter in.</p>
 			<p>
-				<label for="videoLocation">Video location (only required for VLC media player)</label>
+				<label for="videoLocation">Video location</label>
 				<input type="text" id="videoLocation" name="videoLocation" value="file:///Movie.mp4">
+				<p>Learn how to play from <a href="#" onclick="$('#videoLocation').val('file:///Movie.mp4'); return false;">hard drive</a> or <a href="#" onclick="$('#videoLocation').val('dvd://e:\\@1'); return false;">DVD</a> or <a href="#" onclick="$('#videoLocation').val('http://www.example.com/Movie.mp4'); return false;">web</a> or <a href="#" onclick="$('#videoLocation').val('bluray:///Movie'); return false;">Blu-ray</a>.</p>
 			</p>
 		</fieldset>
-		<fieldset>
-			<legend>Download</legend>
-			<p>If you have previously set your preferences already and want to keep them unchanged, just download your filters here.</p>
-			<p>Otherwise, please proceed to the next section first and change the filter preferences to your liking.</p>
-			<p>
-				<button type="button" class="mcf-convert-to-xspf">Download as <strong>XSPF</strong> for VLC media player</button>
-				<button type="button" class="mcf-convert-to-m3u">Download as <strong>M3U</strong> for VLC media player</button>
-				<button type="button" class="mcf-convert-to-edl">Download as <strong>EDL</strong> for MPlayer</button>
-			</p>
+		<fieldset id="preferences">
+			<legend>4. Preferences</legend>
 		</fieldset>
-		<fieldset id="preferences"></fieldset>
 		<fieldset>
-			<legend>Download</legend>
-			<p>If you have adjusted the filter preferences above as desired, you may download your filters now.</p>
+			<legend>5. Download</legend>
+			<p class="intro">As the final step before watching, you can download your <i>personal</i> filter file below. The filter is available for the two popular video players "VLC media player" and "MPlayer" each. Please store the downloaded file on your device. It is a very small file that will control the playback of your actual movie content. Having downloaded your personal filter file, just open it with the designated video player software and enjoy your movie.</p>
+			<p>If you have adjusted the filter preferences above as desired, you may download your <i>personal</i> filter file now. Happy watching!</p>
 			<p>
 				<button type="button" class="mcf-convert-to-xspf">Download as <strong>XSPF</strong> for VLC media player</button>
 				<button type="button" class="mcf-convert-to-m3u">Download as <strong>M3U</strong> for VLC media player</button>
