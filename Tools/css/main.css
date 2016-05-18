@@ -34,9 +34,9 @@ button {
 	margin: 12px 0;
 	padding: 4px 8px;
 }
-.mcf-disabled {
+#preferences select .mcf-disabled {
 	color: #777;
 }
-select:not(.mcf-disabled) {
+#preferences select:not(.mcf-disabled) {
 	background: #ff0;
 }
