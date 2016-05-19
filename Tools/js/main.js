@@ -252,6 +252,10 @@ function initPreferencesForm(initialPreferences, lastTimeSaved) {
 	// for every top-level category
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
+			htmlBuffer.push("<p><button type=\"button\" class=\"small\">Change preferences for '");
+			htmlBuffer.push(capitalizeFirstLetter(topLevelCategory));
+			htmlBuffer.push("'</button></p>");
+			htmlBuffer.push("<div style=\"display:none;\">");
 			categoryHtml = createPreferenceForCategory(topLevelCategory, null, initialPreferences);
 			htmlBuffer.push(categoryHtml);
 
@@ -261,12 +265,25 @@ function initPreferencesForm(initialPreferences, lastTimeSaved) {
 				categoryHtml = createPreferenceForCategory(childCategory, topLevelCategory, initialPreferences);
 				htmlBuffer.push(categoryHtml);
 			}
+
+			htmlBuffer.push("</div>");
 		}
 	}
 
 	htmlBuffer.push("</div>");
 
 	target.append(htmlBuffer.join(""));
+
+	// whenever a top-level category button is pressed
+	$("#preferences-expanded").on("click", "button", function () {
+		var button = $(this);
+
+		// hide the pressed button
+		button.css("display", "none");
+
+		// show the previously hidden contents for the selected category
+		button.parent().next().css("display", "");
+	});
 
 	// whenever the value for a preference changes
 	target.on("change", "select", function () {
