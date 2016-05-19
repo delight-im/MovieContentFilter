@@ -1,0 +1,24 @@
+WEBVTT Movie Content Filter 1.0.0
+
+NOTE
+START 00:01:54.500
+END 00:52:50.000
+
+00:03:37.000 --> 00:03:59.500
+violence=low
+fear=low
+death=low
+
+00:03:59.500 --> 00:04:15.000
+violence=medium
+
+00:04:15.000 --> 00:04:19.000
+violence=high
+
+00:52:09.000 --> 00:52:25.500
+fear=low
+death=low
+
+00:52:37.000 --> 00:52:45.000
+fear=low
+death=low
