@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+ * Copyright (c) delight.im <info@delight.im>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Contribute - Movie Content Filter</title>
+	<link rel="stylesheet" href="css/normalize-4.1.1.min.css">
+	<link rel="stylesheet" href="css/contribute.css">
+</head>
+<body class="contribute">
+	<div id="screen-intro" class="screen">
+		<h1>Create general filters for movies and TV shows you own</h1>
+		<h2>Help everyone on earth watch comfortably with their personal filters</h2>
+		<button type="button" id="video-source">Open a local video file</button>
+		<input id="video-source-hidden" type="file" accept="video/*" />
+	</div>
+	<div id="screen-annotate" class="screen" style="display:none;">
+		<video id="video-target" controls="controls" autoplay="autoplay"></video>
+		<div id="annotation-controls">
+			<button type="button" id="mark-start" style="width:33%" title="This is after any opening title sequences, credits or company logos">
+				Set start marker
+			</button>
+			<button type="button" id="start-cut" style="width:33%" disabled="disabled">
+				Begin filtered scene
+			</button>
+			<button type="button" id="end-cut" style="width:16.5%; display:none;">
+				End filtered scene
+			</button>
+			<button type="button" id="cancel-cut" style="width:16.5%; display:none;">
+				Cancel
+			</button>
+			<button type="button" id="mark-end" style="width:33%" disabled="disabled" title="This is before any closing credits or company logos">
+				Set end marker
+			</button>
+		</div>
+	</div>
+	<script src="js/jquery-2.2.3.min.js"></script>
+	<script src="js/MediaPlayer.js"></script>
+	<script src="js/contribute.js"></script>
+</body>
+</html>
