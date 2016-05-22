@@ -66,15 +66,6 @@ Currently, conversion to the following formats is available:
  * M3U for [VLC media player](https://www.videolan.org/vlc/)
  * EDL for [MPlayer](https://www.mplayerhq.hu/)
 
-## Verifying filters
-
-The format being a subset of *WebVTT*, the easiest way to verify all filters with regard to timing and correctness is as follows:
-
- 1. Keep the specific filter file under the `.vtt` extension while working on it.
- 1. Whenever the need for verification arises, load the filter as a *WebVTT* subtitle file in your media player. Some modern media players have built-in support for *WebVTT*, e.g. *VLC media player*.
- 1. Watch the movie or TV show and verify that the correct filter directives appear at the right time and for the expected duration.
- 1. Change the filter file to the `.mcf` extension after finishing the verification.
-
 ## Commercial providers
 
 Although not providing an open standard but only proprietary filters, and often not being available worldwide, there are some commercial offerings with similar goals:
