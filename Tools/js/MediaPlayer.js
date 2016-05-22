@@ -55,6 +55,8 @@ function MediaPlayer() {
 			return true;
 		}
 		else {
+			var response = this._targetElement.canPlayType(mimeType);
+
 			return response === "probably" || response === "maybe";
 		}
 	};
