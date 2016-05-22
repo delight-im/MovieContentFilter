@@ -16,3 +16,27 @@ The format is a strict subset of the [W3C WebVTT](https://developer.mozilla.org/
  1. The *category* must be one of the strings from [this hierarchy](categories.json). It may either be one of the top-level categories or one of their respective subcategories. Any entry that describes a subcategory implicitly describes the parent category as well.
  1. The *severity* must be one of the strings from [this list](severities.json).
  1. The optional *channel* describes what part of the source material is affected by the current entry. It must be one of the strings from [this list](channels.json) where the first entry is the default value.
+
+## Example
+
+```
+WEBVTT Movie Content Filter 1.0.0
+
+NOTE
+START 00:00:04.020
+END 01:24:00.100
+
+00:00:06.075 --> 00:00:10.500
+violence=high
+
+00:06:14.000 --> 00:06:17.581
+gambling=medium
+drugs=high=video
+
+00:58:59.118 --> 01:00:03.240
+sex=low
+
+01:02:31.020 --> 01:02:49.800
+fear=low
+language=high=audio
+```

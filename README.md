@@ -32,30 +32,6 @@ Film makers should *not* censor *anything*. They should release the film in the 
     * You can adjust the filtering by choosing from various categories and severity levels.
     * Use your media player's UI, plugins or our ["transpiler"](https://delight-im.github.io/MovieContentFilter/Tools/) to apply your selections.
 
-## Example
-
-```
-WEBVTT Movie Content Filter 1.0.0
-
-NOTE
-START 00:00:04.020
-END 01:24:00.100
-
-00:00:06.075 --> 00:00:10.500
-violence=high
-
-00:06:14.000 --> 00:06:17.581
-gambling=medium
-drugs=high=video
-
-00:58:59.118 --> 01:00:03.240
-sex=low
-
-01:02:31.020 --> 01:02:49.800
-fear=low
-language=high=audio
-```
-
 ## Compatibility and support in media players
 
 Until better support in popular media players is available, [tools for conversion](https://delight-im.github.io/MovieContentFilter/Tools/) are provided. The tools and the converted formats together support most of the features that `.mcf` files offer.
