@@ -1,0 +1,70 @@
+WEBVTT Movie Content Filter 1.0.0
+
+NOTE
+START 00:01:54.500
+END 00:53:50.000
+
+00:02:08.000 --> 00:02:47.000
+death=low=video
+
+00:02:47.000 --> 00:03:00.000
+death=low=video
+violence=medium
+
+00:03:00.000 --> 00:03:02.000
+death=low=video
+
+00:08:58.000 --> 00:09:08.000
+violence=high
+death=high
+
+00:22:32.000 --> 00:22:34.000
+violence=low
+
+00:28:25.000 --> 00:28:40.500
+violence=medium
+rape=high
+
+00:38:37.000 --> 00:38:42.000
+violence=low=audio
+
+00:38:42.000 --> 00:38:57.500
+violence=medium
+
+00:38:57.500 --> 00:39:01.000
+violence=medium
+death=medium
+
+00:39:01.000 --> 00:39:08.000
+death=medium
+
+00:39:08.000 --> 00:39:22.000
+violence=medium
+death=medium
+
+00:39:24.000 --> 00:39:31.000
+crueltyToAnimals=medium=video
+
+00:39:31.000 --> 00:39:37.000
+crueltyToAnimals=medium=video
+nudity=medium=video
+
+00:39:37.000 --> 00:39:40.000
+nudity=medium=video
+
+00:39:45.000 --> 00:39:56.500
+nudity=medium=video
+
+00:40:44.500 --> 00:40:50.000
+nudity=medium=video
+
+00:42:53.500 --> 00:43:04.000
+violence=high
+death=high
+
+00:43:12.000 --> 00:43:14.500
+violence=medium
+
+00:53:34.000 --> 00:53:50.000
+violence=high
+death=high
