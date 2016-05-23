@@ -58,7 +58,8 @@ var annotationControls = {
 	startCut: $("#start-cut"),
 	endCut: $("#end-cut"),
 	cancelCut: $("#cancel-cut"),
-	markEnd: $("#mark-end")
+	markEnd: $("#mark-end"),
+	finish: $("#finish")
 };
 
 annotationControls.markStart.click(function () {
@@ -104,4 +105,8 @@ annotationControls.cancelCut.click(function () {
 });
 annotationControls.markEnd.click(function () {
 	alert("end = "+player.getElapsedTime()+"s");
+	annotationControls.finish.prop("disabled", false);
+});
+annotationControls.finish.click(function () {
+	alert("...");
 });
