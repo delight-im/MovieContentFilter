@@ -74,7 +74,21 @@ annotationControls.startCut.click(function () {
 	annotationControls.startCut.css("display", "none");
 });
 annotationControls.endCut.click(function () {
-	alert("cut = ["+lastCutStart+"s, "+player.getElapsedTime()+"s]");
+	player.pause();
+
+	var category = window.prompt("Category", "");
+	if (category !== null && category !== "") {
+		var severity = window.prompt("Severity", "");
+		if (severity !== null && severity !== "") {
+			var channel = window.prompt("Channel", "both");
+			if (channel !== null && channel !== "") {
+				alert("cut = ("+category+", "+severity+", "+channel+", "+lastCutStart+"s, "+player.getElapsedTime()+"s)");
+			}
+		}
+	}
+
+	player.resume();
+
 	annotationControls.endCut.css("display", "none");
 	annotationControls.cancelCut.css("display", "none");
 	annotationControls.startCut.css("display", "inline-block");
