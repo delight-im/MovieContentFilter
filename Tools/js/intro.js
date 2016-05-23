@@ -17,7 +17,7 @@
 "use strict";
 
 $("#watch").click(function () {
-	window.location.href = "index.html";
+	window.location.href = "watch.html";
 });
 
 $("#contribute").click(function () {
