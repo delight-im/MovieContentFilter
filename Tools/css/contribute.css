@@ -41,5 +41,13 @@ body.contribute #screen-annotate #annotation-controls {
 	margin-bottom: -48px;
 }
 body.contribute #screen-annotate #annotation-controls button {
+	display: block;
 	height: 100%;
+	margin: 0;
+	float: left;
+}
+body.contribute #screen-annotate #annotation-controls::after {
+	content: "";
+	display: block;
+	clear: both;
 }
