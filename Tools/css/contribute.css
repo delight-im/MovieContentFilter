@@ -14,48 +14,24 @@
  * limitations under the License.
  */
 
-* {
-	box-sizing: border-box;
-}
-html, body, .screen {
+html,
+body,
+.screen {
 	width: 100%;
 	height: 100%;
-}
-body.contribute {
-	background-color: #000;
-}
-body.contribute h1, body.contribute h2, body.contribute h3, body.contribute h4, body.contribute h5, body.contribute h6 {
-	color: #fff;
-	text-align: center;
 }
 body.contribute video {
 	display: block;
 	width: 100%;
 	height: 100%;
 }
-body.contribute input#video-source-hidden {
-	display: none;
-}
-body.contribute #screen-intro h1, body.contribute #screen-intro h2, body.contribute button#video-source {
-	position: absolute;
-	display: block;
-}
-body.contribute #screen-intro h1, body.contribute #screen-intro h2 {
-	left: 0;
-	width: 100%;
-}
-body.contribute #screen-intro h1 {
-	top: 20%;
-}
-body.contribute #screen-intro h2 {
+body.contribute h2 {
 	top: 40%;
 }
 body.contribute button#video-source {
+	position: absolute;
 	top: 60%;
 	left: 25%;
-	width: 50%;
-	height: 64px;
-	text-align: center;
 }
 body.contribute #screen-annotate {
 	padding-bottom: 48px;
