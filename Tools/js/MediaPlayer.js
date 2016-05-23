@@ -90,6 +90,14 @@ function MediaPlayer() {
 		}
 	};
 
+	this.resume = function () {
+		if (!this._hasTargetElement()) {
+			throw new MediaPlayer.MissingTargetElementException();
+		}
+
+		this._targetElement.play();
+	};
+
 	this.pause = function () {
 		if (!this._hasTargetElement()) {
 			throw new MediaPlayer.MissingTargetElementException();
