@@ -29,6 +29,9 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 	var videoLocation = null;
 
 	this.addCue = function (startTime, endTime, category, severity, channel) {
+		// use a default channel if none has been provided
+		channel = channel || "both";
+
 		cues.push({
 			"startTime": startTime,
 			"endTime": endTime,
