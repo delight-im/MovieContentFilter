@@ -402,6 +402,34 @@ MovieContentFilter.fillUpCues = function (originalCues) {
 	return filledUpCues;
 };
 
+MovieContentFilter.leftPad = function (str, desiredLength, padChar) {
+	// ensure that the subject is really a string
+	str = str + "";
+
+	// if the desired length is not a number
+	if (typeof desiredLength !== "number") {
+		// return the subject as-is
+		return str;
+	}
+
+	// if no padding character has been provided
+	if (typeof padChar === "undefined" || padChar === null) {
+		// use a space as the default
+		padChar = " ";
+	}
+
+	// if the subject already has the desired length
+	if (str.length >= desiredLength) {
+		// return the subject as-is
+		return str;
+	}
+	// if the subject needs padding
+	else {
+		// prepend the padding character as often as required
+		return new Array(desiredLength - str.length + 1).join(padChar) + str;
+	}
+};
+
 MovieContentFilter.CONTAINER_REGEX = /^WEBVTT Movie Content Filter ([0-9]+\.[0-9]+\.[0-9]+)\r?\n\r?\nNOTE\r?\nSTART (.+?)\r?\nEND (.+?)\r?\n\r?\n([\S\s]+)$/;
 MovieContentFilter.CUE_BLOCKS_REGEX = /(?:^|\r?\n\r?\n)([\s\S]+?)(?=\r?\n\r?\n|\r?\n$|$)/g;
 MovieContentFilter.NEWLINE_REGEX = /\r?\n/;
