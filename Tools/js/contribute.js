@@ -18,6 +18,8 @@
 
 var sourceElement = $("#video-source-hidden");
 
+var filter = new MovieContentFilter();
+
 var player = new MediaPlayer();
 player.setTargetElement(document.getElementById("video-target"));
 
@@ -63,7 +65,9 @@ var annotationControls = {
 };
 
 annotationControls.markStart.click(function () {
-	alert("start = "+player.getElapsedTime()+"s");
+	// set the current time as the file's start time
+	filter.setFileStartTime(player.getElapsedTime());
+
 	annotationControls.startCut.prop("disabled", false);
 	annotationControls.markEnd.prop("disabled", false);
 });
@@ -83,7 +87,7 @@ annotationControls.endCut.click(function () {
 		if (severity !== null && severity !== "") {
 			var channel = window.prompt("Channel", "both");
 			if (channel !== null && channel !== "") {
-				alert("cut = ("+category+", "+severity+", "+channel+", "+lastCutStart+"s, "+player.getElapsedTime()+"s)");
+				filter.addCue(lastCutStart, player.getElapsedTime(), category, severity, channel);
 			}
 		}
 	}
@@ -104,9 +108,15 @@ annotationControls.cancelCut.click(function () {
 	annotationControls.startCut.css("display", "inline-block");
 });
 annotationControls.markEnd.click(function () {
-	alert("end = "+player.getElapsedTime()+"s");
+	// set the current time as the file's end time
+	filter.setFileEndTime(player.getElapsedTime());
+
 	annotationControls.finish.prop("disabled", false);
 });
 annotationControls.finish.click(function () {
-	alert("...");
+	// generate the text content for the general filter
+	var output = filter.toMcf();
+
+	// let the user save the filter to a file
+	saveTextToFile(output, "Filter (MCF).mcf", "text/plain");
 });
