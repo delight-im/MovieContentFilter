@@ -16,11 +16,11 @@
 
 body.intro button#watch {
 	position: absolute;
-	top: 45%;
+	top: 60%;
 	left: 25%;
 }
 body.intro button#contribute {
 	position: absolute;
-	top: 60%;
+	top: 45%;
 	left: 25%;
 }
