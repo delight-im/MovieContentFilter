@@ -227,6 +227,33 @@ MovieContentFilter.cueTimingToSeconds = function (hourStr, minuteStr, secondStr,
 	return secondsFloat;
 };
 
+MovieContentFilter.secondsToCueTiming = function (secondsFloat) {
+	// calculate the hours portion
+	var hours = Math.floor(secondsFloat / 3600);
+	hours = Math.min(hours, 99);
+
+	// consume the hours
+	secondsFloat = secondsFloat % 3600;
+
+	// calculate the minutes portion
+	var minutes = Math.floor(secondsFloat / 60);
+
+	// consume the minutes
+	secondsFloat = secondsFloat % 60;
+
+	// calculate the seconds portion
+	var seconds = Math.floor(secondsFloat);
+
+	// consume the seconds
+	secondsFloat = secondsFloat % 1;
+
+	// calculate the milliseconds portion
+	var milliseconds = Math.floor(secondsFloat * 1000);
+
+	// return the formatted composite string
+	return MovieContentFilter.leftPad(hours, 2, 0) + ":" + MovieContentFilter.leftPad(minutes, 2, 0) + ":" + MovieContentFilter.leftPad(seconds, 2, 0) + "." + MovieContentFilter.leftPad(milliseconds, 3, 0);
+};
+
 MovieContentFilter.parseContainer = function (sourceText) {
 	var container = MovieContentFilter.CONTAINER_REGEX.exec(sourceText);
 
