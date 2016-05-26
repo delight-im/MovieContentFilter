@@ -398,6 +398,10 @@ MovieContentFilter.isSeverityValid = function (value) {
 	return MovieContentFilter.Schema.severities.indexOf(value) !== -1;
 };
 
+MovieContentFilter.isChannelValid = function (value) {
+	return MovieContentFilter.Schema.channels.indexOf(value) !== -1;
+};
+
 MovieContentFilter.findParentCategories = function (category) {
 	// if the category to examine is one of the top-level categories
 	if (MovieContentFilter.Schema.categories[category]) {
