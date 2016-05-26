@@ -88,6 +88,33 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 		return synchronizedCues;
 	};
 
+	this.toMcf = function (desiredFileStartTimestamp, desiredFileEndTimestamp) {
+		if (cues.length === 0) {
+			return "";
+		}
+
+		MovieContentFilter.normalizeCues(cues);
+
+		var lines = [];
+
+		lines.push("WEBVTT Movie Content Filter "+version);
+		lines.push("");
+		lines.push("NOTE");
+		lines.push("START "+MovieContentFilter.secondsToCueTiming(fileStartTime));
+		lines.push("END "+MovieContentFilter.secondsToCueTiming(fileEndTime));
+		lines.push("");
+
+		for (var i = 0; i < cues.length; i++) {
+			if (cues[i].category !== null && cues[i].severity !== null) {
+				lines.push(MovieContentFilter.secondsToCueTiming(cues[i].startTime)+" --> "+MovieContentFilter.secondsToCueTiming(cues[i].endTime));
+				lines.push(cues[i].category+"="+cues[i].severity+"="+cues[i].channel);
+				lines.push("");
+			}
+		}
+
+		return lines.join("\n");
+	};
+
 	this.toXspf = function (desiredFileStartTimestamp, desiredFileEndTimestamp) {
 		var lines = [];
 
