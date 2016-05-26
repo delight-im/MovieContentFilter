@@ -54,6 +54,7 @@ $("#video-source").click(function () {
 });
 
 var lastCutStart = null;
+var hasUnsavedChanges = false;
 
 var annotationControls = {
 	markStart: $("#mark-start"),
@@ -67,6 +68,9 @@ var annotationControls = {
 annotationControls.markStart.click(function () {
 	// set the current time as the file's start time
 	filter.setFileStartTime(player.getElapsedTime());
+
+	// remember that the user has unsaved changes now
+	hasUnsavedChanges = true;
 
 	annotationControls.startCut.prop("disabled", false);
 	annotationControls.markEnd.prop("disabled", false);
@@ -88,6 +92,9 @@ annotationControls.endCut.click(function () {
 			var channel = window.prompt("Channel", "both");
 			if (channel !== null && channel !== "") {
 				filter.addCue(lastCutStart, player.getElapsedTime(), category, severity, channel);
+
+				// remember that the user has unsaved changes now
+				hasUnsavedChanges = true;
 			}
 		}
 	}
@@ -111,6 +118,9 @@ annotationControls.markEnd.click(function () {
 	// set the current time as the file's end time
 	filter.setFileEndTime(player.getElapsedTime());
 
+	// remember that the user has unsaved changes now
+	hasUnsavedChanges = true;
+
 	annotationControls.finish.prop("disabled", false);
 });
 annotationControls.finish.click(function () {
@@ -119,4 +129,17 @@ annotationControls.finish.click(function () {
 
 	// let the user save the filter to a file
 	saveTextToFile(output, "Filter (MCF).mcf", "text/plain");
+
+	// remember that the user doesn't have any unsaved changes anymore
+	hasUnsavedChanges = false;
+});
+
+window.addEventListener("beforeunload", function (e) {
+	if (hasUnsavedChanges) {
+		var confirmationMessage = "Are you sure you want to leave without exporting your changes?";
+
+		e.returnValue = confirmationMessage;
+
+		return confirmationMessage;
+	}
 });
