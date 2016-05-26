@@ -88,7 +88,7 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 		return synchronizedCues;
 	};
 
-	this.toMcf = function (desiredFileStartTimestamp, desiredFileEndTimestamp) {
+	this.toMcf = function () {
 		if (cues.length === 0) {
 			return "";
 		}
