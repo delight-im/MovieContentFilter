@@ -371,6 +371,29 @@ MovieContentFilter.shouldCueBeFiltered = function (cueCategory, cueSeverity, pre
 	return false;
 };
 
+MovieContentFilter.isCategoryValid = function (value) {
+	// if the supplied value is a valid top-level category
+	if (typeof MovieContentFilter.Schema.categories[value] !== "undefined") {
+		return true;
+	}
+	// if the supplied value is either not a top-level category or does not exist at all
+	else {
+		// for each top-level category
+		for (var topLevelCategory in MovieContentFilter.Schema.categories) {
+			if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
+				// if the category to examine is a child of the current top-level category
+				if (MovieContentFilter.Schema.categories[topLevelCategory].indexOf(value) !== -1) {
+					// the supplied value is a valid child category
+					return true;
+				}
+			}
+		}
+
+		// the supplied value is neither a valid top-level category nor a valid child category
+		return false;
+	}
+};
+
 MovieContentFilter.findParentCategories = function (category) {
 	// if the category to examine is one of the top-level categories
 	if (MovieContentFilter.Schema.categories[category]) {
@@ -384,7 +407,7 @@ MovieContentFilter.findParentCategories = function (category) {
 	for (var topLevelCategory in MovieContentFilter.Schema.categories) {
 		if (MovieContentFilter.Schema.categories.hasOwnProperty(topLevelCategory)) {
 			// if the category to examine is a child of the current top-level category
-			if (MovieContentFilter.Schema.categories[topLevelCategory].indexOf(category) > -1) {
+			if (MovieContentFilter.Schema.categories[topLevelCategory].indexOf(category) !== -1) {
 				// the current top-level category is the parent
 				parents.push(topLevelCategory);
 			}
