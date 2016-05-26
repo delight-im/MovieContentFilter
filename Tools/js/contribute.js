@@ -85,12 +85,30 @@ annotationControls.startCut.click(function () {
 annotationControls.endCut.click(function () {
 	player.pause();
 
-	var category = window.prompt("Category", "");
-	if (category !== null && category !== "") {
-		var severity = window.prompt("Severity", "");
-		if (severity !== null && severity !== "") {
-			var channel = window.prompt("Channel", "both");
-			if (channel !== null && channel !== "") {
+	// ask the user for a category (and repeat until either there's valid input or the operation is cancelled)
+	var category;
+	while (!MovieContentFilter.isCategoryValid(category) && category !== null) {
+		category = window.prompt("Category", "");
+	}
+
+	// if input has been submitted
+	if (category !== null) {
+		// ask the user for a severity level (and repeat until either there's valid input or the operation is cancelled)
+		var severity;
+		while (!MovieContentFilter.isSeverityValid(severity) && severity !== null) {
+			severity = window.prompt("Severity", "");
+		}
+
+		// if input has been submitted
+		if (severity !== null) {
+			// ask the user for a channel (and repeat until either there's valid input or the operation is cancelled)
+			var channel;
+			while (!MovieContentFilter.isChannelValid(channel) && channel !== null) {
+				channel = window.prompt("Channel", "both");
+			}
+
+			// if input has been submitted
+			if (channel !== null) {
 				filter.addCue(lastCutStart, player.getElapsedTime(), category, severity, channel);
 
 				// remember that the user has unsaved changes now
