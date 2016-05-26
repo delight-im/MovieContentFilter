@@ -190,6 +190,30 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 		return JSON.stringify(preferences);
 	};
 
+	this.getVersion = function () {
+		return version;
+	};
+
+	this.setVersion = function (value) {
+		version = value;
+	};
+
+	this.getFileStartTime = function () {
+		return fileStartTime;
+	};
+
+	this.setFileStartTime = function (value) {
+		fileStartTime = value;
+	};
+
+	this.getFileEndTime = function () {
+		return fileEndTime;
+	};
+
+	this.setFileEndTime = function (value) {
+		fileEndTime = value;
+	};
+
 }
 
 MovieContentFilter.cueTimingToSeconds = function (hourStr, minuteStr, secondStr, millisecondStr) {
