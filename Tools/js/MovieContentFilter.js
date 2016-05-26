@@ -17,6 +17,13 @@
 "use strict";
 
 function MovieContentFilter(version, fileStartTime, fileEndTime) {
+	// use a default version name if none has been provided
+	version = "1.0.0";
+	// use a default start time for the file if none has been provided
+	fileStartTime = fileStartTime || 0;
+	// use a default end time for the file if none has been provided
+	fileEndTime = fileEndTime || 0;
+
 	var cues = [];
 	var preferences = {};
 	var videoLocation = null;
