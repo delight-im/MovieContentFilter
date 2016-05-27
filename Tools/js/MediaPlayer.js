@@ -119,6 +119,15 @@ function MediaPlayer() {
 		return !this._targetElement.paused && !this.hasEnded();
 	};
 
+	this.togglePlaying = function () {
+		if (this.isPlaying()) {
+			this.pause();
+		}
+		else {
+			this.resume();
+		}
+	};
+
 	this.hasEnded = function () {
 		return this._targetElement.ended;
 	};
