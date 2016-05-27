@@ -136,6 +136,10 @@ function MediaPlayer() {
 		this._targetElement.currentTime += addendSeconds;
 	};
 
+	this.seekTo = function (positionSeconds) {
+		this._targetElement.currentTime = positionSeconds;
+	};
+
 	this.increaseSpeed = function (addend) {
 		if (!this._hasTargetElement()) {
 			throw new MediaPlayer.MissingTargetElementException();
