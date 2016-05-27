@@ -132,6 +132,10 @@ function MediaPlayer() {
 		return this._targetElement.ended;
 	};
 
+	this.seek = function (addendSeconds) {
+		this._targetElement.currentTime += addendSeconds;
+	};
+
 	this.increaseSpeed = function (addend) {
 		if (!this._hasTargetElement()) {
 			throw new MediaPlayer.MissingTargetElementException();
