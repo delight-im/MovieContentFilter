@@ -20,6 +20,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Contribute - Movie Content Filter</title>
 	<link rel="stylesheet" href="css/normalize-4.1.1.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/common.css">
 	<link rel="stylesheet" href="css/contribute.css">
 </head>
@@ -31,6 +32,29 @@
 		<input type="file" accept="video/*" class="hidden" id="video-source-hidden" />
 	</div>
 	<div id="screen-annotate" class="screen" style="display:none;">
+		<div id="playback-controls">
+			<button type="button" id="volume-down" title="Volume down">
+				<i class="fa fa-volume-down fa-2x"></i>
+			</button>
+			<button type="button" id="volume-up" title="Volume up">
+				<i class="fa fa-volume-up fa-2x"></i>
+			</button>
+			<button type="button" id="speed-slower" title="Slower speed" class="space-above">
+				<i class="fa fa-backward fa-2x"></i>
+			</button>
+			<button type="button" id="speed-faster" title="Faster speed">
+				<i class="fa fa-forward fa-2x"></i>
+			</button>
+			<button type="button" id="skip-backward" title="Skip 5 seconds backward" class="space-above">
+				<i class="fa fa-step-backward fa-2x"></i>
+			</button>
+			<button type="button" id="play" title="Play">
+				<i class="fa fa-play fa-2x"></i>
+			</button>
+			<button type="button" id="skip-forward" title="Skip 5 seconds forward">
+				<i class="fa fa-step-forward fa-2x"></i>
+			</button>
+		</div>
 		<video id="video-target" controls="controls" autoplay="autoplay"></video>
 		<div id="annotation-controls">
 			<button type="button" id="mark-start" style="width:28%" title="This is after any opening title sequences, credits or company logos">

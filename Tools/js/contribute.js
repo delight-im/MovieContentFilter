@@ -152,6 +152,34 @@ annotationControls.finish.click(function () {
 	hasUnsavedChanges = false;
 });
 
+$("#volume-down").click(function () {
+	player.decreaseVolume();
+});
+
+$("#volume-up").click(function () {
+	player.increaseVolume();
+});
+
+$("#speed-slower").click(function () {
+	player.decreaseSpeed(0.25);
+});
+
+$("#speed-faster").click(function () {
+	player.increaseSpeed(0.25);
+});
+
+$("#skip-backward").click(function () {
+	player.seek(-5);
+});
+
+$("#skip-forward").click(function () {
+	player.seek(5);
+});
+
+$("#play").click(function () {
+	player.togglePlaying();
+});
+
 window.addEventListener("beforeunload", function (e) {
 	if (hasUnsavedChanges) {
 		var confirmationMessage = "Are you sure you want to leave without exporting your changes?";
