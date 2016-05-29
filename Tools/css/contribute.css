@@ -41,11 +41,14 @@ body.contribute #screen-annotate #playback-controls {
 body.contribute #screen-annotate #playback-controls button {
 	display: block;
 	width: 100%;
-	height: 48px;
+	min-height: 36px;
 	margin: 0;
 }
-body.contribute #screen-annotate #playback-controls button.space-above {
-	margin-top: 16px;
+body.contribute #screen-annotate #playback-controls button:nth-child(-n+4) {
+	height: 10%;
+}
+body.contribute #screen-annotate #playback-controls button:nth-child(n+5) {
+	height: 20%;
 }
 body.contribute #screen-annotate video {
 	display: block;
