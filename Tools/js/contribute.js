@@ -152,20 +152,46 @@ annotationControls.finish.click(function () {
 	hasUnsavedChanges = false;
 });
 
+function displayVolume(volume) {
+	var volumeStr = Math.round(volume * 100) + "%";
+	$("#volume-indicator").text(volumeStr);
+}
+
+function displaySpeed(speed) {
+	var speedStr = speed.toFixed(2) + "x";
+	$("#speed-indicator").text(speedStr);
+}
+
 $("#volume-down").click(function () {
-	player.decreaseVolume();
+	// update the volume
+	var newVolume = player.decreaseVolume();
+
+	// show the new volume
+	displayVolume(newVolume);
 });
 
 $("#volume-up").click(function () {
-	player.increaseVolume();
+	// update the volume
+	var newVolume = player.increaseVolume();
+
+	// show the new volume
+	displayVolume(newVolume);
 });
 
 $("#speed-slower").click(function () {
-	player.decreaseSpeed(0.25);
+	// update the speed
+	var newSpeed = player.decreaseSpeed(0.25);
+
+	// show the new speed
+	displaySpeed(newSpeed);
 });
 
 $("#speed-faster").click(function () {
-	player.increaseSpeed(0.25);
+	// update the speed
+	var newSpeed = player.increaseSpeed(0.25);
+
+	// show the new speed
+	displaySpeed(newSpeed);
 });
 
 $("#skip-backward").click(function () {
