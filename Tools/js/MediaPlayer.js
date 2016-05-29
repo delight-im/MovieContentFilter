@@ -145,9 +145,14 @@ function MediaPlayer() {
 			throw new MediaPlayer.MissingTargetElementException();
 		}
 
+		// use a default value for the addend if none has been provided
 		addend = addend || 0.5;
 
+		// update the speed
 		this._targetElement.playbackRate += addend;
+
+		// return the new speed
+		return this._targetElement.playbackRate;
 	};
 
 	this.decreaseSpeed = function (subtrahend) {
@@ -155,9 +160,14 @@ function MediaPlayer() {
 			throw new MediaPlayer.MissingTargetElementException();
 		}
 
+		// use a default value for the subtrahend if none has been provided
 		subtrahend = subtrahend || 0.5;
 
+		// update the speed
 		this._targetElement.playbackRate -= subtrahend;
+
+		// return the new speed
+		return this._targetElement.playbackRate;
 	};
 
 	this.increaseVolume = function (addend) {
@@ -165,9 +175,14 @@ function MediaPlayer() {
 			throw new MediaPlayer.MissingTargetElementException();
 		}
 
+		// use a default value for the addend if none has been provided
 		addend = addend || 0.1;
 
-		return this._targetElement.volume = Math.min(this._targetElement.volume + addend, 1);
+		// update the volume
+		this._targetElement.volume = Math.min(this._targetElement.volume + addend, 1);
+
+		// return the new volume
+		return this._targetElement.volume;
 	};
 
 	this.decreaseVolume = function (subtrahend) {
@@ -175,9 +190,14 @@ function MediaPlayer() {
 			throw new MediaPlayer.MissingTargetElementException();
 		}
 
+		// use a default value for the subtrahend if none has been provided
 		subtrahend = subtrahend || 0.1;
 
-		return this._targetElement.volume = Math.max(this._targetElement.volume - subtrahend, 0);
+		// update the volume
+		this._targetElement.volume = Math.max(this._targetElement.volume - subtrahend, 0);
+
+		// return the new volume
+		return this._targetElement.volume;
 	};
 
 	this.getElapsedTime = function () {
