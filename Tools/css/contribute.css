@@ -36,7 +36,18 @@ body.contribute #screen-annotate #playback-controls {
 	width: 72px;
 	height: 100%;
 	margin-left: -72px;
+	padding-bottom: 48px;
 	float: left;
+}
+body.contribute #screen-annotate #playback-controls span.indicator {
+	display: inline-block;
+	width: 100%;
+	height: 24px;
+	margin: 0;
+	line-height: 24px;
+	text-align: center;
+	vertical-align: middle;
+	color: #fff;
 }
 body.contribute #screen-annotate #playback-controls button {
 	display: block;
@@ -44,10 +55,10 @@ body.contribute #screen-annotate #playback-controls button {
 	min-height: 36px;
 	margin: 0;
 }
-body.contribute #screen-annotate #playback-controls button:nth-child(-n+4) {
+body.contribute #screen-annotate #playback-controls button:nth-child(-n+6) {
 	height: 10%;
 }
-body.contribute #screen-annotate #playback-controls button:nth-child(n+5) {
+body.contribute #screen-annotate #playback-controls button:nth-child(n+7) {
 	height: 20%;
 }
 body.contribute #screen-annotate video {
