@@ -25,7 +25,7 @@ player.setTargetElement(document.getElementById("video-target"));
 
 sourceElement.change(function () {
 	try {
-		player.play(this.files[0]);
+		player.load(this.files[0]);
 
 		$("#screen-intro").css("display", "none");
 		$("#screen-annotate").css("display", "");
