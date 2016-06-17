@@ -35,5 +35,6 @@ Convert your `.mcf` files to XSPF, M3U or EDL files and apply synchronization
  * [JS-MediaPlayer](https://github.com/delight-im/JS-MediaPlayer) — [delight.im](https://github.com/delight-im) — [Apache License 2.0](https://github.com/delight-im/JS-MediaPlayer/blob/master/LICENSE)
  * [FileSaver.js](https://github.com/eligrey/FileSaver.js) — [Eli Grey](https://github.com/eligrey) — [MIT License](https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md)
  * [Font Awesome](http://fontawesome.io/) — [Dave Gandy](https://twitter.com/davegandy) — [SIL OFL 1.1](http://scripts.sil.org/OFL) and [MIT License](http://opensource.org/licenses/mit-license.html)
+ * [JS-AbstractStorage](https://github.com/delight-im/JS-AbstractStorage) — [delight.im](https://github.com/delight-im) — [Apache License 2.0](https://github.com/delight-im/JS-AbstractStorage/blob/master/LICENSE)
  * [normalize.css](https://github.com/necolas/normalize.css) — [Nicolas Gallagher](https://github.com/necolas) and [Jonathan Neal](https://github.com/jonathantneal) — [MIT License](https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
  * [jQuery](http://jquery.com/) — [jQuery Foundation](https://jquery.org/) — [MIT License](https://github.com/jquery/jquery/blob/master/LICENSE.txt)
