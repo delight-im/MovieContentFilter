@@ -62,7 +62,8 @@ var annotationControls = {
 	endCut: $("#end-cut"),
 	cancelCut: $("#cancel-cut"),
 	markEnd: $("#mark-end"),
-	finish: $("#finish")
+	finish: $("#finish"),
+	share: $("#share")
 };
 
 annotationControls.markStart.click(function () {
@@ -150,6 +151,20 @@ annotationControls.finish.click(function () {
 
 	// remember that the user doesn't have any unsaved changes anymore
 	hasUnsavedChanges = false;
+});
+annotationControls.share.click(function () {
+	var lines = [];
+
+	lines.push("Do you want to share your filter and make it available to the public for everyone to benefit?");
+	lines.push("1. Compose a new email");
+	lines.push("2. Attach your filter file (.mcf)");
+	lines.push("3. Include the title of the movie or TV show in the subject line");
+	lines.push("4. Optionally, if you want to receive public attribution, please include your name in the message text");
+	lines.push("5. Send the email to: contribute[𝗮𝘁]moviecontentfilter[𝗱𝗼𝘁]com");
+	lines.push("Thank you!");
+	lines.push("");
+
+	alert(lines.join("\n\n"));
 });
 
 function displayVolume(volume) {
