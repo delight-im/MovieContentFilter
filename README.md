@@ -30,11 +30,11 @@ Film makers should *not* censor *anything*. They should release the film in the 
     * The content of the filter files follows the [specification](Specification/README.md) maintained in this repository.
  2. *You* decide what you want to filter out and what you want to see.
     * You can adjust the filtering by choosing from various categories and severity levels.
-    * Use your media player's UI, plugins or our ["transpiler"](https://delight-im.github.io/MovieContentFilter/Tools/) to apply your selections.
+    * Use your media player's UI, plugins or our ["transpiler"](http://www.moviecontentfilter.com/Tools/) to apply your selections.
 
 ## Compatibility and support in media players
 
-Until better support in popular media players is available, [tools for conversion](https://delight-im.github.io/MovieContentFilter/Tools/) are provided. The tools and the converted formats together support most of the features that `.mcf` files offer.
+Until better support in popular media players is available, [tools for conversion](http://www.moviecontentfilter.com/Tools/) are provided. The tools and the converted formats together support most of the features that `.mcf` files offer.
 
 Currently, conversion to the following formats is available:
 
