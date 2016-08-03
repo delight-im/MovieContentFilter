@@ -134,10 +134,10 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 			lines.push("\t\t\t\t<vlc:option>stop-time="+selectedCues[i].endTime.toFixed(3)+"</vlc:option>");
 
 			if (selectedCues[i].category !== null && selectedCues[i].severity !== null) {
-				if (selectedCues[i].channel === "video" || selectedCues[i].channel === null) {
+				if (selectedCues[i].channel === "video" || selectedCues[i].channel === "both" || selectedCues[i].channel === null) {
 					lines.push("\t\t\t\t<vlc:option>no-video</vlc:option>");
 				}
-				if (selectedCues[i].channel === "audio" || selectedCues[i].channel === null) {
+				if (selectedCues[i].channel === "audio" || selectedCues[i].channel === "both" || selectedCues[i].channel === null) {
 					lines.push("\t\t\t\t<vlc:option>no-audio</vlc:option>");
 				}
 			}
