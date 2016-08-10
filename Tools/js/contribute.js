@@ -195,6 +195,32 @@ function displaySpeed(speed) {
 	$("#speed-indicator").text(speedStr);
 }
 
+function displayProgress(progressInSeconds) {
+	var progressStr = formatSeconds(progressInSeconds);
+	$("#progress-indicator").text(progressStr);
+}
+
+function formatSeconds(secondsFloat) {
+	// calculate the hours portion
+	var hours = Math.floor(secondsFloat / 3600);
+	hours = Math.min(hours, 99);
+
+	// consume the hours
+	secondsFloat = secondsFloat % 3600;
+
+	// calculate the minutes portion
+	var minutes = Math.floor(secondsFloat / 60);
+
+	// consume the minutes
+	secondsFloat = secondsFloat % 60;
+
+	// calculate the seconds portion
+	var seconds = Math.floor(secondsFloat);
+
+	// return the formatted composite string
+	return (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
 $("#volume-down").click(function () {
 	// update the volume
 	var newVolume = player.decreaseVolume();
@@ -238,6 +264,10 @@ $("#skip-forward").click(function () {
 $("#play").click(function () {
 	player.togglePlaying();
 });
+
+setInterval(function () {
+	displayProgress(player.getElapsedTime());
+}, 1500);
 
 window.addEventListener("beforeunload", function (e) {
 	if (hasUnsavedChanges) {

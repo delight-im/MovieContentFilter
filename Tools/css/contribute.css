@@ -32,7 +32,7 @@ body.contribute #screen-annotate #playback-controls {
 	margin-left: -72px;
 
 	/* sum of heights of `.indicator` */
-	padding-bottom: 48px;
+	padding-bottom: 72px;
 
 	float: left;
 }
@@ -51,6 +51,9 @@ body.contribute #screen-annotate #playback-controls span.indicator {
 	text-align: center;
 	vertical-align: middle;
 	color: #fff;
+}
+body.contribute #screen-annotate #playback-controls #progress-indicator {
+	font-size: 90%;
 }
 body.contribute #screen-annotate #playback-controls button {
 	display: block;
