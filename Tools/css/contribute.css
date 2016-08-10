@@ -58,14 +58,16 @@ body.contribute #screen-annotate #playback-controls #progress-indicator {
 body.contribute #screen-annotate #playback-controls button {
 	display: block;
 	width: 100%;
+
+	/* height of `#playback-controls` distributed evenly among these buttons (treating buttons with twice the height as two buttons) */
+	height: 12.5%;
+
 	min-height: 36px;
 	margin: 0;
 }
-body.contribute #screen-annotate #playback-controls button:nth-child(-n+6) {
-	height: 10%;
-}
-body.contribute #screen-annotate #playback-controls button:nth-child(n+7) {
-	height: 20%;
+body.contribute #screen-annotate #playback-controls #play {
+	/* twice the normal height of these buttons */
+	height: 25%;
 }
 body.contribute #screen-annotate video {
 	display: block;
