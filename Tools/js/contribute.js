@@ -108,13 +108,18 @@ annotationControls.endCut.click(function () {
 		}
 	}
 
-	player.resume();
+	if (window.confirm("Add another cut for the same time range?")) {
+		annotationControls.endCut.trigger("click");
+	}
+	else {
+		player.resume();
 
-	annotationControls.endCut.css("display", "none");
-	annotationControls.cancelCut.css("display", "none");
-	annotationControls.startCut.css("display", "inline-block");
+		annotationControls.endCut.css("display", "none");
+		annotationControls.cancelCut.css("display", "none");
+		annotationControls.startCut.css("display", "inline-block");
 
-	lastCutStart = null;
+		lastCutStart = null;
+	}
 });
 annotationControls.cancelCut.click(function () {
 	lastCutStart = null;
