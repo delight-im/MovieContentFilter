@@ -92,15 +92,19 @@ function MovieContentFilter(version, fileStartTime, fileEndTime) {
 		lines.push("NOTE");
 		lines.push("START "+MovieContentFilter.secondsToCueTiming(fileStartTime));
 		lines.push("END "+MovieContentFilter.secondsToCueTiming(fileEndTime));
-		lines.push("");
 
 		for (var i = 0; i < cues.length; i++) {
 			if (cues[i].category !== null && cues[i].severity !== null) {
-				lines.push(MovieContentFilter.secondsToCueTiming(cues[i].startTime)+" --> "+MovieContentFilter.secondsToCueTiming(cues[i].endTime));
+				if (i === 0 || cues[i].startTime !== cues[i - 1].startTime || cues[i].endTime !== cues[i - 1].endTime) {
+					lines.push("");
+					lines.push(MovieContentFilter.secondsToCueTiming(cues[i].startTime)+" --> "+MovieContentFilter.secondsToCueTiming(cues[i].endTime));
+				}
+
 				lines.push(cues[i].category+"="+cues[i].severity+"="+cues[i].channel);
-				lines.push("");
 			}
 		}
+
+		lines.push("");
 
 		return lines.join("\n");
 	};
