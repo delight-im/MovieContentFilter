@@ -112,13 +112,17 @@ annotationControls.endCut.click(function () {
 		annotationControls.endCut.trigger("click");
 	}
 	else {
-		player.resume();
-
 		annotationControls.endCut.css("display", "none");
 		annotationControls.cancelCut.css("display", "none");
 		annotationControls.startCut.css("display", "inline-block");
 
 		lastCutStart = null;
+
+		if (window.confirm("Start a contiguous cut immediately?")) {
+			annotationControls.startCut.trigger("click");
+		}
+
+		player.resume();
 	}
 });
 annotationControls.cancelCut.click(function () {
