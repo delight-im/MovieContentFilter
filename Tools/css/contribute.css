@@ -19,22 +19,35 @@ body.contribute button#video-source {
 	left: 25%;
 }
 body.contribute #screen-annotate {
+	/* width of `#playback-controls` */
 	padding-left: 72px;
+	/* height of `#annotation-controls` */
 	padding-bottom: 48px;
 }
 body.contribute #screen-annotate #playback-controls {
 	width: 72px;
 	height: 100%;
+
+	/* negative width of this element */
 	margin-left: -72px;
+
+	/* sum of heights of `.indicator` */
 	padding-bottom: 48px;
+
 	float: left;
 }
 body.contribute #screen-annotate #playback-controls span.indicator {
 	display: inline-block;
 	width: 100%;
+
+	/* space for these elements' heights is reserved in `#playback-controls` by adding the sum of these heights as padding there */
 	height: 24px;
+
 	margin: 0;
+
+	/* same as height */
 	line-height: 24px;
+
 	text-align: center;
 	vertical-align: middle;
 	color: #fff;
@@ -64,6 +77,8 @@ body.contribute #screen-annotate::after {
 }
 body.contribute #screen-annotate #annotation-controls {
 	height: 48px;
+
+	/* negative height of this element */
 	margin-bottom: -48px;
 }
 body.contribute #screen-annotate #annotation-controls button {
