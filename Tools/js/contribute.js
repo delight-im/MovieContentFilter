@@ -6,6 +6,17 @@
 
 "use strict";
 
+if (typeof MovieContentFilter === "undefined") {
+	MovieContentFilter = {};
+}
+
+if (typeof MovieContentFilter.Contribute !== "object") {
+	MovieContentFilter.Contribute = {};
+}
+
+MovieContentFilter.Contribute.REACTION_TIME = 0.3;
+MovieContentFilter.Contribute.SAFETY_MARGIN = 0.2;
+
 var sourceElement = $("#video-source-hidden");
 
 var filter = new MovieContentFilter();
@@ -100,7 +111,13 @@ annotationControls.endCut.click(function () {
 
 			// if input has been submitted
 			if (channel !== null) {
-				filter.addCue(lastCutStart, player.getElapsedTime(), category, severity, channel);
+				filter.addCue(
+					lastCutStart - MovieContentFilter.Contribute.REACTION_TIME - MovieContentFilter.Contribute.SAFETY_MARGIN,
+					player.getElapsedTime() - MovieContentFilter.Contribute.REACTION_TIME + MovieContentFilter.Contribute.SAFETY_MARGIN,
+					category,
+					severity,
+					channel
+				);
 
 				// remember that the user has unsaved changes now
 				hasUnsavedChanges = true;
@@ -119,6 +136,8 @@ annotationControls.endCut.click(function () {
 		lastCutStart = null;
 
 		if (window.confirm("Start a contiguous cut immediately?")) {
+			player.seek(2 * MovieContentFilter.Contribute.SAFETY_MARGIN);
+
 			annotationControls.startCut.trigger("click");
 		}
 
