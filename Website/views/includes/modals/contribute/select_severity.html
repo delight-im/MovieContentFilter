@@ -1,0 +1,33 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+<div class="modal fade" id="modal-select-severity" tabindex="-1" role="dialog" aria-labelledby="modal-select-severity-title">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="modal-select-severity-title">New annotation &rsaquo; Step 3 of 4</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="input-select-severity">Choose a severity level</label>
+						<select class="form-control" id="input-select-severity">
+							<option value="">-- Please choose --</option>
+							{% for severity in severities %}
+							<option value="{{ severity.id }}">{{ severity.label }}</option>
+							{% endfor %}
+						</select>
+						<p class="help-block">What is the severity of this occurrence? Please try to make your judgement in relation to other occurrences both in the same work and in media generally.</p>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="onSeveritySelected($('#input-select-severity'));">Continue</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,93 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_header.html') }}
+		<link href="{{ app.url('/css/font-awesome.min.css?v=4.6.3') }}" rel="stylesheet">
+		<link href="{{ app.url('/css/contribute.css?v=1') }}" rel="stylesheet">
+	</head>
+	<body class="contribute">
+		<div class="screen" id="screen-intro">
+			<h1 class="text-light-gray text-center">
+				<a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">
+					"{{ title }}"
+					<small>({{ year }})</small>
+				</a>
+			</h1>
+			<p class="text-dark-gray text-center">
+				Do you have a legal copy of <a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">"{{ title }}"</a> on your device's storage?
+				<br>
+				Start annotating it with filterable categories now, locally, which will help
+				<br>
+				you and other movie fans remove unwanted scenes from your respective versions in seconds.
+			</p>
+			<p class="text-dark-gray text-center">
+				Always use the official release of a movie or TV show to create the filter.
+				<br>
+				If available, use the uncut or uncensored version of the source.
+				<br>
+				Hiding unwanted scenes is what can later be done by every viewer individually.
+			</p>
+			<button type="button" class="btn btn-large btn-center" id="video-source"><strong>Open video</strong> from local file</button>
+			<input type="file" accept="video/*" class="hidden" id="video-source-hidden" />
+		</div>
+		<div id="screen-annotate" class="screen" style="display:none;">
+			<div id="playback-controls">
+				<button type="button" id="volume-down" title="Volume down">
+					<i class="fa fa-volume-down fa-2x"></i>
+				</button>
+				<span class="indicator" id="volume-indicator">100%</span>
+				<button type="button" id="volume-up" title="Volume up">
+					<i class="fa fa-volume-up fa-2x"></i>
+				</button>
+				<button type="button" id="speed-slower" title="Slower speed">
+					<i class="fa fa-backward fa-2x"></i>
+				</button>
+				<span class="indicator" id="speed-indicator">1.00x</span>
+				<button type="button" id="speed-faster" title="Faster speed">
+					<i class="fa fa-forward fa-2x"></i>
+				</button>
+				<button type="button" id="skip-backward" title="Skip 5 seconds backward">
+					<i class="fa fa-step-backward fa-2x"></i>
+				</button>
+				<span class="indicator" id="progress-indicator">00:00:00</span>
+				<button type="button" id="skip-forward" title="Skip 5 seconds forward">
+					<i class="fa fa-step-forward fa-2x"></i>
+				</button>
+				<button type="button" id="play" title="Play or pause">
+					<i class="fa fa-play fa-2x"></i>
+				</button>
+			</div>
+			<video id="video-target" autoplay="autoplay"></video>
+			<div id="annotation-controls">
+				<button type="button" id="mark-start" style="width:25%" title="This is after any opening title sequences, credits or company logos">
+					Set start marker
+				</button>
+				<button type="button" id="start-cut" style="width:25%" disabled="disabled">
+					Begin cut
+				</button>
+				<button type="button" id="end-cut" style="width:12.5%; display:none;">
+					End cut
+				</button>
+				<button type="button" id="cancel-cut" style="width:12.5%; display:none;">
+					Cancel cut
+				</button>
+				<button type="button" id="mark-end" style="width:25%" disabled="disabled" title="This is before any closing credits or company logos">
+					Set end marker
+				</button>
+				<button type="button" id="finish" style="width:25%" disabled="disabled" title="Save and publish the filter">
+					Save
+				</button>
+			</div>
+		</div>
+		{{ include('includes/modals/contribute/select_topic.html') }}
+		{{ include('includes/modals/contribute/select_category.html') }}
+		{{ include('includes/modals/contribute/select_severity.html') }}
+		{{ include('includes/modals/contribute/select_channel.html') }}
+		{{ include('includes/modals/contribute/select_next_action.html') }}
+		{{ include('includes/scripts.html') }}
+		<script src="{{ app.url('/js/MediaPlayer.min.js?v=2.0.0') }}"></script>
+		<script src="{{ app.url('/js/contribute.js?v=1') }}"></script>
+	</body>
+</html>

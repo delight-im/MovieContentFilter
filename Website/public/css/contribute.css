@@ -1,0 +1,180 @@
+/*!
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+ */
+
+* {
+	box-sizing: border-box;
+}
+html,
+body,
+.screen {
+	width: 100%;
+	height: 100%;
+	min-width: 100%;
+	min-height: 100%;
+}
+body {
+	background-color: #007272;
+}
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+	color: inherit;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+.text-light-gray {
+	color: #eee;
+}
+.text-light-gray a {
+	color: #fff;
+	font-weight: bold;
+}
+.text-dark-gray {
+	color: #bbb;
+}
+.text-dark-gray a {
+	color: #ccc;
+	font-weight: bold;
+}
+.text-center {
+	text-align: center;
+}
+a.btn,
+button.btn {
+	display: inline-block;
+	text-align: center;
+}
+a.btn-large,
+button.btn-large {
+	height: 64px;
+}
+a.btn-center,
+button.btn-center {
+	display: block;
+	width: 50%;
+}
+.screen {
+	min-width: 100%;
+	min-height: 100%;
+}
+.screen h1,
+#screen-intro p {
+	position: absolute;
+	left: 0;
+	display: block;
+	width: 100%;
+}
+.screen h1 {
+	top: 10%;
+	font-size: 28px;
+}
+.screen h1 small {
+	font-size: inherit;
+	color: inherit;
+}
+#screen-intro p {
+	font-size: 120%;
+	line-height: 1.25;
+	margin: 0;
+}
+#screen-intro p:nth-child(2) {
+	top: 25%;
+}
+#screen-intro p:nth-child(3) {
+	top: 50%;
+}
+body.contribute button#video-source {
+	position: absolute;
+	top: 75%;
+	left: 25%;
+}
+.hidden {
+	display: none;
+}
+body.contribute #screen-annotate {
+	/* width of `#playback-controls` */
+	padding-left: 72px;
+	/* height of `#annotation-controls` */
+	padding-bottom: 48px;
+}
+body.contribute #screen-annotate #playback-controls {
+	width: 72px;
+	height: 100%;
+
+	/* negative width of this element */
+	margin-left: -72px;
+
+	/* sum of heights of `.indicator` */
+	padding-bottom: 72px;
+
+	float: left;
+}
+body.contribute #screen-annotate #playback-controls span.indicator {
+	display: inline-block;
+	width: 100%;
+
+	/* space for these elements' heights is reserved in `#playback-controls` by adding the sum of these heights as padding there */
+	height: 24px;
+
+	margin: 0;
+
+	/* same as height */
+	line-height: 24px;
+
+	text-align: center;
+	vertical-align: middle;
+	color: #fff;
+}
+body.contribute #screen-annotate #playback-controls #progress-indicator {
+	font-size: 90%;
+}
+body.contribute #screen-annotate #playback-controls button {
+	display: block;
+	width: 100%;
+
+	/* height of `#playback-controls` distributed evenly among these buttons (treating buttons with twice the height as two buttons) */
+	height: 12.5%;
+
+	margin: 0;
+	overflow: hidden;
+}
+body.contribute #screen-annotate #playback-controls #play {
+	/* twice the normal height of these buttons */
+	height: 25%;
+}
+body.contribute #screen-annotate video {
+	display: block;
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+body.contribute #screen-annotate::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+body.contribute #screen-annotate #annotation-controls {
+	height: 48px;
+
+	/* negative height of this element */
+	margin-bottom: -48px;
+}
+body.contribute #screen-annotate #annotation-controls button {
+	display: block;
+	height: 100%;
+	margin: 0;
+	float: left;
+}
+body.contribute #screen-annotate #annotation-controls::after {
+	content: "";
+	display: block;
+	clear: both;
+}

@@ -1,0 +1,156 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li><a href="{{ app.url('/browse') }}">Browse</a></li>
+	{% if type == 'movie' %}
+		<li><a href="{{ app.url('/browse/movies') }}">Movies</a></li>
+	{% else %}
+		<li><a href="{{ app.url('/browse/series') }}">TV series</a></li>
+	{% endif %}
+	{% if series %}
+		{% if series.parent_id and series.parent_title %}
+			<li><a href="{{ app.url('/view/' ~ app.ids().encode(series.parent_id)) }}">{{ series.parent_title }}</a></li>
+		{% endif %}
+		<li><a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">Season {{ series.season }}</a></li>
+		<li><a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">Episode {{ series.episode_in_season }}</a></li>
+	{% else %}
+		<li><a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">{{ title }}</a></li>
+	{% endif %}
+	<li class="active">Download</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1 class="text-center">Download</h1>
+				<h3 class="text-center text-muted">{{ title }} <small>({{ year }})</small></h3>
+			</div>
+			<div class="alert alert-info text-center" role="alert">
+				<p>As the final step before watching, you can download a <em>personalized</em> filter below.</p>
+				<p>Filters are available for the two popular video players "VLC media player" and "MPlayer".</p>
+				<p>You must own an officially released copy of a film to apply a filter. Support filmmakers by purchasing movies and TV series legally.</p>
+			</div>
+			<form class="form-horizontal" action="" method="post">
+				<div class="form-group">
+					<label for="synchronization-start-time" class="col-sm-2 control-label">Start time</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="synchronization-start-time" name="synchronization-start-time" required pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]\.[0-9]{3}" placeholder="e.g. {% if canonical_start_time %}{{ canonical_start_time }}{% else %}00:00:14.500{% endif %}">
+						<p class="help-block">
+							When does your <em>actual</em> film material start? This is <em>after</em> any opening title sequences, credits or company logos.
+							<br>
+							Format: <code>HH:MM:SS.MMM</code>{% if canonical_start_time %} (e.g. <a href="#" onclick="$('#synchronization-start-time').val(this.firstElementChild.innerHTML); return false;"><code>{{ canonical_start_time }}</code></a>){% endif %}
+							<br>
+							<a target="_blank" href="#why-synchronization">Read why this is required.</a>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="synchronization-end-time" class="col-sm-2 control-label">End time</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="synchronization-end-time" name="synchronization-end-time" required pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]\.[0-9]{3}" placeholder="e.g. {% if canonical_end_time %}{{ canonical_end_time }}{% else %}01:29:46.000{% endif %}">
+						<p class="help-block">
+							When does your <em>actual</em> film material end? This is <em>before</em> any closing credits or company logos.
+							<br>
+							Format: <code>HH:MM:SS.MMM</code>{% if canonical_end_time %} (e.g. <a href="#" onclick="$('#synchronization-end-time').val(this.firstElementChild.innerHTML); return false;"><code>{{ canonical_end_time }}</code></a>){% endif %}
+							<br>
+							<a target="_blank" href="#why-synchronization">Read why this is required.</a>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Format</label>
+					<div class="col-sm-10">
+						<div class="radio">
+							<label>
+								<input type="radio" id="format-xspf" name="format" value="xspf" checked onchange="updateFilterPropertiesElements('format', 'video-source-container', 'video-source', 'mode-container');">
+								<strong>XSPF</strong> for <a target="_blank" href="https://www.videolan.org/vlc/">VLC media player</a>
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" id="format-m3u" name="format" value="m3u" onchange="updateFilterPropertiesElements('format', 'video-source-container', 'video-source', 'mode-container');">
+								<strong>M3U</strong> for <a target="_blank" href="https://www.videolan.org/vlc/">VLC media player</a>
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" id="format-edl" name="format" value="edl" onchange="updateFilterPropertiesElements('format', 'video-source-container', 'video-source', 'mode-container');">
+								<strong>EDL</strong> for <a target="_blank" href="https://www.mplayerhq.hu/">MPlayer</a>
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" id="format-mcf" name="format" value="mcf" onchange="updateFilterPropertiesElements('format', 'video-source-container', 'video-source', 'mode-container');">
+								<span class="text-muted"><strong>MCF</strong> (to be supported in the future)</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" id="video-source-container">
+					<label for="video-source" class="col-sm-2 control-label">Video source</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="video-source" name="video-source" placeholder="e.g. file:///Movie.mp4" required>
+						<p class="help-block">
+							<strong>Hard drive:</strong> e.g. <a href="#" onclick="$('#video-source').val(this.firstElementChild.innerHTML); return false;"><code>file:///Movie.mp4</code></a> or <a href="#" onclick="$('#video-source').val(this.firstElementChild.innerHTML); return false;"><code>file:///C:/Users/Jane/Desktop/Movie.mkv</code></a>
+							<br>
+							<strong>DVD:</strong> e.g. <a href="#" onclick="$('#video-source').val(this.firstElementChild.innerHTML); return false;"><code>dvd://e:\\@1</code></a>
+							<br>
+							<strong>Web:</strong> e.g. <a href="#" onclick="$('#video-source').val(this.firstElementChild.innerHTML); return false;"><code>http://www.example.com/Movie.mp4</code></a>
+							<br>
+							<strong>Blu-ray:</strong> e.g. <a href="#" onclick="$('#video-source').val(this.firstElementChild.innerHTML); return false;"><code>bluray:///Movie</code></a>
+						</p>
+					</div>
+				</div>
+				<div class="form-group" id="mode-container">
+					<label class="col-sm-2 control-label">Mode</label>
+					<div class="col-sm-10">
+						<div class="radio">
+							<label>
+								<input type="radio" id="mode-watch" name="mode" value="watch" checked>
+								<strong>Watch</strong> the {{ type }} with the filtered parts removed
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" id="mode-preview" name="mode" value="preview">
+								<strong>Preview</strong> the parts that will be filtered
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-success">Download filter</button>
+					</div>
+				</div>
+			</form>
+			<div class="page-header"><h2 class="text-center">What's next?</h2></div>
+			<ol>
+				<li>Please store the downloaded file on your hard drive. It's just a tiny file that will control the playback of your actual film material.</li>
+				<li>Open the downloaded filter with the designated video player software and enjoy your movie.</li>
+				<li>Happy watching!</li>
+			</ol>
+			<div class="page-header"><h2 class="text-center">Verification and safety</h2></div>
+			<ul>
+				<li>The filters provided here are not necessarily complete or accurate.</li>
+				<li>If possible, always verify filters before relying on them. Watch with filters enabled and see what gets hidden or muted.</li>
+				<li>Some movies or TV series may already meet your preferences and be safe to view as they are.</li>
+				<li>You may <a href="{{ app.url('/preferences') }}">adjust your preferences</a> in order to increase or reduce the set of included filters.</li>
+				<li>Active collaboration is the best way to ensure that filters are of high quality.</li>
+			</ul>
+			<div class="page-header"><h2 class="text-center" id="why-synchronization">Why is synchronization required?</h2></div>
+			<ul>
+				<li>The start and end time of <em>your</em> copy is required in order to synchronize the available filters with your film material.</li>
+				<li>Movies and TV series are distributed in many different versions, some shorter or longer, and some even slower or faster than others.</li>
+				<li>For example, one version of your favorite movie may be 1.05&times; the speed of another version.</li>
+				<li>These differences may appear to be small, but this is the precision that precise filters need to work correctly.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}

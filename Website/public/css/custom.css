@@ -1,0 +1,41 @@
+/*!
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+ */
+
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+.breadcrumb > li + li:before {
+	color: #888;
+	content: "\203a\00a0";
+}
+.im-delight-moviecontentfilter-use-cases {
+	margin-top: 16px;
+}
+div.page-header {
+	margin-top: 28px;
+}
+.breadcrumb {
+	margin-bottom: 0;
+}
+div.btn-group {
+	margin-top: 8px;
+	margin-bottom: 16px;
+}
+div.jumbotron .btn {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+select.im-delight-moviecontentfilter-severity-1, select.im-delight-moviecontentfilter-severity-1 option {
+	background-color: #ff6680;
+	color: #fff;
+}
+select.im-delight-moviecontentfilter-severity-2, select.im-delight-moviecontentfilter-severity-2 option {
+	background-color: #ffb380;
+}
+select.im-delight-moviecontentfilter-severity-3, select.im-delight-moviecontentfilter-severity-3 option {
+	background-color: #ffff80;
+}

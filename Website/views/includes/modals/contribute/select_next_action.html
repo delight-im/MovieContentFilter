@@ -1,0 +1,44 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+<div class="modal fade" id="modal-select-next-action" tabindex="-1" role="dialog" aria-labelledby="modal-select-next-action-title">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="modal-select-next-action-title">New annotation &rsaquo; Done</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label>What's next?</label>
+						<div class="radio">
+							<label>
+								<input type="radio" name="next-action" class="im-delight-moviecontentfilter-next-action" value="proceed" checked>
+								Proceed and resume player
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="next-action" class="im-delight-moviecontentfilter-next-action" value="repeat">
+								Add another annotation for the same time range
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="next-action" class="im-delight-moviecontentfilter-next-action" value="contiguous">
+								Start a contiguous annotation immediately
+							</label>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="onNextActionSelected($('.im-delight-moviecontentfilter-next-action'));">OK</button>
+			</div>
+		</div>
+	</div>
+</div>

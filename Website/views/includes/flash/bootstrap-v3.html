@@ -1,0 +1,15 @@
+{#
+ * PHP-Foundation-Core (https://github.com/delight-im/PHP-Foundation-Core)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+#}
+{% if app.flash().hasAny() %}
+	{% for type,message in app.flash().getAll() %}
+		<div class="alert alert-{{ type }} alert-dismissible text-center" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			{{ message }}
+		</div>
+	{% endfor %}
+{% endif %}

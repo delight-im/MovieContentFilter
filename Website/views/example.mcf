@@ -1,0 +1,24 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+WEBVTT MovieContentFilter 1.0.0
+
+NOTE
+START 00:00:04.020
+END 01:24:00.100
+
+00:00:06.075 --> 00:00:10.500
+violence=high
+
+00:06:14.000 --> 00:06:17.581
+gambling=medium # Some comment
+drugs=high=video
+
+00:58:59.118 --> 01:00:03.240
+sex=low=both # Another comment
+
+01:02:31.020 --> 01:02:49.800
+fear=low
+language=high=audio

@@ -1,0 +1,40 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li class="active">Browse</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="page-header"><h1 class="text-center">Browse collection</h1></div>
+		<div class="col-md-6 text-center">
+			<p><a class="btn btn-primary btn-lg" href="{{ app.url('/browse/movies') }}">Movies</a></p>
+			{% if examples.movies %}
+				<p>
+					{% for movie in examples.movies %}{% if not loop.first %}, {% endif %}{{ movie.title }} <span class="text-muted">({{ movie.year }})</span>{% endfor %}
+					and more &#8230;
+				</p>
+			{% endif %}
+		</div>
+		<div class="col-md-6 text-center">
+			<p><a class="btn btn-primary btn-lg" href="{{ app.url('/browse/series') }}">TV series</a></p>
+			{% if examples.series %}
+				<p>
+					{% for movie in examples.series %}{% if not loop.first %}, {% endif %}{{ movie.title }} <span class="text-muted">({{ movie.year }})</span>{% endfor %}
+					and more &#8230;
+				</p>
+			{% endif %}
+		</div>
+		<div class="col-md-12">
+			<p class="text-center">or</p>
+			<p class="text-center">
+				<a class="btn btn-default" href="{{ app.url('/add') }}">Add a movie or TV series</a>
+			</p>
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}

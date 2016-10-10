@@ -1,0 +1,73 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li class="active">Specification</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header"><h1 class="text-center">Specification<br><small>Version 1.0.0</small></h1></div>
+			<p>The MCF format is a strict subset of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format">W3C WebVTT</a> format ("Draft Community Group Report, 17 February 2016").</p>
+			<p>Files with content in the MCF format are saved with the filename extension <code>.mcf</code> and must be encoded in UTF-8 (without BOM) exclusively.</p>
+			<p>The MIME type for files in the MCF format <em>should be</em> <code>text/mcf+vtt</code> but currently is <code>text/plain</code> for compatibility.</p>
+
+			<h2>MCF format</h2>
+			<ol>
+				<li>The string literals used in this specification are case-sensitive.</li>
+				<li>The WebVTT timestamps must always include hours.</li>
+				<li>The first line must consist of the string <code>WEBVTT</code>, followed by a single <code>U+0020 SPACE</code> character, the subset identifier <code>MovieContentFilter</code>, another single <code>U+0020 SPACE</code> character and the version identifier <code>1.0.0</code>. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The second line must be a blank line ending with a WebVTT line terminator.</li>
+				<li>The third line must be the string <code>NOTE</code>. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The fourth line must be the string <code>START</code>, a single <code>U+0020 SPACE</code> character and a WebVTT timestamp pointing to the exact start of the <em>actual</em> film material, which is <em>after</em> any opening title sequences, credits or company logos. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The fifth line must be the string <code>END</code>, a single <code>U+0020 SPACE</code> character and a WebVTT timestamp pointing to the exact end of the <em>actual</em> film material, which is <em>before</em> any closing credits or company logos. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The sixth line must be a blank line ending with a WebVTT line terminator.</li>
+				<li>WebVTT cue payloads must contain WebVTT cue texts only.</li>
+				<li>WebVTT cue texts must consist of one or more WebVTT cue text spans exclusively.</li>
+				<li>WebVTT cue text spans must consist of a <em>category</em>, a single <code>U+003D EQUALS SIGN</code> character and the <em>severity</em>. Optionally, after another single <code>U+003D EQUALS SIGN</code> character as the divider, a <em>channel</em> may be included. Optionally as well, after the character sequence <code>U+0020 SPACE</code>, <code>U+0023 NUMBER SIGN</code>, <code>U+0020 SPACE</code>, there may be a comment.
+					<ul>
+						<li>The <em>category</em> must be one of the strings from the "Categories" section below. The second-level entries listed in that section represent the valid values for this property.</li>
+						<li>The <em>severity</em> must be one of the strings from the "Severities" section below.</li>
+						<li>The optional <em>channel</em> describes what part of the source material is affected by the current entry. It must be one of the strings from the "Channels" section below.</li>
+						<li>The optional <em>comment</em> may contain arbitrary text. However, if it is present, it must neither be empty nor contain any line breaks or the character sequence <code>U+002D HYPHEN-MINUS</code>, <code>U+002D HYPHEN-MINUS</code>, <code>U+003E GREATER-THAN SIGN</code>.</li>
+					</ul>
+				</li>
+			</ol>
+
+			<h2>Categories</h2>
+			<ul>
+				{% for topic, categories in topics %}
+				<li>{{ topic }}
+					<ul>
+						{% for category in categories %}
+							<li><code>{{ category.name }}</code> &rsaquo; {{ category.label }} {% if category.is_general %} (General){% endif %}</li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>
+
+			<h2>Severities</h2>
+			<ul>
+				{% for severity in severities %}
+					<li><code>{{ severity.name }}</code> &rsaquo; {{ severity.label }}</li>
+				{% endfor %}
+			</ul>
+
+			<h2>Channels</h2>
+			<ul>
+				{% for channel in channels %}
+					<li><code>{{ channel.name }}</code> &rsaquo; {{ channel.label }}{% if channel.is_default %} (Default){% endif %}</li>
+				{% endfor %}
+			</ul>
+
+			<h2>Example</h2>
+			<pre>{{ include('example.mcf') }}</pre>
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}

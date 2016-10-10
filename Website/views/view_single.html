@@ -1,0 +1,52 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li><a href="{{ app.url('/browse') }}">Browse</a></li>
+	{% if type == 'movie' %}
+		<li><a href="{{ app.url('/browse/movies') }}">Movies</a></li>
+	{% else %}
+		<li><a href="{{ app.url('/browse/series') }}">TV series</a></li>
+	{% endif %}
+	{% if series %}
+		{% if series.parent_id and series.parent_title %}
+			<li><a href="{{ app.url('/view/' ~ app.ids().encode(series.parent_id)) }}">{{ series.parent_title }}</a></li>
+		{% endif %}
+		<li class="active">Season {{ series.season }}</li>
+		<li class="active">Episode {{ series.episode_in_season }}</li>
+	{% else %}
+		<li class="active">{{ title }}</li>
+	{% endif %}
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				{% if title %}
+				<h1 class="text-center">
+					{{ title }} <small>({{ year }})</small>
+				</h1>
+				{% endif %}
+				{% if series and series.parent_title and series.season and series.episode_in_season %}
+					<h3 class="text-center text-muted">
+						{{ series.parent_title }}
+						<small>{{ "%02d"|format(series.season) }}.{{ "%02d"|format(series.episode_in_season) }}</small>
+					</h3>
+				{% endif %}
+			</div>
+			<div class="text-center">
+				<div class="btn-group" role="group" aria-label="Options">
+					<a class="btn btn-default" href="{{ app.url('/download/' ~ app.ids().encode(id)) }}">Download filter</a>
+					<a class="btn btn-primary" href="{{ app.url('/contribute/' ~ app.ids().encode(id)) }}">Contribute</a>
+					<a class="btn btn-default" href="http://www.imdb.com/{{ imdbUrl }}/">More information</a>
+				</div>
+			</div>
+			<!-- TODO -->
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}

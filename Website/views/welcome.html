@@ -1,0 +1,53 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<div class="jumbotron">
+	<div class="container">
+		<h1>Movie<span class="text-muted">Content</span>Filter</h1>
+		<p>Watch movies with the freedom <span class="text-muted">(not)</span> to filter</p>
+		<p>
+			<a class="btn btn-primary btn-lg" href="{{ app.url('/browse') }}" role="button">Browse collection &rsaquo;</a>
+			<a class="btn btn-default btn-lg" href="{{ app.url('/sign-up') }}" role="button">Create free account &rsaquo;</a>
+		</p>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Like a good dinner</h2>
+			<p>Movies and TV shows are like a good dinner: Do you really want to miss out on the whole experience just because you don't like the sprouts?</p>
+		</div>
+		<div class="col-md-4">
+			<h2>It's about choice</h2>
+			<p>This project is not about censorship or automated filtering. It's about choice. You decide what is shown and what is not.</p>
+		</div>
+		<div class="col-md-4">
+			<h2>No derivatives</h2>
+			<p>Filter video and audio without having to change the original source material. No derivative videos needed! Thus your filters are legal and safe.</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<h2>Voluntary and simple</h2>
+			<p>There are better solutions than <a target="_blank" href="https://en.wikipedia.org/wiki/Motion_picture_rating_system">complex rating systems</a> forced upon you by government agencies and industry committees.</p>
+		</div>
+		<div class="col-md-4">
+			<h2>No hardware, no costs</h2>
+			<p>Buying special media players and getting proprietary filters really shouldn't be necessary. Everything is free, both as in <em>freedom</em> and in <em>free beer</em>.</p>
+		</div>
+		<div class="col-md-4">
+			<h2>For art lovers</h2>
+			<p>Film makers should <em>not</em> censor <em>anything</em>. They should release the film in the best, most complete and most artistic way possible.</p>
+		</div>
+	</div>
+	<div class="row im-delight-moviecontentfilter-use-cases">
+		<div class="col-md-12">
+			<p class="text-center">Make your favorite movies and TV shows family-friendly. <b>Or</b> adjust your viewing and hearing experiences to respect individual phobias and anxieties. <b>Or</b> prevent your children from having nightmares and be as protective of them as you wish. <b>Or</b> show movies and TV series to people you care about, except for that <em>one</em> scene you can't accept.</p>
+			<p class="text-center">Have full control over every single scene you watch and listen to. Enjoy!</p>
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}

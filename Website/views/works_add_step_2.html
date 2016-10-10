@@ -1,0 +1,107 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li><a href="{{ app.url('/add') }}">Add</a></li>
+	<li class="active">{% if primaryType == 'movie' %}Movie{% else %}TV series{% endif %}</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header"><h1 class="text-center">Add a new {% if primaryType == 'movie' %}movie{% else %}TV series{% endif %}</h1></div>
+			<form class="form-horizontal" action="" method="post">
+				<input type="hidden" name="primary-type" value="{{ primaryType }}">
+				<div class="form-group">
+					{% if primaryType == 'series' %}
+						<label class="col-sm-2 control-label">Level</label>
+						<div class="col-sm-10">
+							<div class="radio">
+								<label>
+									<input type="radio" id="secondary-type-series" name="secondary-type" value="series" required onclick="setSecondaryWorkTypeEpisode(false);">
+									Series
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" id="secondary-type-episode" name="secondary-type" value="episode" required onclick="setSecondaryWorkTypeEpisode(true);">
+									Episode
+								</label>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+				<div class="form-group im-delight-moviecontentfilter-title-container">
+					<label for="title" class="col-sm-2 control-label">Title</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="title" name="title" placeholder="e.g. {% if primaryType == 'movie' %}The Shawshank Redemption{% else %}Breaking Bad{% endif %}" required pattern=".{3,248}">
+						<p class="help-block">Please enter the work's original title from its country of origin. If in doubt, you may search online, e.g. on <a target="_blank" href="http://www.imdb.com" tabindex="-1">IMDb</a>. Do not use any translated titles here, please. Our filters work for every language, so let's keep this collection free from language barriers and borders.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="year" class="col-sm-2 control-label">Year</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="year" name="year" placeholder="e.g. {% if primaryType == 'movie' %}1994{% else %}2008{% endif %}" required pattern="(19|20)[0-9]{2}">
+						<p class="help-block">Do you know the year of first publication? If not, please look it up, e.g. on <a target="_blank" href="http://www.imdb.com" tabindex="-1">IMDb</a>. Thank you! Providing the year helps everybody search the collection faster and find available movies and TV shows more easily.</p>
+					</div>
+				</div>
+				{% if primaryType == 'series' %}
+					{% if seriesParents %}
+						<div class="form-group im-delight-moviecontentfilter-parent-container" style="display:none;">
+							<label for="parent" class="col-sm-2 control-label">Series</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="parent" name="parent">
+									<option value="">-- Please choose --</option>
+									{% for series in seriesParents %}
+										<option value="{{ app.ids().encode(series.id) }}"{% if seriesParentDefault and series.id == seriesParentDefault %} selected="selected"{% endif %}>[{{ series.year }}] {{ series.title }}</option>
+									{% endfor %}
+								</select>
+								<p class="help-block">Which series does this episode belong to?</p>
+							</div>
+						</div>
+					{% endif %}
+					<div class="form-group im-delight-moviecontentfilter-season-container" style="display:none;">
+						<label for="season" class="col-sm-2 control-label">Season</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="season" name="season">
+								<option value="">-- Please choose --</option>
+								{% for i in 1..20 %}
+									<option>{{ i }}</option>
+								{% endfor %}
+							</select>
+							<p class="help-block">Which number does the season have within the series?</p>
+						</div>
+					</div>
+					<div class="form-group im-delight-moviecontentfilter-episode-container" style="display:none;">
+						<label for="episode" class="col-sm-2 control-label">Episode</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="episode" name="episode">
+								<option value="">-- Please choose --</option>
+								{% for i in 1..50 %}
+									<option>{{ i }}</option>
+								{% endfor %}
+							</select>
+							<p class="help-block">Which number does this episode have within the season?</p>
+						</div>
+					</div>
+				{% endif %}
+				<div class="form-group">
+					<label for="imdb-url" class="col-sm-2 control-label">IMDb page</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="imdb-url" name="imdb-url" placeholder="e.g. {% if primaryType == 'movie' %}http://www.imdb.com/title/tt0111161/{% else %}http://www.imdb.com/title/tt0903747/{% endif %}" required pattern="\s*(http(s)?:\/\/)?(www\.)?imdb\.com\/title\/[^\/]+\/.*">
+						<p class="help-block">Please enter the address (URL) of this title's <a target="_blank" href="http://www.imdb.com" tabindex="-1">IMDb</a> page. This will allow other people to look up additional information easily.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-success">Create entry</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}

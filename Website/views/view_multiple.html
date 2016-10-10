@@ -1,0 +1,42 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li><a href="{{ app.url('/browse') }}">Browse</a></li>
+	<li><a href="{{ app.url('/browse/series') }}">TV series</a></li>
+	<li class="active">{{ title }}</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header"><h1 class="text-center">{{ title }} <small>({{ year }})</small></h1></div>
+			<div class="text-center">
+				<div class="btn-group" role="group" aria-label="Options">
+					<a class="btn btn-{% if episodes %}default{% else %}primary{% endif %}" href="{{ app.url('/add?primary-type=series&secondary-type=episode&parent-work-id=' ~ app.ids().encode(id)) }}">Add episode</a>
+					<a class="btn btn-default" href="http://www.imdb.com/{{ imdbUrl }}/">More information</a>
+				</div>
+			</div>
+			{% if episodes %}
+				<div class="list-group">
+				{% for episode in episodes %}
+					<a href="{{ app.url('/view/' ~ app.ids().encode(episode.id)) }}" class="list-group-item">
+						{% if episode.title %}<span class="text-muted">{% endif %}
+							{{ "%02d"|format(episode.season) }}.{{ "%02d"|format(episode.episode_in_season) }}
+						{% if episode.title %}</span>{% endif %}
+						{{ episode.title }}
+						<span class="text-muted pull-right">{{ episode.year }}</span>
+					</a>
+				{% endfor %}
+				</div>
+			{% else %}
+				<p class="text-center">No episodes yet.</p>
+				<p class="text-center">Be the first to add one.</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}

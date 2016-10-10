@@ -1,0 +1,53 @@
+{#
+ * MovieContentFilter (http://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{{ include('includes/page_top.html') }}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li class="active">Sign up</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header"><h1 class="text-center">Sign up for free</h1></div>
+			<form class="form-horizontal" action="" method="post">
+				<div class="form-group">
+					<label for="email" class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" id="email" name="email" placeholder="e.g. jane@example.com" required>
+						<p class="help-block">Please enter your email address here. You will use this to sign in afterwards. Make sure you can receive emails at this address, please.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password-1" class="col-sm-2 control-label">Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" id="password-1" name="password-1" placeholder="8 characters or more" required pattern=".{8,}">
+						<p class="help-block">Please create a unique password just for this service. It must be at least 8 characters long. Feel free to write it down on paper or use a <a target="_blank" href="http://keepass.info/download.html" tabindex="-1">password manager</a>. You shouldn't have to keep it in mind. This is true for all services, not just this one.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password-2" class="col-sm-2 control-label">Repeat password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" id="password-2" name="password-2" placeholder="8 characters or more" required pattern=".{8,}">
+						<p class="help-block">Please repeat your password here, just to prevent any typing errors.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="display-name" class="col-sm-2 control-label">Public name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="display-name" name="display-name" placeholder="e.g. Jane Doe">
+						<p class="help-block">Do you want your real name or some nickname to be displayed publicly? This will be shown along with any content that you contribute. If you're not sure, leave this field empty. You'll be able to change it later on as well.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-success">Sign up</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{{ include('includes/page_bottom.html') }}
