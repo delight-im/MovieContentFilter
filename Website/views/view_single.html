@@ -45,7 +45,37 @@
 					<a class="btn btn-default" href="http://www.imdb.com/{{ imdbUrl }}/">More information</a>
 				</div>
 			</div>
-			<!-- TODO -->
+			<ul class="list-group">
+				{% for topic in topics %}
+					<li class="list-group-item">
+						<h4 class="list-group-item-heading">
+							{{ topic.label }}
+						</h4>
+						<div class="progress list-group-item-text">
+							<div
+								{% if topic.share_weighted < 0.05 %}
+									class="progress-bar progress-bar-success"
+								{% elseif topic.share_weighted < 0.10 %}
+									class="progress-bar progress-bar-info"
+								{% elseif topic.share_weighted < 0.15 %}
+									class="progress-bar"
+								{% elseif topic.share_weighted < 0.20 %}
+									class="progress-bar progress-bar-warning"
+								{% else %}
+									class="progress-bar progress-bar-danger"
+								{% endif %}
+								role="progressbar" aria-valuenow="{{ (topic.share_weighted * 100 * 4) | round }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ (topic.share_weighted * 100 * 4) | round }}%;"
+							>
+								<span
+									title="{{ (topic.share_weighted * 100) | number_format(1, '.', ',') }}% adjusted for severity"
+								>
+									{{ (topic.share * 100) | number_format(1, '.', ',') }}% of running time
+								</span>
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 </div>
