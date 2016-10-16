@@ -114,11 +114,11 @@ INSERT INTO `channels` (`id`, `name`, `label`, `is_default`) VALUES
 (2, 'video', 'Video only', 0),
 (3, 'audio', 'Audio only', 0);
 
-INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`) VALUES
-(1, 'low', 'Low', 1, 1, 'Filter low, medium and high severity', 3),
-(2, 'medium', 'Medium', 1, 1, 'Filter medium and high severity', 2),
-(3, 'high', 'High', 1, 1, 'Filter high severity', 1),
-(4, 'none', 'None', 0, 1, 'Do not filter anything', 0);
+INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`, `coefficient`) VALUES
+(1, 'low', 'Low', 1, 1, 'Filter low, medium and high severity', 3, '0.250'),
+(2, 'medium', 'Medium', 1, 1, 'Filter medium and high severity', 2, '1.000'),
+(3, 'high', 'High', 1, 1, 'Filter high severity', 1, '1.750'),
+(4, 'none', 'None', 0, 1, 'Do not filter anything', 0, '0.000');
 
 INSERT INTO `topics` (`id`, `label`) VALUES
 (1, 'Commercial content'),

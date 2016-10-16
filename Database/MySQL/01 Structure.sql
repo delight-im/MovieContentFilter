@@ -52,7 +52,8 @@ CREATE TABLE `severities` (
   `available_as_annotation` tinyint(1) UNSIGNED NOT NULL,
   `available_as_preference` tinyint(1) UNSIGNED NOT NULL,
   `label_in_preferences` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `inclusiveness` tinyint(3) UNSIGNED NOT NULL
+  `inclusiveness` tinyint(3) UNSIGNED NOT NULL,
+  `coefficient` decimal(4,3) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `topics` (
