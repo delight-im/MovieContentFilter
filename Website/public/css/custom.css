@@ -39,3 +39,15 @@ select.im-delight-moviecontentfilter-severity-2, select.im-delight-moviecontentf
 select.im-delight-moviecontentfilter-severity-3, select.im-delight-moviecontentfilter-severity-3 option {
 	background-color: #ffff80;
 }
+
+/* Always center labels inside progress bars and make sure they're readable, no matter on which background */
+div.progress {
+    position: relative;
+}
+div.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.25);
+}
