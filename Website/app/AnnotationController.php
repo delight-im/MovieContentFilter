@@ -51,6 +51,9 @@ class AnnotationController extends Controller {
 	}
 
 	public function receiveFromEditor(App $app, $id) {
+		// do not lose user input when the connection is dropped by the client
+		ignore_user_abort(true);
+
 		// if the user is logged in
 		if ($app->auth()->check()) {
 			$id = $app->ids()->decode(trim($id));
