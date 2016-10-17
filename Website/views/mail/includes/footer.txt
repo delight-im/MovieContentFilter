@@ -1,0 +1,13 @@
+Enjoy,
+{{ projectName|raw }}
+{{ projectUrl|raw }}
+
+--
+
+{{ reason|raw }}
+
+{% if ipAddress %}This email to <{{ address|raw }}> was initiated by someone on IP address "{{ ipAddress|raw }}".
+
+{% endif %}Please do not reply to this message directly, as we are unable to respond from this email address. Instead, please contact us at <{{ projectEmail|raw }}>.
+
+© {{ projectName|raw }}, {{ projectPostal|raw }}.
