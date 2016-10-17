@@ -3,7 +3,7 @@
  * Copyright (c) delight.im (https://www.delight.im/)
  * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
 #}
-{{ include('includes/page_header.html') }}
+{% include 'includes/page_header.html' %}
 		<link href="{{ app.url('/css/font-awesome.min.css?v=4.6.3') }}" rel="stylesheet">
 		<link href="{{ app.url('/css/contribute.css?v=1') }}" rel="stylesheet">
 	</head>
@@ -81,12 +81,12 @@
 				</button>
 			</div>
 		</div>
-		{{ include('includes/modals/contribute/select_topic.html') }}
-		{{ include('includes/modals/contribute/select_category.html') }}
-		{{ include('includes/modals/contribute/select_severity.html') }}
-		{{ include('includes/modals/contribute/select_channel.html') }}
-		{{ include('includes/modals/contribute/select_next_action.html') }}
-		{{ include('includes/scripts.html') }}
+		{% include 'includes/modals/contribute/select_topic.html' %}
+		{% include 'includes/modals/contribute/select_category.html' %}
+		{% include 'includes/modals/contribute/select_severity.html' %}
+		{% include 'includes/modals/contribute/select_channel.html' %}
+		{% include 'includes/modals/contribute/select_next_action.html' %}
+		{% include 'includes/scripts.html' %}
 		<script src="{{ app.url('/js/MediaPlayer.min.js?v=2.0.0') }}"></script>
 		<script src="{{ app.url('/js/contribute.js?v=1') }}"></script>
 	</body>
