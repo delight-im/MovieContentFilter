@@ -1,0 +1,13 @@
+{% include 'mail/includes/header.txt' %}
+
+Welcome to {{ projectName|raw }}!
+
+Please confirm your email address by opening the link below:
+
+{{ confirmationUrl|raw }}
+
+After confirming your address, you can sign in with this email address and the password that you chose during sign up.
+
+If you have any questions, please feel free to ask us for help.
+
+{% include 'mail/includes/footer.txt' %}
