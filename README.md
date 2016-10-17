@@ -21,6 +21,14 @@ There are some commercial offerings with similar goals. However, these services 
  * [enJoy Movie Filtering](http://www.enjoymoviesyourway.com/)
  * [TVGuardian](http://www.tvguardian.com/)
 
+## Requirements
+
+ * See [delight-im/PHP-Foundation](https://github.com/delight-im/PHP-Foundation#requirements)
+
+## Installation
+
+ * See [delight-im/PHP-Foundation](https://github.com/delight-im/PHP-Foundation#installation)
+
 ## Contributing
 
 All contributions are welcome! If you wish to contribute, please create an issue first so that your feature, problem or question can be discussed.
