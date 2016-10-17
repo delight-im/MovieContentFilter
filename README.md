@@ -2,9 +2,7 @@
 
 Watch movies with the freedom (not) to filter
 
-## Website
-
-[www.moviecontentfilter.com](http://www.moviecontentfilter.com/)
+ * [Go to website](http://www.moviecontentfilter.com/)
 
 ## How it works
 
