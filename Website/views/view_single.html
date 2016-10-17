@@ -41,7 +41,7 @@
 			<div class="text-center">
 				<div class="btn-group" role="group" aria-label="Options">
 					{% if topics %}
-					    <a class="btn btn-default" href="{{ app.url('/download/' ~ app.ids().encode(id)) }}">Download filter</a>
+						<a class="btn btn-default" href="{{ app.url('/download/' ~ app.ids().encode(id)) }}">Download filter</a>
 					{% endif %}
 					<a class="btn btn-primary" href="{{ app.url('/contribute/' ~ app.ids().encode(id)) }}">Contribute</a>
 					<a class="btn btn-default" href="http://www.imdb.com/{{ imdbUrl }}/">More information</a>

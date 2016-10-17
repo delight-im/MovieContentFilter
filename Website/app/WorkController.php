@@ -42,7 +42,7 @@ class WorkController extends Controller {
 			}
 
 			$params['topics'] = $app->db()->select(
-			    'SELECT c.topic_id AS id, SUM(a.end_position - a.start_position) AS share, SUM((a.end_position - a.start_position) * b.coefficient) AS share_weighted, d.label FROM annotations AS a JOIN severities AS b ON a.severity_id = b.id JOIN categories AS c ON a.category_id = c.id JOIN topics AS d ON c.topic_id = d.id WHERE a.work_id = ? GROUP BY c.topic_id ORDER BY d.label ASC',
+				'SELECT c.topic_id AS id, SUM(a.end_position - a.start_position) AS share, SUM((a.end_position - a.start_position) * b.coefficient) AS share_weighted, d.label FROM annotations AS a JOIN severities AS b ON a.severity_id = b.id JOIN categories AS c ON a.category_id = c.id JOIN topics AS d ON c.topic_id = d.id WHERE a.work_id = ? GROUP BY c.topic_id ORDER BY d.label ASC',
 				[ $id ]
 			);
 
