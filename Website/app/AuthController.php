@@ -82,9 +82,29 @@ class AuthController extends Controller {
 			if (!empty($password1) && strlen($password1) >= self::MIN_PASSWORT_LENGTH) {
 				if ($password1 === $password2) {
 					try {
-						$app->auth()->register($email, $password1, $displayName);
+						$app->auth()->register($email, $password1, $displayName, function ($selector, $token) use ($app, $email) {
+							// build the URL for the confirmation link
+							$confirmationUrl = $app->url('/confirm/'.urlencode($selector).'/'.urlencode($token));
 
-						$app->flash()->success('Thanks for signing up! You can now sign in with your email address and password.');
+							// send the link to the user
+							self::sendEmail(
+								$app,
+								'Please confirm your email address',
+								'mail/sign-up.txt',
+								$email,
+
+								// we can't be sure just yet that the supplied name (if any) is acceptable to the owner of the email address
+								null,
+
+								[
+									'ipAddress' => $app->getClientIp(),
+									'reason' => 'You\'re receiving this email because you recently created a free account on our website. If that wasn\'t you, please ignore this email and accept our excuses.',
+									'confirmationUrl' => $confirmationUrl,
+								]
+							);
+						});
+
+						$app->flash()->success('Thanks for signing up! Please check your inbox for a confirmation email soon.');
 						$app->redirect('/');
 					}
 					catch (InvalidEmailException $e) {
@@ -150,7 +170,7 @@ class AuthController extends Controller {
 			$app->redirect('/');
 		}
 		catch (EmailNotVerifiedException $e) {
-			$app->flash()->warning('Please verify your email address before being able to sign in. Thank you!' . "\n" . 'You should have received an email containing an activation link that you should open.');
+			$app->flash()->warning('Please verify your email address before being able to sign in. You should have received an email containing the activation link. Thank you!');
 			$app->redirect('/');
 		}
 		catch (TooManyRequestsException $e) {
