@@ -11,6 +11,8 @@ namespace App;
 use Delight\Auth\EmailNotVerifiedException;
 use Delight\Auth\InvalidEmailException;
 use Delight\Auth\InvalidPasswordException;
+use Delight\Auth\InvalidSelectorTokenPairException;
+use Delight\Auth\TokenExpiredException;
 use Delight\Auth\TooManyRequestsException;
 use Delight\Auth\UserAlreadyExistsException;
 use Delight\Foundation\App;
@@ -171,6 +173,27 @@ class AuthController extends Controller {
 		}
 		catch (EmailNotVerifiedException $e) {
 			$app->flash()->warning('Please verify your email address before being able to sign in. You should have received an email containing the activation link. Thank you!');
+			$app->redirect('/');
+		}
+		catch (TooManyRequestsException $e) {
+			$app->flash()->warning('Please try again later!');
+			$app->redirect('/');
+		}
+	}
+
+	public static function confirmEmail(App $app, $selector, $token) {
+		try {
+			$app->auth()->confirmEmail($selector, $token);
+
+			$app->flash()->success('Your email address has been verified successfully. Thank you!');
+			$app->redirect('/');
+		}
+		catch (InvalidSelectorTokenPairException $e) {
+			$app->flash()->warning('The confirmation link that you followed was invalid. Please try again!');
+			$app->redirect('/');
+		}
+		catch (TokenExpiredException $e) {
+			$app->flash()->warning('Your confirmation link has already expired. Please contact us for help.');
 			$app->redirect('/');
 		}
 		catch (TooManyRequestsException $e) {
