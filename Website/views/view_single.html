@@ -6,7 +6,6 @@
 {% include 'includes/page_top.html' %}
 <ol class="breadcrumb">
 	<li><a href="{{ app.url('/') }}">Home</a></li>
-	<li><a href="{{ app.url('/browse') }}">Browse</a></li>
 	{% if type == 'movie' %}
 		<li><a href="{{ app.url('/browse/movies') }}">Movies</a></li>
 	{% else %}
