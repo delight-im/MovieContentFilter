@@ -13,12 +13,12 @@
 	{% endif %}
 	{% if series %}
 		{% if series.parent_id and series.parent_title %}
-			<li><a href="{{ app.url('/view/' ~ app.ids().encode(series.parent_id)) }}">{{ series.parent_title }}</a></li>
+			<li><a href="{{ app.url('/works/' ~ app.ids().encode(series.parent_id)) }}">{{ series.parent_title }}</a></li>
 		{% endif %}
-		<li><a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">Season {{ series.season }}</a></li>
-		<li><a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">Episode {{ series.episode_in_season }}</a></li>
+		<li><a href="{{ app.url('/works/' ~ app.ids().encode(id)) }}">Season {{ series.season }}</a></li>
+		<li><a href="{{ app.url('/works/' ~ app.ids().encode(id)) }}">Episode {{ series.episode_in_season }}</a></li>
 	{% else %}
-		<li><a href="{{ app.url('/view/' ~ app.ids().encode(id)) }}">{{ title }}</a></li>
+		<li><a href="{{ app.url('/works/' ~ app.ids().encode(id)) }}">{{ title }}</a></li>
 	{% endif %}
 	<li class="active">Download</li>
 </ol>

@@ -22,7 +22,7 @@
 			{% if episodes %}
 				<div class="list-group">
 				{% for episode in episodes %}
-					<a href="{{ app.url('/view/' ~ app.ids().encode(episode.id)) }}" class="list-group-item">
+					<a href="{{ app.url('/works/' ~ app.ids().encode(episode.id)) }}" class="list-group-item">
 						{% if episode.title %}<span class="text-muted">{% endif %}
 							{{ "%02d"|format(episode.season) }}.{{ "%02d"|format(episode.episode_in_season) }}
 						{% if episode.title %}</span>{% endif %}

@@ -119,7 +119,7 @@ class AnnotationController extends Controller {
 				}
 
 				// return the URL to proceed to after this successful contribution
-				echo $app->url('/view/' . $app->ids()->encode($id));
+				echo $app->url('/works/' . $app->ids()->encode($id));
 			}
 			else {
 				// fail with a proper HTTP response code

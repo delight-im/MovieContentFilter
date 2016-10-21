@@ -148,7 +148,7 @@ class WorkController extends Controller {
 						}
 
 						$app->flash()->success('The new entry has been successfully created. Thank you!');
-						$app->redirect('/view/' . $app->ids()->encode($newWorkId));
+						$app->redirect('/works/' . $app->ids()->encode($newWorkId));
 					}
 				}
 			}

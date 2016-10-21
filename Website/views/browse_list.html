@@ -20,7 +20,7 @@
 			</div>
 			<div class="list-group">
 				{% for work in works %}
-				<a class="list-group-item" href="{{ app.url('/view/' ~ app.ids().encode(work.id)) }}">
+				<a class="list-group-item" href="{{ app.url('/works/' ~ app.ids().encode(work.id)) }}">
 					{{ work.title }}
 					<span class="text-muted pull-right">{{ work.year }}</span>
 				</a>

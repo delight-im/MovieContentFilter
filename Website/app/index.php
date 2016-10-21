@@ -8,7 +8,7 @@
 
 // define and execute the routes
 $app->get('/', '\App\MetaController::welcome');
-$app->get('/view/:id', '\App\WorkController::showWork');
+$app->get('/works/:id', '\App\WorkController::showWork');
 $app->get('/browse', '\App\BrowsingController::showOverview');
 $app->get('/browse/:type', '\App\BrowsingController::showCategory');
 $app->get('/download/:id', '\App\FilterController::customizeDownload');

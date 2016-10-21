@@ -13,7 +13,7 @@
 	{% endif %}
 	{% if series %}
 		{% if series.parent_id and series.parent_title %}
-			<li><a href="{{ app.url('/view/' ~ app.ids().encode(series.parent_id)) }}">{{ series.parent_title }}</a></li>
+			<li><a href="{{ app.url('/works/' ~ app.ids().encode(series.parent_id)) }}">{{ series.parent_title }}</a></li>
 		{% endif %}
 		<li class="active">Season {{ series.season }}</li>
 		<li class="active">Episode {{ series.episode_in_season }}</li>

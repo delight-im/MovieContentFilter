@@ -130,19 +130,19 @@ class FilterController extends Controller {
 				$downloadSuggestedFilename = 'Filter (XSPF).xspf';
 				$downloadMimeType = 'application/xspf+xml';
 
-				$out = new Xspf($videoFileUri, $app->url('/view/' . $app->ids()->encode($id)));
+				$out = new Xspf($videoFileUri, $app->url('/works/' . $app->ids()->encode($id)));
 			}
 			elseif ($format === 'm3u') {
 				$downloadSuggestedFilename = 'Filter (M3U).m3u';
 				$downloadMimeType = 'audio/x-mpegurl';
 
-				$out = new M3u($videoFileUri, $app->url('/view/' . $app->ids()->encode($id)));
+				$out = new M3u($videoFileUri, $app->url('/works/' . $app->ids()->encode($id)));
 			}
 			elseif ($format === 'edl') {
 				$downloadSuggestedFilename = 'Filter (EDL).edl';
 				$downloadMimeType = 'text/plain';
 
-				$out = new Edl($app->url('/view/' . $app->ids()->encode($id)));
+				$out = new Edl($app->url('/works/' . $app->ids()->encode($id)));
 			}
 			else {
 				throw new \RuntimeException('Unknown format `'.$format.'`');
