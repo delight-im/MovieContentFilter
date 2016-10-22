@@ -118,6 +118,9 @@ class AnnotationController extends Controller {
 					}
 				}
 
+				// save a message to be displayed on the next page
+				$app->flash()->success('Thank you so much! Your contributions have been saved!');
+
 				// return the URL to proceed to after this successful contribution
 				echo $app->url('/works/' . $app->ids()->encode($id));
 			}
