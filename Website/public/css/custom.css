@@ -21,7 +21,7 @@ div.page-header {
 .breadcrumb {
 	margin-bottom: 0;
 }
-div.btn-group {
+div.btn-group, div.btn-group-vertical {
 	margin-top: 8px;
 	margin-bottom: 16px;
 }
