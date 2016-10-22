@@ -122,10 +122,10 @@ annotationControls.finish.click(function () {
 		window.location.href = data;
 	}).fail(function (jqXHR) {
 		if (jqXHR.status === 401) {
-			alert("Please sign in to your account first!\n\nIn order to open the login page, please open a new tab in your browser.\n\nThen, after logging in, come back to this page in the previous tab and try again.\n\nPlease remember *not* to close this page yet, however, in order to prevent your contributions from being lost.\n\nThank you!");
+			alert("Please sign in to your account first!\n\nIn order to open the login page, please open a new tab in your browser.\n\nThen, after logging in, come back to this page in the previous tab and try again.\n\nPlease remember *not* to close this page just yet, however, in order to prevent your contributions from being lost.\n\nThank you!");
 		}
 		else {
-			alert("Please check your internet connection!\n\nYour contribution could not be received yet. Please try again later.\n\nPlease remember *not* to close this page yet, however, in order to prevent your contributions from being lost.\n\nThank you!");
+			alert("Please check your internet connection!\n\nYour contribution could not be received yet. Please try again later.\n\nPlease remember *not* to close this page just yet, however, in order to prevent your contributions from being lost.\n\nThank you!");
 		}
 	});
 });
