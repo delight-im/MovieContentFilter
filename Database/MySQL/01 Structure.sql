@@ -20,7 +20,16 @@ CREATE TABLE `annotations` (
   `channel_id` tinyint(3) UNSIGNED NOT NULL,
   `author_user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `voting_score` mediumint(9) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `annotations_votes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `annotation_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `addend` tinyint(1) NOT NULL,
+  `cast_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `categories` (
@@ -128,6 +137,10 @@ ALTER TABLE `annotations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `work_id_start_position` (`work_id`,`start_position`) USING BTREE;
 
+ALTER TABLE `annotations_votes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `annotation_id_user_id` (`annotation_id`,`user_id`);
+
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
@@ -186,6 +199,8 @@ ALTER TABLE `works_relations`
   ADD KEY `parent_work_id_season_episode_in_season` (`parent_work_id`,`season`,`episode_in_season`);
 
 ALTER TABLE `annotations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `annotations_votes`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 ALTER TABLE `categories`
   MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
