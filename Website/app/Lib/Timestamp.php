@@ -118,4 +118,16 @@ class Timestamp {
 		return static::fromSeconds($secondsFloat);
 	}
 
+	/**
+	 * Creates a new instance from the specified relative position within the given time frame in seconds
+	 *
+	 * @param float $runtimeStartSecondsFloat the start time of playback in seconds
+	 * @param float $runtimeEndSecondsFloat the end time of playback in seconds
+	 * @param float $position the relative position within the playback frame (between `0.0` and `1.0`)
+	 * @return static a new instance of this class
+	 */
+	public static function fromPositionInRuntime($runtimeStartSecondsFloat, $runtimeEndSecondsFloat, $position) {
+		return new static($runtimeStartSecondsFloat + ($runtimeEndSecondsFloat - $runtimeStartSecondsFloat) * $position);
+	}
+
 }
