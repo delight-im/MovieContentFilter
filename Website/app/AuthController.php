@@ -189,7 +189,7 @@ class AuthController extends Controller {
 			$app->redirect('/');
 		}
 		catch (InvalidSelectorTokenPairException $e) {
-			$app->flash()->warning('The confirmation link that you followed was invalid. Please try again!');
+			$app->flash()->warning('The confirmation link that you followed was invalid. Confirmation links are valid only once. Did you use yours before? Otherwise, please try again!');
 			$app->redirect('/');
 		}
 		catch (TokenExpiredException $e) {
