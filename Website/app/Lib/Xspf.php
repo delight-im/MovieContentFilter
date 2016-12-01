@@ -40,11 +40,22 @@ final class Xspf extends FilePlaylist {
 				$lines[] = "\t\t\t".'<title></title>';
 			}
 
+			// if the end of this annotation extends up to the very end of the file
+			if ($annotation->getTiming()->getEnd()->equals($this->endTime)) {
+				// let this annotation end at zero seconds to symbolize the very end of the file
+				$endTimestamp = static::createTimestampFromSeconds(0);
+			}
+			// if this annotation ends somewhere in the middle of the file
+			else {
+				// do not modify this annotation
+				$endTimestamp = $annotation->getTiming()->getEnd();
+			}
+
 			$lines[] = "\t\t\t".'<location>'.Xml::escape($this->mediaFileUri).'</location>';
 			$lines[] = "\t\t\t".'<extension application="http://www.videolan.org/vlc/playlist/0">';
 			$lines[] = "\t\t\t\t".'<vlc:id>'.$counter.'</vlc:id>';
 			$lines[] = "\t\t\t\t".'<vlc:option>start-time='.((string) $annotation->getTiming()->getStart()).'</vlc:option>';
-			$lines[] = "\t\t\t\t".'<vlc:option>stop-time='.((string) $annotation->getTiming()->getEnd()).'</vlc:option>';
+			$lines[] = "\t\t\t\t".'<vlc:option>stop-time='.((string) $endTimestamp).'</vlc:option>';
 
 			if ($annotation instanceof FilterableAnnotation xor $this->inverted) {
 				if ($annotation instanceof PlaylistItem) {

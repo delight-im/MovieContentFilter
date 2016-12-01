@@ -39,8 +39,19 @@ final class M3u extends FilePlaylist {
 					$lines[] = '# '.$annotation->getDetailsUrl();
 				}
 
+				// if the end of this annotation extends up to the very end of the file
+				if ($annotation->getTiming()->getEnd()->equals($this->endTime)) {
+					// let this annotation end at zero seconds to symbolize the very end of the file
+					$endTimestamp = static::createTimestampFromSeconds(0);
+				}
+				// if this annotation ends somewhere in the middle of the file
+				else {
+					// do not modify this annotation
+					$endTimestamp = $annotation->getTiming()->getEnd();
+				}
+
 				$lines[] = '#EXTVLCOPT:start-time='.((string) $annotation->getTiming()->getStart());
-				$lines[] = '#EXTVLCOPT:stop-time='.((string) $annotation->getTiming()->getEnd());
+				$lines[] = '#EXTVLCOPT:stop-time='.((string) $endTimestamp);
 				$lines[] = $this->mediaFileUri;
 			}
 		}
