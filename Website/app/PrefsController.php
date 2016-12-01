@@ -56,9 +56,11 @@ class PrefsController extends Controller {
 
 		$initialValues = [];
 
-		foreach ($prefs as $pref) {
-			// set the initial value for the preference
-			$initialValues[$pref['category_id']] = $pref['severity_id'];
+		if ($prefs !== null) {
+			foreach ($prefs as $pref) {
+				// set the initial value for the preference
+				$initialValues[$pref['category_id']] = $pref['severity_id'];
+			}
 		}
 
 		echo $app->view('preferences_by_topic.html', [
