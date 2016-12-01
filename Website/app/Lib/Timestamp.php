@@ -90,6 +90,16 @@ class Timestamp {
 	}
 
 	/**
+	 * Returns whether this instance is equal to the other specified instance
+	 *
+	 * @param Timestamp $other another instance of this class to compare with
+	 * @return bool
+	 */
+	public function equals(Timestamp $other) {
+		return $this->compareTo($other) === 0;
+	}
+
+	/**
 	 * Creates a new instance from the specified time in seconds
 	 *
 	 * @param float $secondsFloat the time in seconds
