@@ -85,6 +85,7 @@ class Timestamp {
 		if (abs($delta) <= 1) {
 			$delta *= self::NANOSECONDS_PER_SECOND;
 		}
+
 		return (int) $delta;
 	}
 
