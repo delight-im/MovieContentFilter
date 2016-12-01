@@ -11,7 +11,7 @@ namespace App\Lib\Playlist;
 /** Description of content that may be filtered in a video or audio file using a file-specific playlist */
 class FilePlaylist extends Playlist {
 
-	/** @var string the URI of the media file that should be filtered with this instance */
+	/** @var string the URI of the media file that should be filtered with this instance ("media resource locator") */
 	protected $mediaFileUri;
 
 	/**
