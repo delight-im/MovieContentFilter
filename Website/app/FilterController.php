@@ -27,6 +27,19 @@ class FilterController extends Controller {
 	public static function customizeDownload(App $app, $id) {
 		self::ensureAuthenticated($app);
 
+		// retrieve the number of individual preferences that the user has set up
+		$numberOfPreferences = $app->db()->selectValue(
+			'SELECT COUNT(*) FROM preferences WHERE user_id = ?',
+			[ $app->auth()->id() ]
+		);
+
+		// if no preferences have been set up yet
+		if ($numberOfPreferences === 0) {
+			// ask the user to do so first
+			$app->redirect('/preferences');
+			exit;
+		}
+
 		$id = $app->ids()->decode(trim($id));
 
 		$work = $app->db()->selectRow(
