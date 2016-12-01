@@ -64,6 +64,11 @@ class FilterController extends Controller {
 				'SELECT b.id AS parent_id, b.title AS parent_title, a.season, a.episode_in_season FROM works_relations AS a JOIN works AS b ON a.parent_work_id = b.id WHERE a.child_work_id = ? LIMIT 0, 1',
 				[ $id ]
 			);
+
+			$params['suggestedFilename'] = $params['series']['parent_title']. ' - Season ' . sprintf('%02d', $params['series']['season']) . ' - Episode ' . sprintf('%02d', $params['series']['episode_in_season']);
+		}
+		else {
+			$params['suggestedFilename'] = $work['title'];
 		}
 
 		echo $app->view('download.html', $params);
@@ -78,12 +83,13 @@ class FilterController extends Controller {
 		$syncStartTime = $app->input()->post('synchronization-start-time');
 		$syncEndTime = $app->input()->post('synchronization-end-time');
 		$videoFileUri = $app->input()->post('video-source');
+		$suggestedFilename = $app->input()->post('suggested-filename');
 
 		$syncStartTimestamp = WebvttTimestamp::parse($syncStartTime);
 		$syncEndTimestamp = WebvttTimestamp::parse($syncEndTime);
 
 		if ($format === 'mcf') {
-			$downloadSuggestedFilename = 'Filter (MCF).mcf';
+			$suggestedFilenameWithExtension = $suggestedFilename . ' - MCF.mcf';
 			$downloadMimeType = 'text/plain';
 
 			$annotations = $app->db()->select(
@@ -139,20 +145,22 @@ class FilterController extends Controller {
 				]
 			);
 
+			$filenameModeInfix = ($mode === 'preview' ? 'Preview' : 'Filter');
+
 			if ($format === 'xspf') {
-				$downloadSuggestedFilename = 'Filter (XSPF).xspf';
+				$suggestedFilenameWithExtension = $suggestedFilename . ' - '.$filenameModeInfix.' - XSPF.xspf';
 				$downloadMimeType = 'application/xspf+xml';
 
 				$out = new Xspf($videoFileUri, $app->url('/works/' . $app->ids()->encode($id)));
 			}
 			elseif ($format === 'm3u') {
-				$downloadSuggestedFilename = 'Filter (M3U).m3u';
+				$suggestedFilenameWithExtension = $suggestedFilename . ' - '.$filenameModeInfix.' - M3U.m3u';
 				$downloadMimeType = 'audio/x-mpegurl';
 
 				$out = new M3u($videoFileUri, $app->url('/works/' . $app->ids()->encode($id)));
 			}
 			elseif ($format === 'edl') {
-				$downloadSuggestedFilename = 'Filter (EDL).edl';
+				$suggestedFilenameWithExtension = $suggestedFilename . ' - '.$filenameModeInfix.' - EDL.edl';
 				$downloadMimeType = 'text/plain';
 
 				$out = new Edl($app->url('/works/' . $app->ids()->encode($id)));
@@ -197,7 +205,7 @@ class FilterController extends Controller {
 			}
 		}
 
-		$app->downloadContent((string) $out, $downloadSuggestedFilename, $downloadMimeType);
+		$app->downloadContent((string) $out, $suggestedFilenameWithExtension, $downloadMimeType);
 	}
 
 }
