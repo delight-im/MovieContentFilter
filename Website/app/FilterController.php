@@ -119,7 +119,7 @@ class FilterController extends Controller {
 			$mode = $app->input()->post('mode');
 
 			$annotations = $app->db()->select(
-				"SELECT a.id, a.start_position, a.end_position, GROUP_CONCAT(b.name SEPARATOR ',') AS channel_list FROM annotations AS a JOIN channels AS b ON b.id = a.channel_id JOIN preferences AS c ON c.user_id = ? AND c.category_id = a.category_id AND c.severity_id <= a.severity_id WHERE a.work_id = ? GROUP BY a.start_position, a.end_position ORDER BY a.start_position ASC LIMIT 0, 500",
+				"SELECT MIN(a.id) AS id, a.start_position, a.end_position, GROUP_CONCAT(b.name SEPARATOR ',') AS channel_list FROM annotations AS a JOIN channels AS b ON b.id = a.channel_id JOIN preferences AS c ON c.user_id = ? AND c.category_id = a.category_id AND c.severity_id <= a.severity_id WHERE a.work_id = ? GROUP BY a.start_position, a.end_position ORDER BY a.start_position ASC LIMIT 0, 500",
 				[
 					$app->auth()->id(),
 					$id
