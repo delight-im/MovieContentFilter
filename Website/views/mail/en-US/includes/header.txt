@@ -1,0 +1,6 @@
+{#
+ * PHP-Foundation (https://github.com/delight-im/PHP-Foundation)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+#}
+{% if recipientName %}Dear {{ recipientName|raw }}{% else %}Hello{% endif %},

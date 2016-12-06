@@ -1,0 +1,18 @@
+{#
+ * PHP-Foundation (https://github.com/delight-im/PHP-Foundation)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+#}
+Regards,
+{{ projectName|raw }}
+{{ projectUrl|raw }}
+
+--
+
+{% if reasonForEmailDelivery %}{{ reasonForEmailDelivery|raw }}
+
+{% endif %}This message was sent to <{{ recipientEmailAddress|raw }}>{% if requestedByIpAddress %} and was initiated by someone on IP address "{{ requestedByIpAddress|raw }}"{% endif %}.
+
+Please do not reply to this message directly, as we are unable to respond from this email address. Instead, please contact us at <{{ projectEmail|raw }}>.
+
+© {{ projectName|raw }}, {{ projectPostalAddress|raw }}.

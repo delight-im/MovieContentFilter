@@ -42,9 +42,9 @@ class AuthController extends Controller {
 		$params['projectName'] = $_ENV['COM_MOVIECONTENTFILTER_PROJECT_NAME'];
 		$params['projectUrl'] = parse_url($_ENV['APP_PUBLIC_URL'], PHP_URL_HOST);
 		$params['projectEmail'] = $_ENV['COM_MOVIECONTENTFILTER_MAIL_REPLY_TO'];
-		$params['projectPostal'] = $_ENV['COM_MOVIECONTENTFILTER_PROJECT_POSTAL'];
-		$params['address'] = $toAddress;
-		$params['name'] = $toName;
+		$params['projectPostalAddress'] = $_ENV['COM_MOVIECONTENTFILTER_PROJECT_POSTAL'];
+		$params['recipientEmailAddress'] = $toAddress;
+		$params['recipientName'] = $toName;
 
 		// combine the template and the parameters into the complete body text
 		$body = $app->view($template, $params);
@@ -92,15 +92,15 @@ class AuthController extends Controller {
 							self::sendEmail(
 								$app,
 								'Please confirm your email address',
-								'mail/sign-up.txt',
+								'mail/en-US/sign-up.txt',
 								$email,
 
 								// we can't be sure just yet that the supplied name (if any) is acceptable to the owner of the email address
 								null,
 
 								[
-									'ipAddress' => $app->getClientIp(),
-									'reason' => 'You\'re receiving this email because you recently created a free account on our website. If that wasn\'t you, please ignore this email and accept our excuses.',
+									'requestedByIpAddress' => $app->getClientIp(),
+									'reasonForEmailDelivery' => 'You\'re receiving this email because you recently created a free account on our website. If that wasn\'t you, please ignore this email and accept our excuses.',
 									'confirmationUrl' => $confirmationUrl,
 								]
 							);
