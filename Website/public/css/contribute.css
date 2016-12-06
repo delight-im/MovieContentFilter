@@ -47,17 +47,17 @@ a:hover {
 .text-center {
 	text-align: center;
 }
-a.btn,
-button.btn {
+a.com-moviecontentfilter-button,
+button.com-moviecontentfilter-button {
 	display: inline-block;
 	text-align: center;
 }
-a.btn-large,
-button.btn-large {
+a.com-moviecontentfilter-button-large,
+button.com-moviecontentfilter-button-large {
 	height: 64px;
 }
-a.btn-center,
-button.btn-center {
+a.com-moviecontentfilter-button-center,
+button.com-moviecontentfilter-button-center {
 	display: block;
 	width: 50%;
 }
