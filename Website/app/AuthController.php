@@ -22,7 +22,12 @@ class AuthController extends Controller {
 	const MIN_PASSWORT_LENGTH = 8;
 
 	public static function showSignUp(App $app) {
-		echo $app->view('sign-up.html');
+		echo $app->view(
+			'sign-up.html',
+			[
+				'passwordMinLength' => self::MIN_PASSWORT_LENGTH
+			]
+		);
 	}
 
 	private static function sendEmail(App $app, $subject, $template, $toAddress, $toName = null, $params = null) {
