@@ -5,6 +5,9 @@
 	# Enable URL rewriting
 	RewriteEngine On
 
+	# Enable maintenance mode (Uncomment 1 line below)
+	# RewriteRule . maintenance.php [END]
+
 	# Don't rewrite requests for files in the 'public' directory
 	RewriteRule ^(public)($|/) - [L]
 
