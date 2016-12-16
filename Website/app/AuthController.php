@@ -30,7 +30,7 @@ class AuthController extends Controller {
 		);
 	}
 
-	private static function sendEmail(App $app, $subject, $template, $toAddress, $toName = null, $params = null) {
+	private static function sendEmail(App $app, $template, $subject, $toAddress, $toName = null, $params = null) {
 		// since we're sending an email, this request *may* take a bit longer in some rare cases
 		set_time_limit(60);
 
@@ -96,8 +96,8 @@ class AuthController extends Controller {
 							// send the link to the user
 							self::sendEmail(
 								$app,
-								'Please confirm your email address',
 								'mail/en-US/sign-up.txt',
+								'Please confirm your email address',
 								$email,
 
 								// we can't be sure just yet that the supplied name (if any) is acceptable to the owner of the email address
