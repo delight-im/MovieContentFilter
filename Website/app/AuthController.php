@@ -115,11 +115,11 @@ class AuthController extends Controller {
 						$app->redirect('/');
 					}
 					catch (InvalidEmailException $e) {
-						$app->flash()->warning('Please check your email address and try again. Thank you!');
+						$app->flash()->warning('Please check the email address that you\'ve entered and try again. Thank you!');
 						$app->redirect($app->currentRoute());
 					}
 					catch (InvalidPasswordException $e) {
-						$app->flash()->warning('Please check the requirements for your password and try again. Thank you!');
+						$app->flash()->warning('Please check the requirements for the password and try again. Thank you!');
 						$app->redirect($app->currentRoute());
 					}
 					catch (UserAlreadyExistsException $e) {
@@ -137,12 +137,12 @@ class AuthController extends Controller {
 				}
 			}
 			else {
-				$app->flash()->warning('Please check the requirements for your password and try again. Thank you!');
+				$app->flash()->warning('Please check the requirements for the password and try again. Thank you!');
 				$app->redirect($app->currentRoute());
 			}
 		}
 		else {
-			$app->flash()->warning('Please check your email address and try again. Thank you!');
+			$app->flash()->warning('Please check the email address that you\'ve entered and try again. Thank you!');
 			$app->redirect($app->currentRoute());
 		}
 	}
