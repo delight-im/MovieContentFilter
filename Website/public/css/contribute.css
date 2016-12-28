@@ -61,6 +61,13 @@ button.com-moviecontentfilter-button-center {
 	display: block;
 	width: 50%;
 }
+a.com-moviecontentfilter-button:hover,
+button.com-moviecontentfilter-button:hover {
+	color: #000;
+}
+button.com-moviecontentfilter-button:disabled {
+	color: #aaa;
+}
 .screen {
 	min-width: 100%;
 	min-height: 100%;
@@ -146,6 +153,12 @@ body.contribute #screen-annotate #playback-controls button {
 	margin: 0;
 	overflow: hidden;
 }
+body.contribute #screen-annotate #playback-controls button:hover {
+	color: #000;
+}
+body.contribute #screen-annotate #playback-controls button:disabled {
+	color: #aaa;
+}
 body.contribute #screen-annotate #playback-controls #play {
 	/* twice the normal height of these buttons */
 	height: 25%;
@@ -172,6 +185,12 @@ body.contribute #screen-annotate #annotation-controls button {
 	height: 100%;
 	margin: 0;
 	float: left;
+}
+body.contribute #screen-annotate #annotation-controls button:hover {
+	color: #000;
+}
+body.contribute #screen-annotate #annotation-controls button:disabled {
+	color: #aaa;
 }
 body.contribute #screen-annotate #annotation-controls::after {
 	content: "";
