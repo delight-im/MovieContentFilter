@@ -134,6 +134,9 @@ function onTopicSelected(topicField) {
 	// get the selected ID (or a default value)
 	var topicId = topicField.val() || "";
 
+	// display the label of the newly selected topic wherever it is desired
+	$(".com-moviecontentfilter-last-topic-label").text(topicField.find("option:selected").text());
+
 	// reset the selection in the field
 	topicField.prop("selectedIndex", 0);
 
@@ -155,6 +158,9 @@ function onCategorySelected(categoryField) {
 	// get the selected ID (or a default value)
 	var categoryId = categoryField.val() || "";
 
+	// display the label of the newly selected category wherever it is desired
+	$(".com-moviecontentfilter-last-category-label").text(categoryField.find("option:selected").text());
+
 	// reset the selection in the field
 	categoryField.prop("selectedIndex", 0);
 
@@ -174,6 +180,9 @@ function onSeveritySelected(severityField) {
 	// get the selected ID (or a default value)
 	var severityId = severityField.val() || "";
 
+	// display the label of the newly selected severity wherever it is desired
+	$(".com-moviecontentfilter-last-severity-label").text(severityField.find("option:selected").text());
+
 	// reset the selection in the field
 	severityField.prop("selectedIndex", 0);
 
@@ -192,6 +201,9 @@ function onSeveritySelected(severityField) {
 function onChannelSelected(channelField) {
 	// get the selected ID (or a default value)
 	var channelId = channelField.val() || "";
+
+	// display the label of the newly selected channel wherever it is desired
+	$(".com-moviecontentfilter-last-channel-label").text(channelField.find("option:selected").text());
 
 	// reset the selection in the field
 	channelField.prop("selectedIndex", 0);
