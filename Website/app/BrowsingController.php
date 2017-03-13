@@ -13,15 +13,21 @@ use Delight\Foundation\App;
 class BrowsingController extends Controller {
 
 	public static function showOverview(App $app) {
-		$query = 'SELECT title, year FROM works WHERE type = ? ORDER BY RAND() LIMIT 0, 5';
+		$query = 'SELECT title, year FROM works WHERE (is_public = 1 OR author_user_id = ?) AND type = ? ORDER BY RAND() LIMIT 0, 5';
 
 		$movies = $app->db()->select(
 			$query,
-			[ 'movie' ]
+			[
+				$app->auth()->getUserId(),
+				'movie'
+			]
 		);
 		$series = $app->db()->select(
 			$query,
-			[ 'series' ]
+			[
+				$app->auth()->getUserId(),
+				'series'
+			]
 		);
 
 		echo $app->view('browse_which.html', [
@@ -43,13 +49,19 @@ class BrowsingController extends Controller {
 		}
 
 		$numWorks = $app->db()->selectValue(
-			'SELECT COUNT(*) FROM works WHERE type = ?',
-			[ $typeSingular ]
+			'SELECT COUNT(*) FROM works WHERE (is_public = 1 OR author_user_id = ?) AND type = ?',
+			[
+				$app->auth()->getUserId(),
+				$typeSingular
+			]
 		);
 
 		$works = $app->db()->select(
-			'SELECT id, title, year FROM works WHERE type = ? ORDER BY year DESC, title ASC LIMIT 0, 50',
-			[ $typeSingular ]
+			'SELECT id, title, year FROM works WHERE (is_public = 1 OR author_user_id = ?) AND type = ? ORDER BY year DESC, title ASC LIMIT 0, 50',
+			[
+				$app->auth()->getUserId(),
+				$typeSingular
+			]
 		);
 
 		echo $app->view('browse_list.html', [

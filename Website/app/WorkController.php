@@ -50,8 +50,11 @@ class WorkController extends Controller {
 		}
 		else {
 			$params['episodes'] = $app->db()->select(
-				'SELECT b.id, a.season, a.episode_in_season, b.title, b.year FROM works_relations AS a JOIN works AS b ON a.child_work_id = b.id WHERE a.parent_work_id = ? ORDER BY a.season ASC, a.episode_in_season ASC LIMIT 0, 100',
-				[ $id ]
+				'SELECT b.id, a.season, a.episode_in_season, b.title, b.year FROM works_relations AS a JOIN works AS b ON a.child_work_id = b.id WHERE a.parent_work_id = ? AND (b.is_public = 1 OR b.author_user_id = ?) ORDER BY a.season ASC, a.episode_in_season ASC LIMIT 0, 100',
+				[
+					$id,
+					$app->auth()->getUserId()
+				]
 			);
 
 			echo $app->view('view_multiple.html', $params);
