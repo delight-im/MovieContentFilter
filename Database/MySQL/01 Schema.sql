@@ -181,9 +181,10 @@ CREATE TABLE `works` (
   `author_user_id` int(10) unsigned NOT NULL,
   `canonical_start_time` float unsigned DEFAULT NULL,
   `canonical_end_time` float unsigned DEFAULT NULL,
+  `is_public` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `imdb_url` (`imdb_url`),
-  KEY `type_year_title` (`type`,`year`,`title`) USING BTREE,
+  KEY `is_public_author_user_id_type_year_title` (`is_public`,`author_user_id`,`type`,`year`,`title`),
   FULLTEXT KEY `title` (`title`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
