@@ -113,7 +113,8 @@ class WorkController extends Controller {
 										'title' => $title,
 										'year' => $year,
 										'imdb_url' => $imdbUrlParts[1],
-										'author_user_id' => $app->auth()->id()
+										'author_user_id' => $app->auth()->id(),
+										'is_public' => null
 									]
 								);
 							}
