@@ -124,9 +124,20 @@ class WorkController extends Controller {
 								);
 							}
 							catch (IntegrityConstraintViolationException $e) {
-								$app->flash()->warning('It seems there is already an entry for that movie or TV show. Please check again!');
-								$app->redirect('/add?primary-type='.urlencode($primaryType));
-								exit;
+								$duplicateOfId = $app->db()->selectValue(
+									'SELECT id FROM works WHERE imdb_url = ?',
+									[ $imdbUrlParts[1] ]
+								);
+
+								if ($duplicateOfId !== null) {
+									$app->redirect('/works/' . $app->ids()->encode($duplicateOfId));
+									exit;
+								}
+								else {
+									$app->flash()->warning('An error occurred. Please try again later. Sorry for the inconvenience!');
+									$app->redirect('/add?primary-type='.urlencode($primaryType));
+									exit;
+								}
 							}
 						}
 						else {
