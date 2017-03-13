@@ -58,70 +58,72 @@ class AnnotationController extends Controller {
 		if ($app->auth()->check()) {
 			$id = $app->ids()->decode(trim($id));
 
-			if (isset($_POST['start']) && isset($_POST['end']) && isset($_POST['annotations']) && is_array($_POST['annotations'])) {
-				$fileStartTime = floatval(trim($_POST['start']));
-				$fileEndTime = floatval(trim($_POST['end']));
+			if (isset($_POST['start']) && isset($_POST['end'])) {
+				if (isset($_POST['annotations']) && is_array($_POST['annotations']) && !empty($_POST['annotations'])) {
+					$fileStartTime = floatval(trim($_POST['start']));
+					$fileEndTime = floatval(trim($_POST['end']));
 
-				// update the canonical timing and duration of the work
-				$app->db()->exec(
-					'UPDATE works SET canonical_start_time = ?, canonical_end_time = ? WHERE id = ? AND (canonical_start_time IS NULL OR canonical_end_time IS NULL)',
-					[
-						$fileStartTime,
-						$fileEndTime,
-						$id
-					]
-				);
-
-				$filter = new Filter(
-					Timestamp::fromSeconds($fileStartTime),
-					Timestamp::fromSeconds($fileEndTime)
-				);
-
-				foreach ($_POST['annotations'] as $annotation) {
-					$filter->addAnnotation(
-						new ContentualAnnotation(
-							new Timing(
-								Timestamp::fromSeconds($annotation['start']),
-								Timestamp::fromSeconds($annotation['end'])
-							),
-							$annotation['category'],
-							$annotation['severity'],
-							$annotation['channel']
-						)
+					// update the canonical timing and duration of the work
+					$app->db()->exec(
+						'UPDATE works SET canonical_start_time = ?, canonical_end_time = ? WHERE id = ? AND (canonical_start_time IS NULL OR canonical_end_time IS NULL)',
+						[
+							$fileStartTime,
+							$fileEndTime,
+							$id
+						]
 					);
-				}
 
-				// normalize the timings and durations of all annotations
-				$filter->normalizeTime();
+					$filter = new Filter(
+						Timestamp::fromSeconds($fileStartTime),
+						Timestamp::fromSeconds($fileEndTime)
+					);
 
-				// iterate over the normalized annotations
-				foreach ($filter->getAnnotations() as $annotation) {
-					// and insert them into the database
-					try {
-						$app->db()->insert(
-							'annotations',
-							[
-								'work_id' => $id,
-								'start_position' => $annotation->getTiming()->getStart()->toSeconds(),
-								'end_position' => $annotation->getTiming()->getEnd()->toSeconds(),
-								'category_id' => $annotation->getCategory(),
-								'severity_id' => $annotation->getSeverity(),
-								'channel_id' => $annotation->getChannel(),
-								'author_user_id' => $app->auth()->id()
-							]
+					foreach ($_POST['annotations'] as $annotation) {
+						$filter->addAnnotation(
+							new ContentualAnnotation(
+								new Timing(
+									Timestamp::fromSeconds($annotation['start']),
+									Timestamp::fromSeconds($annotation['end'])
+								),
+								$annotation['category'],
+								$annotation['severity'],
+								$annotation['channel']
+							)
 						);
 					}
-					catch (IntegrityConstraintViolationException $ignored) { }
-					catch (Error $e) {
-						// fail with a proper HTTP response code
-						$app->setStatus(500);
+
+					// normalize the timings and durations of all annotations
+					$filter->normalizeTime();
+
+					// iterate over the normalized annotations
+					foreach ($filter->getAnnotations() as $annotation) {
+						// and insert them into the database
+						try {
+							$app->db()->insert(
+								'annotations',
+								[
+									'work_id' => $id,
+									'start_position' => $annotation->getTiming()->getStart()->toSeconds(),
+									'end_position' => $annotation->getTiming()->getEnd()->toSeconds(),
+									'category_id' => $annotation->getCategory(),
+									'severity_id' => $annotation->getSeverity(),
+									'channel_id' => $annotation->getChannel(),
+									'author_user_id' => $app->auth()->id()
+								]
+							);
+						}
+						catch (IntegrityConstraintViolationException $ignored) { }
+						catch (Error $e) {
+							// fail with a proper HTTP response code
+							$app->setStatus(500);
+						}
 					}
+
+					// save a message to be displayed on the next page
+					$app->flash()->success('Thank you so much! Your contributions have been saved!');
 				}
 
-				// save a message to be displayed on the next page
-				$app->flash()->success('Thank you so much! Your contributions have been saved!');
-
-				// return the URL to proceed to after this successful contribution
+				// return the URL to proceed to after this successful (or empty) contribution
 				echo $app->url('/works/' . $app->ids()->encode($id));
 			}
 			else {
