@@ -114,6 +114,8 @@ class WorkController extends Controller {
 										'year' => $year,
 										'imdb_url' => $imdbUrlParts[1],
 										'author_user_id' => $app->auth()->id(),
+
+										// initially create as hidden draft and make public only when annotations have been added
 										'is_public' => null
 									]
 								);

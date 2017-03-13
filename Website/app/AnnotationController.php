@@ -119,6 +119,15 @@ class AnnotationController extends Controller {
 						}
 					}
 
+					// make hidden drafts that are intended for public display (including any potential parents) visible to everyone now that annotations have been added
+					$app->db()->exec(
+						'UPDATE works SET is_public = 1 WHERE (id = ? OR id IN (SELECT parent_work_id FROM works_relations WHERE child_work_id = ?)) AND is_public IS NULL',
+						[
+							$id,
+							$id
+						]
+					);
+
 					// save a message to be displayed on the next page
 					$app->flash()->success('Thank you so much! Your contributions have been saved!');
 				}
