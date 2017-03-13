@@ -50,7 +50,7 @@ class AnnotationController extends Controller {
 		]);
 	}
 
-	public function receiveFromEditor(App $app, $id) {
+	public static function receiveFromEditor(App $app, $id) {
 		// do not lose user input when the connection is dropped by the client
 		ignore_user_abort(true);
 
