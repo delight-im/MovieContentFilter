@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8c47dc3b0f9756f99a7e109a4c07660",
+    "content-hash": "867269115399e6ec30f5bc03a28de9aa",
     "packages": [
         {
             "name": "delight-im/auth",
@@ -297,6 +297,45 @@
                 "shorten"
             ],
             "time": "2016-09-10T15:18:16+00:00"
+        },
+        {
+            "name": "delight-im/privacy-policy",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/delight-im/PHP-PrivacyPolicy.git",
+                "reference": "46c5abe6bb6523bd2da3cba2c6b7c8563465e5f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/delight-im/PHP-PrivacyPolicy/zipball/46c5abe6bb6523bd2da3cba2c6b7c8563465e5f9",
+                "reference": "46c5abe6bb6523bd2da3cba2c6b7c8563465e5f9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Delight\\PrivacyPolicy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Programmatically composable privacy policies for humans and machines",
+            "homepage": "https://github.com/delight-im/PHP-PrivacyPolicy",
+            "keywords": [
+                "Policy",
+                "data-protection",
+                "legal",
+                "privacy",
+                "privacy-policy",
+                "user-data"
+            ],
+            "time": "2017-04-27T22:30:24+00:00"
         },
         {
             "name": "delight-im/router",
