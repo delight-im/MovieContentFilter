@@ -51,3 +51,14 @@ div.progress span {
 	color: #fff;
 	background-color: rgba(0, 0, 0, 0.25);
 }
+
+/* Fix display of privacy policy by resetting certain properties of definition/description lists */
+.im-delight-moviecontentfilter-privacy-policy dl {
+	margin: 1.12em 0;
+}
+.im-delight-moviecontentfilter-privacy-policy dl dl {
+	margin: 0;
+}
+.im-delight-moviecontentfilter-privacy-policy dd {
+	margin-left: 40px;
+}

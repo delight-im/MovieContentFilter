@@ -9,6 +9,11 @@
 namespace App;
 
 use Delight\Foundation\App;
+use Delight\PrivacyPolicy\Data\DataGroup;
+use Delight\PrivacyPolicy\Data\DataPurpose;
+use Delight\PrivacyPolicy\Data\DataRequirement;
+use Delight\PrivacyPolicy\Language\EnglishPrivacyPolicy;
+use Delight\PrivacyPolicy\Scope\WebsiteScope;
 
 class MetaController extends Controller {
 
@@ -46,6 +51,163 @@ class MetaController extends Controller {
 			'severities' => $severities,
 			'channels' => $channels
 		]);
+	}
+
+	public static function showPrivacyPolicy(App $app) {
+		$policy = new EnglishPrivacyPolicy();
+
+		$policy->setLastUpdated(1493301040);
+		$policy->setCanonicalUrl($app->url('/privacy'));
+		$policy->setContactUrl('https://www.delight.im/contact');
+
+		$policy->setUserDataTraded(false);
+		$policy->setDataMinimizationGoal(true);
+		$policy->setChildrenMinimumAge(13);
+		$policy->setPromotionalEmailOptOut(false);
+		$policy->setFirstPartyCookies(true);
+		$policy->setThirdPartyCookies(false);
+		$policy->setAccountDeletable(false);
+		$policy->setPreservationInBackups(true);
+		$policy->setThirdPartyServiceProviders(true);
+		$policy->setTransferUponMergerOrAcquisition(true);
+		$policy->setTlsEverywhere(true);
+		$policy->setRightToInformation(true);
+		$policy->setNotificationPeriod(30);
+
+		$policy->addDataGroup(
+			'Account information',
+			'When you create an account by signing up, and whenever you use that account by signing in afterwards, we collect the data that you provide to us voluntarily in the course of that process.',
+			[
+				DataPurpose::ADMINISTRATION,
+				DataPurpose::FULFILLMENT,
+				DataPurpose::PERSONALIZATION
+			],
+			DataRequirement::OPT_IN,
+
+			function (DataGroup $group) {
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::USER_EMAIL,
+					DataRequirement::ALWAYS,
+					null,
+					true,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::USER_PASSWORD_HASHED_STRONG,
+					DataRequirement::ALWAYS,
+					null,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::USER_NAME_ALIAS,
+					DataRequirement::OPT_IN,
+					null,
+					true,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::USER_REGISTRATION_DATETIME,
+					DataRequirement::ALWAYS,
+					null,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::USER_LOGIN_DATETIME,
+					DataRequirement::ALWAYS,
+					null,
+					false,
+					false
+				);
+			}
+		);
+
+		$policy->addDataGroup(
+			'Server logs',
+			'Whenever you access our services, including your access of any individual part or section of our services, we record certain information about the nature of your access. That information is never combined with information from other data sources and will not be associated with the identity of any account. However, we reserve the right to review the data retrospectively if there is specific evidence supporting the suspicion of a case of fraud or any other illegal activity or illegal use of our services.',
+			[ DataPurpose::ADMINISTRATION ],
+			DataRequirement::ALWAYS,
+
+			function (DataGroup $group) {
+				$retentionTimeHours = 24 * 14;
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_HTTP_METHOD,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_HTTP_STATUS,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_IP_ADDRESS,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_REFERER,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_SIZE,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_DATETIME,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_URL,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+
+				$group->addElement(
+					\Delight\PrivacyPolicy\Data\DataType::ACCESS_USERAGENT_STRING,
+					DataRequirement::ALWAYS,
+					$retentionTimeHours,
+					false,
+					false
+				);
+			}
+		);
+
+		echo $app->view(
+			'privacy_policy.html',
+			[
+				'htmlSource' => $policy->toHtml()
+			]
+		);
 	}
 
 }
