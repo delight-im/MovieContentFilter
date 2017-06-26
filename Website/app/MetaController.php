@@ -21,6 +21,28 @@ class MetaController extends Controller {
 	}
 
 	public static function showSpecification(App $app) {
+		$availableVersions = [
+			'1.0.0'
+		];
+
+		// if a specific version has been requested explicitly
+		if (isset($_GET['v'])) {
+			// if the requested version is valid
+			if (\in_array($_GET['v'], $availableVersions)) {
+				// use the specified version
+				$selectedVersion = \trim($_GET['v']);
+			}
+			else {
+				$app->setStatus(404);
+				exit;
+			}
+		}
+		// if no specific version has been requested
+		else {
+			// select the most recent version available
+			$selectedVersion = \array_values(\array_slice($availableVersions, -1))[0];
+		}
+
 		$categories = $app->db()->select(
 			'SELECT a.label AS topic, b.name, b.label, b.is_general FROM topics AS a JOIN categories AS b ON a.id = b.topic_id ORDER BY a.label ASC, b.is_general DESC, b.name ASC'
 		);
@@ -46,6 +68,8 @@ class MetaController extends Controller {
 		);
 
 		echo $app->view('specification.html', [
+			'version' => $selectedVersion,
+			'versions' => $availableVersions,
 			'topics' => $categoriesByTopic,
 			'severities' => $severities,
 			'channels' => $channels

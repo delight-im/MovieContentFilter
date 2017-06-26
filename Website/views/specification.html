@@ -16,9 +16,18 @@
 					Specification
 					<br>
 					<small>
-						Version 1.0.0
+						Version {{ version }}
 					</small>
 				</h1>
+				<nav aria-label="Choose version of specification">
+					<div class="text-center">
+						<ul class="pagination pagination-sm">
+							{% for availableVersion in versions %}
+								<li{% if availableVersion == version %} class="active"{% endif %}><a href="?v={{ availableVersion }}">v{{ availableVersion }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				</nav>
 			</div>
 			<p>The MCF format is a strict subset of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format">W3C WebVTT</a> format ("Draft Community Group Report, 17 February 2016").</p>
 			<p>Files with content in the MCF format are saved with the filename extension <code>.mcf</code> and must be encoded in UTF-8 (without BOM) exclusively.</p>
@@ -28,7 +37,7 @@
 			<ol>
 				<li>The string literals used in this specification are case-sensitive.</li>
 				<li>The WebVTT timestamps must always include hours.</li>
-				<li>The first line must consist of the string <code>WEBVTT</code>, followed by a single <code>U+0020 SPACE</code> character, the subset identifier <code>MovieContentFilter</code>, another single <code>U+0020 SPACE</code> character and the version identifier <code>1.0.0</code>. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The first line must consist of the string <code>WEBVTT</code>, followed by a single <code>U+0020 SPACE</code> character, the subset identifier <code>MovieContentFilter</code>, another single <code>U+0020 SPACE</code> character and the version identifier <code>{{ version }}</code>. After that, the line must end with a WebVTT line terminator.</li>
 				<li>The second line must be a blank line ending with a WebVTT line terminator.</li>
 				<li>The third line must be the string <code>NOTE</code>. After that, the line must end with a WebVTT line terminator.</li>
 				<li>The fourth line must be the string <code>START</code>, a single <code>U+0020 SPACE</code> character and a WebVTT timestamp pointing to the exact start of the <em>actual</em> film material, which is <em>after</em> any opening title sequences, credits or company logos. After that, the line must end with a WebVTT line terminator.</li>
@@ -74,7 +83,7 @@
 			</ul>
 
 			<h2>Example</h2>
-			<pre>{% include 'mcf/example.mcf' %}</pre>
+			<pre>{% include 'mcf/example.mcf' with { 'version': version } only %}</pre>
 		</div>
 	</div>
 </div>
