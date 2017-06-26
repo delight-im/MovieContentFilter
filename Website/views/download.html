@@ -36,30 +36,32 @@
 			</div>
 			<form class="form-horizontal" action="" method="post">
 				<input type="hidden" name="suggested-filename" value="{{ suggestedFilename }}">
-				<div class="form-group">
-					<label for="synchronization-start-time" class="col-sm-2 control-label">Start time</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="synchronization-start-time" name="synchronization-start-time" required pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]\.[0-9]{3}" placeholder="e.g. {% if canonical_start_time %}{{ canonical_start_time }}{% else %}00:00:14.500{% endif %}">
-						<p class="help-block">
-							When does your <em>actual</em> film material start? This is <em>after</em> any opening title sequences, credits or company logos.
-							<br>
-							Format: <code>HH:MM:SS.MMM</code>{% if canonical_start_time %} (e.g. <a href="#" onclick="$('#synchronization-start-time').val(this.firstElementChild.innerHTML); return false;"><code>{{ canonical_start_time }}</code></a>){% endif %}
-							<br>
-							<a target="_blank" href="#why-synchronization">Read why this is required.</a>
-						</p>
+				<div id="synchronization-container">
+					<div class="form-group">
+						<label for="synchronization-start-time" class="col-sm-2 control-label">Start time</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="synchronization-start-time" name="synchronization-start-time" required pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]\.[0-9]{3}" placeholder="e.g. {% if canonical_start_time %}{{ canonical_start_time }}{% else %}00:00:14.500{% endif %}">
+							<p class="help-block">
+								When does your <em>actual</em> film material start? This is <em>after</em> any opening title sequences, credits or company logos.
+								<br>
+								Format: <code>HH:MM:SS.MMM</code>{% if canonical_start_time %} (e.g. <a href="#" onclick="$('#synchronization-start-time').val(this.firstElementChild.innerHTML); return false;"><code>{{ canonical_start_time }}</code></a>){% endif %}
+								<br>
+								<a target="_blank" href="#why-synchronization">Read why this is required.</a>
+							</p>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="synchronization-end-time" class="col-sm-2 control-label">End time</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="synchronization-end-time" name="synchronization-end-time" required pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]\.[0-9]{3}" placeholder="e.g. {% if canonical_end_time %}{{ canonical_end_time }}{% else %}01:29:46.000{% endif %}">
-						<p class="help-block">
-							When does your <em>actual</em> film material end? This is <em>before</em> any closing credits or company logos.
-							<br>
-							Format: <code>HH:MM:SS.MMM</code>{% if canonical_end_time %} (e.g. <a href="#" onclick="$('#synchronization-end-time').val(this.firstElementChild.innerHTML); return false;"><code>{{ canonical_end_time }}</code></a>){% endif %}
-							<br>
-							<a target="_blank" href="#why-synchronization">Read why this is required.</a>
-						</p>
+					<div class="form-group">
+						<label for="synchronization-end-time" class="col-sm-2 control-label">End time</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="synchronization-end-time" name="synchronization-end-time" required pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]\.[0-9]{3}" placeholder="e.g. {% if canonical_end_time %}{{ canonical_end_time }}{% else %}01:29:46.000{% endif %}">
+							<p class="help-block">
+								When does your <em>actual</em> film material end? This is <em>before</em> any closing credits or company logos.
+								<br>
+								Format: <code>HH:MM:SS.MMM</code>{% if canonical_end_time %} (e.g. <a href="#" onclick="$('#synchronization-end-time').val(this.firstElementChild.innerHTML); return false;"><code>{{ canonical_end_time }}</code></a>){% endif %}
+								<br>
+								<a target="_blank" href="#why-synchronization">Read why this is required.</a>
+							</p>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
