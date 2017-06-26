@@ -23,7 +23,9 @@
 					<div class="text-center">
 						<ul class="pagination pagination-sm">
 							{% for availableVersion in versions %}
-								<li{% if availableVersion == version %} class="active"{% endif %}><a href="?v={{ availableVersion }}">v{{ availableVersion }}</a></li>
+								<li{% if availableVersion == version %} class="active"{% endif %}>
+									<a href="?v={{ availableVersion }}">v{{ availableVersion }}</a>
+								</li>
 							{% endfor %}
 						</ul>
 					</div>
