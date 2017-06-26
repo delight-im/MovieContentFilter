@@ -41,10 +41,10 @@
 				<li>The WebVTT timestamps must always include hours.</li>
 				<li>The first line must consist of the string <code>WEBVTT</code>, followed by a single <code>U+0020 SPACE</code> character, the subset identifier <code>MovieContentFilter</code>, another single <code>U+0020 SPACE</code> character and the version identifier <code>{{ version }}</code>. After that, the line must end with a WebVTT line terminator.</li>
 				<li>The second line must be a blank line ending with a WebVTT line terminator.</li>
-				<li>The third line must be the string <code>NOTE</code>. After that, the line must end with a WebVTT line terminator.</li>
-				<li>The fourth line must be the string <code>START</code>, a single <code>U+0020 SPACE</code> character and a WebVTT timestamp pointing to the exact start of the <em>actual</em> film material, which is <em>after</em> any opening title sequences, credits or company logos. After that, the line must end with a WebVTT line terminator.</li>
-				<li>The fifth line must be the string <code>END</code>, a single <code>U+0020 SPACE</code> character and a WebVTT timestamp pointing to the exact end of the <em>actual</em> film material, which is <em>before</em> any closing credits or company logos. After that, the line must end with a WebVTT line terminator.</li>
-				<li>The sixth line must be a blank line ending with a WebVTT line terminator.</li>
+				<li>The next line must be the string <code>NOTE</code>. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The next line must be the string <code>START</code>, a single <code>U+0020 SPACE</code> character and a WebVTT timestamp pointing to the exact start of the <em>actual</em> film material, which is <em>after</em> any opening title sequences, credits or company logos. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The next line must be the string <code>END</code>, a single <code>U+0020 SPACE</code> character and a WebVTT timestamp pointing to the exact end of the <em>actual</em> film material, which is <em>before</em> any closing credits or company logos. After that, the line must end with a WebVTT line terminator.</li>
+				<li>The next line must be a blank line ending with a WebVTT line terminator.</li>
 				<li>WebVTT cue payloads must contain WebVTT cue texts only.</li>
 				<li>WebVTT cue texts must consist of one or more WebVTT cue text spans exclusively.</li>
 				<li>WebVTT cue text spans must consist of a <em>category</em>, a single <code>U+003D EQUALS SIGN</code> character and the <em>severity</em>. Optionally, after another single <code>U+003D EQUALS SIGN</code> character as the divider, a <em>channel</em> may be included. Optionally as well, after the character sequence <code>U+0020 SPACE</code>, <code>U+0023 NUMBER SIGN</code>, <code>U+0020 SPACE</code>, there may be a comment.
