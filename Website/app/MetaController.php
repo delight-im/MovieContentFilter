@@ -22,7 +22,8 @@ class MetaController extends Controller {
 
 	public static function showSpecification(App $app) {
 		$availableVersions = [
-			'1.0.0'
+			'1.0.0',
+			'1.1.0'
 		];
 
 		// if a specific version has been requested explicitly

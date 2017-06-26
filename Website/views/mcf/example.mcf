@@ -4,6 +4,19 @@
  * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
 #}
 WEBVTT MovieContentFilter {{ version }}
+{% if version == '1.1.0' %}
+
+NOTE
+TITLE Ozymandias
+YEAR 2013
+TYPE episode
+SEASON 5
+EPISODE 14
+SOURCE https://www.moviecontentfilter.com/works/7Cmr6B
+IMDB http://www.imdb.com/title/tt2301451/
+RELEASE North America
+COMMENT Quite an intense episode!
+{% endif %}
 
 NOTE
 START 00:00:04.020
