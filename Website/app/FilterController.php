@@ -88,6 +88,11 @@ class FilterController extends Controller {
 			$suggestedFilenameWithExtension = $suggestedFilename . ' - MCF.mcf';
 			$downloadMimeType = 'text/plain';
 
+			$work = $app->db()->selectRow(
+				'SELECT a.title, a.year, a.type, b.season, b.episode_in_season, a.imdb_url FROM works AS a LEFT JOIN works_relations AS b ON b.child_work_id = a.id WHERE a.id = ?',
+				[ $id ]
+			);
+
 			$annotations = $app->db()->select(
 				"SELECT a.start_position, a.end_position, GROUP_CONCAT(b.name, '=', c.name, '=', d.name, ?, a.id ORDER BY b.name ASC, a.id ASC SEPARATOR ',') AS content_list FROM annotations AS a JOIN categories AS b ON b.id = a.category_id JOIN severities AS c ON c.id = a.severity_id JOIN channels AS d ON d.id = a.channel_id WHERE a.work_id = ? GROUP BY a.start_position, a.end_position ORDER BY a.start_position ASC LIMIT 0, 500",
 				[
@@ -97,6 +102,13 @@ class FilterController extends Controller {
 			);
 
 			$out = new Mcf();
+			$out->setMetaTitle($work['title']);
+			$out->setMetaYear($work['year']);
+			$out->setMetaType($work['type']);
+			$out->setMetaSeason($work['season']);
+			$out->setMetaEpisode($work['episode_in_season']);
+			$out->setMetaSource($app->url('/works/' . $app->ids()->encode($id)));
+			$out->setMetaImdb('http://www.imdb.com/' . $work['imdb_url']);
 
 			if ($annotations !== null) {
 				foreach ($annotations as $annotation) {
