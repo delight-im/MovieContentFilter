@@ -19,7 +19,7 @@ use App\Lib\Mcf\Throwables\EmptyContainerException;
 final class Mcf extends Filter {
 
 	/** The default version that is used when no version number has been provided explicitly */
-	const VERSION_DEFAULT = '1.0.0';
+	const VERSION_DEFAULT = '1.1.0';
 	/** The regular expression that is used to parse instances from strings */
 	const CONTAINER_REGEX = '/^WEBVTT Movie ?Content ?Filter ([0-9.]+)\\R\\RNOTE\\RSTART (.+?)\\REND (.+?)\\R\\R([\\S\\s]+)$/';
 	/** The regular expression that is used to extract annotation blocks from a string */
@@ -27,6 +27,24 @@ final class Mcf extends Filter {
 
 	/** @var Version the version number of the format specification that is used */
 	private $version;
+	/** @var string */
+	private $metaTitle;
+	/** @var int */
+	private $metaYear;
+	/** @var string */
+	private $metaType;
+	/** @var int */
+	private $metaSeason;
+	/** @var int */
+	private $metaEpisode;
+	/** @var string */
+	private $metaSource;
+	/** @var string */
+	private $metaImdb;
+	/** @var string */
+	private $metaRelease;
+	/** @var string */
+	private $metaComment;
 
 	/**
 	 * Constructor
@@ -54,6 +72,17 @@ final class Mcf extends Filter {
 		$lines = [];
 
 		$lines[] = 'WEBVTT MovieContentFilter '.((string) $this->version);
+		$lines[] = '';
+		$lines[] = 'NOTE';
+		$lines[] = 'TITLE ' . (string) $this->metaTitle;
+		$lines[] = 'YEAR ' . (string) $this->metaYear;
+		$lines[] = 'TYPE ' . (string) $this->metaType;
+		$lines[] = 'SEASON ' . (string) $this->metaSeason;
+		$lines[] = 'EPISODE ' . (string) $this->metaEpisode;
+		$lines[] = 'SOURCE ' . (string) $this->metaSource;
+		$lines[] = 'IMDB ' . (string) $this->metaImdb;
+		$lines[] = 'RELEASE ' . (string) $this->metaRelease;
+		$lines[] = 'COMMENT ' . (string) $this->metaComment;
 		$lines[] = '';
 		$lines[] = 'NOTE';
 		$lines[] = 'START '.((string) $this->startTime);
@@ -111,6 +140,69 @@ final class Mcf extends Filter {
 		else {
 			throw new InvalidContainerException();
 		}
+	}
+
+	/**
+	 * @param string $metaTitle
+	 */
+	public function setMetaTitle($metaTitle) {
+		$this->metaTitle = $metaTitle;
+	}
+
+	/**
+	 * @param int $metaYear
+	 */
+	public function setMetaYear($metaYear) {
+		$this->metaYear = $metaYear;
+	}
+
+	/**
+	 * @param string $metaType
+	 */
+	public function setMetaType($metaType) {
+		$this->metaType = $metaType;
+	}
+
+	/**
+	 * @param int $metaSeason
+	 */
+	public function setMetaSeason($metaSeason) {
+		$this->metaSeason = $metaSeason;
+	}
+
+	/**
+	 * @param int $metaEpisode
+	 */
+	public function setMetaEpisode($metaEpisode) {
+		$this->metaEpisode = $metaEpisode;
+	}
+
+	/**
+	 * @param string $metaSource
+	 */
+	public function setMetaSource($metaSource) {
+		$this->metaSource = $metaSource;
+	}
+
+	/**
+	 * @param string $metaImdb
+	 */
+	public function setMetaImdb($metaImdb) {
+		$this->metaImdb = $metaImdb;
+	}
+
+	/**
+	 * @param string $metaRelease
+	 */
+	public function setMetaRelease($metaRelease) {
+		$this->metaRelease = $metaRelease;
+	}
+
+	/**
+	 * @param string $metaComment
+	 */
+	public function setMetaComment($metaComment) {
+		$this->metaComment = $metaComment;
 	}
 
 	/**
