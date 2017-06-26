@@ -13,7 +13,6 @@ use Delight\PrivacyPolicy\Data\DataGroup;
 use Delight\PrivacyPolicy\Data\DataPurpose;
 use Delight\PrivacyPolicy\Data\DataRequirement;
 use Delight\PrivacyPolicy\Language\EnglishPrivacyPolicy;
-use Delight\PrivacyPolicy\Scope\WebsiteScope;
 
 class MetaController extends Controller {
 
