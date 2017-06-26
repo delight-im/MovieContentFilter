@@ -61,11 +61,12 @@ function updateSeverityIndication(field, level) {
 	}
 }
 
-function updateFilterPropertiesElements(formatElementsName, videoSourceContainerId, videoSourceId, modeContainerId) {
+function updateFilterPropertiesElements(formatElementsName, videoSourceContainerId, videoSourceId, modeContainerId, synchronizationContainerId) {
 	var selectedFormat = $("input[name="+formatElementsName+"]:checked").val();
 	var videoSourceContainer = $("#"+videoSourceContainerId);
 	var videoSource = $("#"+videoSourceId);
 	var modeContainer = $("#"+modeContainerId);
+	var synchronizationContainer = $("#"+synchronizationContainerId);
 
 	if (selectedFormat === 'xspf' || selectedFormat === 'm3u') {
 		videoSourceContainer.slideDown(400);
@@ -78,9 +79,15 @@ function updateFilterPropertiesElements(formatElementsName, videoSourceContainer
 
 	if (selectedFormat === 'mcf') {
 		modeContainer.slideUp(400);
+
+		synchronizationContainer.slideUp(400);
+		synchronizationContainer.find("input").prop("required", false);
 	}
 	else {
 		modeContainer.slideDown(400);
+
+		synchronizationContainer.slideDown(400);
+		synchronizationContainer.find("input").prop("required", true);
 	}
 }
 
