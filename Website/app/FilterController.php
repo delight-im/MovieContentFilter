@@ -81,13 +81,8 @@ class FilterController extends Controller {
 		$id = $app->ids()->decode(trim($id));
 
 		$format = $app->input()->post('format');
-		$syncStartTime = $app->input()->post('synchronization-start-time');
-		$syncEndTime = $app->input()->post('synchronization-end-time');
 		$videoFileUri = $app->input()->post('video-source');
 		$suggestedFilename = $app->input()->post('suggested-filename');
-
-		$syncStartTimestamp = WebvttTimestamp::parse($syncStartTime);
-		$syncEndTimestamp = WebvttTimestamp::parse($syncEndTime);
 
 		if ($format === 'mcf') {
 			$suggestedFilenameWithExtension = $suggestedFilename . ' - MCF.mcf';
@@ -191,6 +186,10 @@ class FilterController extends Controller {
 			}
 
 			// scale the time to match the desired playback time
+			$syncStartTime = $app->input()->post('synchronization-start-time');
+			$syncEndTime = $app->input()->post('synchronization-end-time');
+			$syncStartTimestamp = WebvttTimestamp::parse($syncStartTime);
+			$syncEndTimestamp = WebvttTimestamp::parse($syncEndTime);
 			$out->changeTime($syncStartTimestamp, $syncEndTimestamp);
 
 			// if the filter is a playlist
