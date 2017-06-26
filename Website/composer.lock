@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "867269115399e6ec30f5bc03a28de9aa",
+    "content-hash": "4a0b4925bade47a045a963d0a6f8cb01",
     "packages": [
         {
             "name": "delight-im/auth",
@@ -48,21 +48,21 @@
         },
         {
             "name": "delight-im/cookie",
-            "version": "v2.1.1",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-Cookie.git",
-                "reference": "22f2c19750a6ad3dbf69a8ef3ea0e454a8e064fa"
+                "reference": "e1ab463ec804ef2decf4cbeaa9cf407413398bcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-Cookie/zipball/22f2c19750a6ad3dbf69a8ef3ea0e454a8e064fa",
-                "reference": "22f2c19750a6ad3dbf69a8ef3ea0e454a8e064fa",
+                "url": "https://api.github.com/repos/delight-im/PHP-Cookie/zipball/e1ab463ec804ef2decf4cbeaa9cf407413398bcd",
+                "reference": "e1ab463ec804ef2decf4cbeaa9cf407413398bcd",
                 "shasum": ""
             },
             "require": {
                 "delight-im/http": "^2.0",
-                "php": ">=5.6.0"
+                "php": ">=5.4.0"
             },
             "type": "library",
             "autoload": {
@@ -85,7 +85,7 @@
                 "samesite",
                 "xss"
             ],
-            "time": "2016-12-18T20:22:46+00:00"
+            "time": "2017-06-11T22:03:56+00:00"
         },
         {
             "name": "delight-im/db",
@@ -130,16 +130,16 @@
         },
         {
             "name": "delight-im/file-upload",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-FileUpload.git",
-                "reference": "42aa56f1a50ef859efd52e92cce5f3f9f3900b0e"
+                "reference": "d11fcb4c17d286534183417ab31dd3c376c681ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-FileUpload/zipball/42aa56f1a50ef859efd52e92cce5f3f9f3900b0e",
-                "reference": "42aa56f1a50ef859efd52e92cce5f3f9f3900b0e",
+                "url": "https://api.github.com/repos/delight-im/PHP-FileUpload/zipball/d11fcb4c17d286534183417ab31dd3c376c681ee",
+                "reference": "d11fcb4c17d286534183417ab31dd3c376c681ee",
                 "shasum": ""
             },
             "require": {
@@ -165,20 +165,20 @@
                 "upload",
                 "validation"
             ],
-            "time": "2017-03-11T19:42:46+00:00"
+            "time": "2017-06-19T23:39:26+00:00"
         },
         {
             "name": "delight-im/foundation-core",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-Foundation-Core.git",
-                "reference": "4a7f633b4ecb6eff27467821ad43c14cfdd9e9d8"
+                "reference": "3f4714854eaebd2b90c389f233bed6cdc2ed7cd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-Foundation-Core/zipball/4a7f633b4ecb6eff27467821ad43c14cfdd9e9d8",
-                "reference": "4a7f633b4ecb6eff27467821ad43c14cfdd9e9d8",
+                "url": "https://api.github.com/repos/delight-im/PHP-Foundation-Core/zipball/3f4714854eaebd2b90c389f233bed6cdc2ed7cd1",
+                "reference": "3f4714854eaebd2b90c389f233bed6cdc2ed7cd1",
                 "shasum": ""
             },
             "require": {
@@ -212,7 +212,7 @@
                 "bootstrap",
                 "framework"
             ],
-            "time": "2017-04-03T08:09:35+00:00"
+            "time": "2017-06-25T21:50:55+00:00"
         },
         {
             "name": "delight-im/http",
@@ -412,16 +412,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.1.8",
+            "version": "2.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3"
+                "reference": "b238974e1c7cc1859b0c16ddc1c02ecb70ecc07f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
-                "reference": "f2950be7da8b8d6c4e77821b6c9d486e36cdc4f3",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/b238974e1c7cc1859b0c16ddc1c02ecb70ecc07f",
+                "reference": "b238974e1c7cc1859b0c16ddc1c02ecb70ecc07f",
                 "shasum": ""
             },
             "require": {
@@ -469,26 +469,27 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2017-03-07T09:04:45+00:00"
+            "time": "2017-06-03T18:33:07+00:00"
         },
         {
             "name": "jenssegers/optimus",
-            "version": "v0.2.2",
+            "version": "v0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenssegers/optimus.git",
-                "reference": "a1f6dcf46b240df6c037e8ded74a27c4033613c8"
+                "reference": "9bb0fcbaa3b7a6a0eb3e6c07e672ce4de42600af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/optimus/zipball/a1f6dcf46b240df6c037e8ded74a27c4033613c8",
-                "reference": "a1f6dcf46b240df6c037e8ded74a27c4033613c8",
+                "url": "https://api.github.com/repos/jenssegers/optimus/zipball/9bb0fcbaa3b7a6a0eb3e6c07e672ce4de42600af",
+                "reference": "9bb0fcbaa3b7a6a0eb3e6c07e672ce4de42600af",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "require-dev": {
+                "kherge/box": "^2.7",
                 "phpseclib/phpseclib": "^2.0",
                 "phpunit/phpunit": "^4.0|^5.0",
                 "satooshi/php-coveralls": "^1.0",
@@ -525,7 +526,7 @@
                 "obfuscation",
                 "optimus"
             ],
-            "time": "2016-11-07T15:24:01+00:00"
+            "time": "2017-04-21T10:14:58+00:00"
         },
         {
             "name": "psr/log",
@@ -576,16 +577,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.7",
+            "version": "v5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4"
+                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
-                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9a06dc570a0367850280eefd3f1dc2da45aef517",
+                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517",
                 "shasum": ""
             },
             "require": {
@@ -626,24 +627,24 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2017-04-20T17:32:18+00:00"
+            "time": "2017-05-01T15:54:03+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v1.33.2",
+            "version": "v1.34.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "dd6ca96227917e1e85b41c7c3cc6507b411e0927"
+                "reference": "451c6f4197e113e24c1c85bc3fc8c2d77adeff2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/dd6ca96227917e1e85b41c7c3cc6507b411e0927",
-                "reference": "dd6ca96227917e1e85b41c7c3cc6507b411e0927",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/451c6f4197e113e24c1c85bc3fc8c2d77adeff2e",
+                "reference": "451c6f4197e113e24c1c85bc3fc8c2d77adeff2e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.7"
+                "php": ">=5.3.3"
             },
             "require-dev": {
                 "psr/container": "^1.0",
@@ -653,12 +654,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.33-dev"
+                    "dev-master": "1.34-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
                     "Twig_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -688,7 +692,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-04-20T17:39:48+00:00"
+            "time": "2017-06-07T18:45:17+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
