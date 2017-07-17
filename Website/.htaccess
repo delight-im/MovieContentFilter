@@ -100,4 +100,8 @@ FileETag None
 # 	Require all denied
 # </FilesMatch>
 
+# Announce contact information for security issues
+Header set X-Vulnerability-Disclosure "https://www.delight.im/go/security"
+Header set X-Security-Contact "security@delight.im"
+
 ########## END CUSTOM ##########
