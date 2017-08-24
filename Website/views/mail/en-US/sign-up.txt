@@ -7,7 +7,7 @@
 
 Welcome to {{ projectName|raw }}!
 
-{%if confirmationUrl %}Please confirm your email address by opening the link below:
+{%if confirmationUrl %}Please confirm your email address by opening the link below:%}
 
 {{ confirmationUrl|raw }}
 
