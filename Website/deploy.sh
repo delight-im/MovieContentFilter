@@ -4,17 +4,18 @@
 ### Copyright (c) delight.im (https://www.delight.im/)
 ### Licensed under the MIT License (https://opensource.org/licenses/MIT)
 
-# Process command-line arguments
+# Switch to the directory where the current script is located
+cd "${BASH_SOURCE%/*}" || exit 1
 
 # If no command-line arguments (or only incomplete ones) have been provided
 if [ "$1" == "" ] || [ "$2" == "" ] || [ "$3" == "" ] || [ "$4" == "" ]; then
 	# Explain command
 	echo "Usage:"
-	echo "  ./deploy.sh {host} {port} {user} {path}"
-	echo "    {host}: hostname of the target server, e.g. 'example.com'"
-	echo "    {port}: SSH port at the target server, e.g. '22'"
-	echo "    {user}: user for authentication at the target server, e.g. 'john-doe'"
-	echo "    {path}: application directory on the target server (without trailing slash), e.g. '/var/www/example.com'"
+	echo "  deploy.sh <host> <port> <user> <path>"
+	echo "    <host>: hostname of the target server, e.g. 'example.com'"
+	echo "    <port>: SSH port at the target server, e.g. '22'"
+	echo "    <user>: user for authentication at the target server, e.g. 'john-doe'"
+	echo "    <path>: application directory on the target server (without trailing slash), e.g. '/var/www/example.com'"
 
 	# If no command-line arguments have been specified at all
 	if [ "$1" == "" ] && [ "$2" == "" ] && [ "$3" == "" ] && [ "$4" == "" ]; then
@@ -23,25 +24,26 @@ if [ "$1" == "" ] || [ "$2" == "" ] || [ "$3" == "" ] || [ "$4" == "" ]; then
 	# If the command-line arguments have just been incomplete
 	else
 		# Return with failure
-		exit 1
+		exit 2
 	fi
 fi
 
-# Define constants
+# BEGIN CONSTANTS
 
-# Set constants based on the command-line arguments received
+# Hostname of the target server as received with the command-line arguments
 TARGET_SSH_HOST=$1
+# SSH port at the target server as received with the command-line arguments
 TARGET_SSH_PORT=$2
+# User for authentication at the target server as received with the command-line arguments
 TARGET_SSH_USER=$3
+# Application directory on the target server (without trailing slash) as received with the command-line arguments
 TARGET_APPLICATION_PATH=$4
-
-# Generate a unique name for the new deployment
+# Unique name for the new deployment
 DEPLOYMENT_NAME="deployment-$(date -u +'%Y%m%dT%H%M%SZ')"
-
-# Define the filename used for archives of the new deployment
+# Filename used for archives of the new deployment
 DEPLOYMENT_ARCHIVE_FILENAME="$DEPLOYMENT_NAME.tar.gz"
 
-# Start actual deployment
+# END CONSTANTS
 
 # Introduce the deployment to the user and confirm the target host and directory
 echo "Deploying to '$TARGET_APPLICATION_PATH' on '$TARGET_SSH_HOST'"
@@ -51,13 +53,16 @@ if [ -d "app" ] && [ -f "index.php" ] && [ -d "public" ] && [ -d "vendor" ] && [
 	echo " * Verified source directory ..."
 else
 	echo " * Source directory could not be verified ..."
-	exit 2
+	exit 3
 fi
 
 # Create an archive of all files in the source directory that are to be transferred to the target host
 echo " * Packing files in source directory ..."
 echo "   * Ignoring '.htaccess' file (environment-specific) ..." # [1]
+echo "   * Ignoring 'backups' directory (environment-specific) ..." # [1]
+echo "   * Ignoring 'backup.sh' file (protected) ..." # [1]
 echo "   * Ignoring 'config' directory (environment-specific) ..." # [1]
+echo "   * Ignoring 'deploy.sh' file (needless) ..." # [1]
 echo "   * Ignoring 'storage/app' directory (environment-specific) ..." # [1]
 echo "   * Ignoring 'storage/framework' directory (environment-specific) ..." # [1]
 touch "$DEPLOYMENT_ARCHIVE_FILENAME"
@@ -68,7 +73,10 @@ tar \
 	--exclude "./.git" \
 	--exclude "./.idea" \
 	--exclude "./.htaccess" \
+	--exclude "./backups" \
+	--exclude "./backup.sh" \
 	--exclude "./config" \
+	--exclude "./deploy.sh" \
 	--exclude "./storage/app" \
 	--exclude "./storage/framework" \
 	--file="$DEPLOYMENT_ARCHIVE_FILENAME" \
@@ -91,7 +99,7 @@ ssh -p "$TARGET_SSH_PORT" "${TARGET_SSH_USER}@${TARGET_SSH_HOST}" /bin/bash <<- 
 		echo " * Found target directory ..."
 	else
 		echo " * Target directory could not be found ..."
-		exit 3
+		exit 4
 	fi
 
 	# Verify that the target directory is a valid project root by looking for some important files and directories
@@ -99,7 +107,7 @@ ssh -p "$TARGET_SSH_PORT" "${TARGET_SSH_USER}@${TARGET_SSH_HOST}" /bin/bash <<- 
 		echo " * Verified target directory ..."
 	else
 		echo " * Target directory could not be verified ..."
-		exit 4
+		exit 5
 	fi
 
 	# Enable maintenance mode on the site
@@ -114,8 +122,12 @@ ssh -p "$TARGET_SSH_PORT" "${TARGET_SSH_USER}@${TARGET_SSH_HOST}" /bin/bash <<- 
 		\! -path './index.php' \
 		\! -path './maintenance.php' \
 		\! -path './.htaccess' \
+		\! -path './backups' \
+		\! -path './backups/*' \
+		\! -path './backup.sh' \
 		\! -path './config' \
 		\! -path './config/*' \
+		\! -path './deploy.sh' \
 		\! -path './storage' \
 		\! -path './storage/app' \
 		\! -path './storage/app/*' \
