@@ -82,7 +82,9 @@ class WorkController extends Controller {
 					);
 
 					// add an optional suggestion on which parent should be selected by default
-					$params['seriesParentDefault'] = $app->ids()->decode(trim($_GET['parent-work-id']));
+					if (isset($_GET['parent-work-id'])) {
+						$params['seriesParentDefault'] = $app->ids()->decode(trim($_GET['parent-work-id']));
+					}
 				}
 
 				echo $app->view('works_add_step_2.html', $params);
