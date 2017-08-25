@@ -9,6 +9,7 @@
 namespace App;
 
 use App\Lib\Imdb;
+use Delight\Auth\TooManyRequestsException;
 use Delight\Db\Throwable\IntegrityConstraintViolationException;
 use Delight\Foundation\App;
 
@@ -110,6 +111,17 @@ class WorkController extends Controller {
 				if ($year >= self::YEAR_MIN && $year <= self::YEAR_MAX) {
 					if (s($imdbUrl)->matches(Imdb::WORK_URL_REGEX, $imdbUrlParts)) {
 						if (!empty($title) || $secondaryType === 'episode') {
+							try {
+								$app->auth()->throttle([ 'createWork', 'user', $app->auth()->id() ], 1, (60 * 60 * 6), 3);
+								$app->auth()->throttle([ 'createWork', 'ipAddress', $_SERVER['REMOTE_ADDR'] ], 1, (60 * 60 * 6), 4);
+							}
+							catch (TooManyRequestsException $e) {
+								\http_response_code(429);
+								$app->flash()->warning('Please try again later!');
+								$app->redirect('/add?primary-type='.urlencode($primaryType));
+								exit;
+							}
+
 							try {
 								$app->db()->insert(
 									'works',
