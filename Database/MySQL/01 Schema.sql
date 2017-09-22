@@ -110,7 +110,10 @@ CREATE TABLE `users` (
   `email` varchar(249) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `username` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `verified` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `resettable` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `roles_mask` int(10) unsigned NOT NULL DEFAULT '0',
   `registered` int(10) unsigned NOT NULL,
   `last_login` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -121,13 +124,15 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users_confirmations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
   `email` varchar(249) COLLATE utf8mb4_unicode_ci NOT NULL,
   `selector` varchar(16) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `expires` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `selector` (`selector`),
-  KEY `email_expires` (`email`,`expires`)
+  KEY `email_expires` (`email`,`expires`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -159,13 +164,12 @@ CREATE TABLE `users_resets` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users_throttling` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `action_type` enum('login','register','confirm_email') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `selector` varchar(44) CHARACTER SET latin1 COLLATE latin1_general_cs DEFAULT NULL,
-  `time_bucket` int(10) unsigned NOT NULL,
-  `attempts` mediumint(8) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `action_type_selector_time_bucket` (`action_type`,`selector`,`time_bucket`)
+  `bucket` varchar(44) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `tokens` float unsigned NOT NULL,
+  `replenished_at` int(10) unsigned NOT NULL,
+  `expires_at` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`bucket`),
+  KEY `expires_at` (`expires_at`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
