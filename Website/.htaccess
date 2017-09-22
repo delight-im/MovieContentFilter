@@ -1,26 +1,19 @@
-########## BEGIN ROUTING (https://github.com/delight-im/PHP-Router) ##########
+### PHP-Foundation (https://github.com/delight-im/PHP-Foundation)
+### Copyright (c) delight.im (https://www.delight.im/)
+### Licensed under the MIT License (https://opensource.org/licenses/MIT)
+
+########## BEGIN MAINTENANCE MODE ##########
 
 <IfModule mod_rewrite.c>
 
-	# Enable URL rewriting
 	RewriteEngine On
 
 	# Enable maintenance mode (Uncomment 1 line below)
 	# RewriteRule . maintenance.php [END]
 
-	# Don't rewrite requests for files in the 'public' directory
-	RewriteRule ^(public)($|/) - [L]
-
-	# For all other files first check if they exist in the 'public' directory
-	RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
-	RewriteRule ^ public%{REQUEST_URI} [L]
-
-	# And let 'index.php' handle everything else
-	RewriteRule . index.php [L]
-
 </IfModule>
 
-########## END ROUTING ##########
+########## END MAINTENANCE MODE ##########
 
 ########## BEGIN PERFORMANCE AND SECURITY (https://github.com/delight-im/htaccess) ##########
 
@@ -100,8 +93,28 @@ FileETag None
 # 	Require all denied
 # </FilesMatch>
 
-# Announce contact information for security issues
+# Announce contact information for security issues (Uncomment 2 lines below)
 Header set X-Vulnerability-Disclosure "https://www.delight.im/go/security"
 Header set X-Security-Contact "security@delight.im"
 
 ########## END CUSTOM ##########
+
+########## BEGIN ROUTING (https://github.com/delight-im/PHP-Router) ##########
+
+<IfModule mod_rewrite.c>
+
+	RewriteEngine On
+
+	# Don't rewrite requests for files in the 'public' directory
+	RewriteRule ^(public)($|/) - [L]
+
+	# For all other files first check if they exist in the 'public' directory
+	RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
+	RewriteRule ^ public%{REQUEST_URI} [L]
+
+	# And let 'index.php' handle everything else
+	RewriteRule . index.php [L]
+
+</IfModule>
+
+########## END ROUTING ##########
