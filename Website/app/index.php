@@ -26,6 +26,7 @@ $app->post('/add', '\App\WorkController::saveWork');
 $app->post('/login', '\App\AuthController::processLogin');
 $app->get('/logout', '\App\AuthController::logout');
 $app->get('/specification', '\App\MetaController::showSpecification');
+$app->get('/help', '\App\MetaController::getHelp');
 $app->get('/privacy', '\App\MetaController::showPrivacyPolicy');
 
 // otherwise fail with "not found"

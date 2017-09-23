@@ -234,4 +234,8 @@ class MetaController extends Controller {
 		);
 	}
 
+	public static function getHelp(App $app) {
+		echo $app->view('help.html');
+	}
+
 }
