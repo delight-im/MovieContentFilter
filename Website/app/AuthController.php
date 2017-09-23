@@ -228,9 +228,9 @@ class AuthController extends Controller {
 				// build the URL for the reset link
 				$resetUrl = $app->url('/reset/' . \urlencode($selector) . '/' . \urlencode($token));
 
-				// get the user’s display name
+				// get the user’s display name (if verified)
 				$displayName = $app->db()->selectValue(
-					'SELECT username FROM users WHERE email = ?',
+					'SELECT username FROM users WHERE email = ? AND verified = 1',
 					[ $email ]
 				);
 
