@@ -188,7 +188,7 @@ class AuthController extends Controller {
 
 	public static function confirmEmail(App $app, $selector, $token) {
 		try {
-			$app->auth()->confirmEmail($selector, $token);
+			$app->auth()->confirmEmailAndSignIn($selector, $token);
 
 			$app->flash()->success('Your email address has been verified successfully. Thank you!');
 			$app->redirect('/');
