@@ -8,6 +8,7 @@
 
 namespace App;
 
+use Delight\Auth\ConfirmationRequestNotFound;
 use Delight\Auth\EmailNotVerifiedException;
 use Delight\Auth\InvalidEmailException;
 use Delight\Auth\InvalidPasswordException;
@@ -199,7 +200,7 @@ class AuthController extends Controller {
 			$app->redirect('/');
 		}
 		catch (TokenExpiredException $e) {
-			$app->flash()->warning('Your confirmation link has already expired. Please contact us for help.');
+			$app->flash()->warning('Your confirmation link has already expired. Please request a new confirmation email.');
 			$app->redirect('/');
 		}
 		catch (TooManyRequestsException $e) {
@@ -324,6 +325,52 @@ class AuthController extends Controller {
 		}
 		else {
 			$app->flash()->warning('Please check the requirements for the password and try again. Thank you!');
+			$app->redirect($app->currentRoute());
+		}
+	}
+
+	public static function getResendConfirmation(App $app) {
+		echo $app->view('resend_confirmation.html');
+	}
+
+	public static function postResendConfirmation(App $app) {
+		$email = $app->input()->post('email', \TYPE_STRING);
+
+		try {
+			$app->auth()->resendConfirmationForEmail($email, function ($selector, $token) use ($app, $email) {
+				// build the URL for the confirmation link
+				$confirmationUrl = $app->url('/confirm/' . \urlencode($selector) . '/' . \urlencode($token));
+
+				// get the user’s display name (if verified)
+				$displayName = $app->db()->selectValue(
+					'SELECT username FROM users WHERE email = ? AND verified = 1',
+					[ $email ]
+				);
+
+				// send the link to the user
+				self::sendEmail(
+					$app,
+					'mail/en-US/confirm_email.txt',
+					'Confirming your email address',
+					$email,
+					$displayName,
+					[
+						'requestedByIpAddress' => $app->getClientIp(),
+						'reasonForEmailDelivery' => 'You’re receiving this email because you recently requested a new confirmation email on our website. If that wasn’t you, please ignore this email and accept our excuses.',
+						'confirmationUrl' => $confirmationUrl,
+					]
+				);
+			});
+
+			$app->flash()->success('Thank you! Please check your inbox soon for further instructions.');
+			$app->redirect('/');
+		}
+		catch (ConfirmationRequestNotFound $e) {
+			$app->flash()->warning('We couldn’t find any earlier confirmation request for that address. Please try again!');
+			$app->redirect($app->currentRoute());
+		}
+		catch (TooManyRequestsException $e) {
+			$app->flash()->warning('Please try again later!');
 			$app->redirect($app->currentRoute());
 		}
 	}

@@ -21,6 +21,8 @@ $app->post('/preferences/:topicId', '\App\PrefsController::saveTopic');
 $app->get('/sign-up', '\App\AuthController::showSignUp');
 $app->post('/sign-up', '\App\AuthController::saveSignUp');
 $app->get('/confirm/:selector/:token', '\App\AuthController::confirmEmail');
+$app->get('/resend-confirmation', '\App\AuthController::getResendConfirmation');
+$app->post('/resend-confirmation', '\App\AuthController::postResendConfirmation');
 $app->get('/add', '\App\WorkController::prepareWork');
 $app->post('/add', '\App\WorkController::saveWork');
 $app->post('/login', '\App\AuthController::processLogin');

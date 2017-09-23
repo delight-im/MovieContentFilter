@@ -1,0 +1,32 @@
+{#
+ * MovieContentFilter (https://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{% include 'includes/page_top.html' %}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	<li class="active">Send new confirmation email</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header"><h1 class="text-center">Send new confirmation email</h1></div>
+			<form method="post" action="" class="form-horizontal" onsubmit="$(this).find('button').prop('disabled', true);">
+				<div class="form-group">
+					<label for="email" class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" id="email" name="email" placeholder="e.g. jane@example.com" required>
+						<p class="help-block">Please enter the email address that you used to sign up. Make sure you can receive emails at this address, please. We will try to send a new confirmation email to you.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-success">Request new confirmation</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% include 'includes/page_bottom.html' %}
