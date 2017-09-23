@@ -19,7 +19,7 @@ class WorkController extends Controller {
 	const YEAR_MAX = 2099;
 
 	public static function showWork(App $app, $id) {
-		$id = $app->ids()->decode(trim($id));
+		$id = $app->ids()->decode(\trim($id));
 
 		$work = $app->db()->selectRow(
 			'SELECT type, title, year, imdb_url FROM works WHERE id = ?',
@@ -84,7 +84,7 @@ class WorkController extends Controller {
 
 					// add an optional suggestion on which parent should be selected by default
 					if (isset($_GET['parent-work-id'])) {
-						$params['seriesParentDefault'] = $app->ids()->decode(trim($_GET['parent-work-id']));
+						$params['seriesParentDefault'] = $app->ids()->decode(\trim($_GET['parent-work-id']));
 					}
 				}
 
@@ -109,7 +109,7 @@ class WorkController extends Controller {
 
 			if (!empty($year) && !empty($imdbUrl)) {
 				if ($year >= self::YEAR_MIN && $year <= self::YEAR_MAX) {
-					if (s($imdbUrl)->matches(Imdb::WORK_URL_REGEX, $imdbUrlParts)) {
+					if (\s($imdbUrl)->matches(Imdb::WORK_URL_REGEX, $imdbUrlParts)) {
 						if (!empty($title) || $secondaryType === 'episode') {
 							try {
 								$app->auth()->throttle([ 'createWork', 'user', $app->auth()->id() ], 1, (60 * 60 * 6), 3);
@@ -118,7 +118,7 @@ class WorkController extends Controller {
 							catch (TooManyRequestsException $e) {
 								\http_response_code(429);
 								$app->flash()->warning('Please try again later!');
-								$app->redirect('/add?primary-type='.urlencode($primaryType));
+								$app->redirect('/add?primary-type=' . \urlencode($primaryType));
 								exit;
 							}
 
@@ -149,21 +149,21 @@ class WorkController extends Controller {
 								}
 								else {
 									$app->flash()->warning('An error occurred. Please try again later. Sorry for the inconvenience!');
-									$app->redirect('/add?primary-type='.urlencode($primaryType));
+									$app->redirect('/add?primary-type=' . \urlencode($primaryType));
 									exit;
 								}
 							}
 						}
 						else {
 							$app->flash()->warning('The data you entered was invalid. Please try again!');
-							$app->redirect('/add?primary-type='.urlencode($primaryType));
+							$app->redirect('/add?primary-type=' . \urlencode($primaryType));
 							exit;
 						}
 
 						$newWorkId = (int) $app->db()->getLastInsertId();
 
 						if ($primaryType === 'series' && $secondaryType === 'episode') {
-							$parent = $app->ids()->decode(trim($_POST['parent']));
+							$parent = $app->ids()->decode(\trim($_POST['parent']));
 							$season = $app->input()->post('season', TYPE_INT);
 							$episode = $app->input()->post('episode', TYPE_INT);
 

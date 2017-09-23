@@ -82,7 +82,7 @@ class Timestamp {
 	public function compareTo(Timestamp $other) {
 		$delta = $this->seconds - $other->seconds;
 
-		if (abs($delta) <= 1) {
+		if (\abs($delta) <= 1) {
 			$delta *= self::NANOSECONDS_PER_SECOND;
 		}
 

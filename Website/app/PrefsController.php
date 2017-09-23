@@ -33,7 +33,7 @@ class PrefsController extends Controller {
 	public static function showTopic(App $app, $topicId) {
 		self::ensureAuthenticated($app);
 
-		$topicId = $app->ids()->decode(trim($topicId));
+		$topicId = $app->ids()->decode(\trim($topicId));
 
 		$topicName = $app->db()->selectValue(
 			'SELECT label FROM topics WHERE id = ?',
@@ -74,9 +74,9 @@ class PrefsController extends Controller {
 	public static function saveTopic(App $app, $topicId) {
 		self::ensureAuthenticated($app);
 
-		$topicId = $app->ids()->decode(trim($topicId));
+		$topicId = $app->ids()->decode(\trim($topicId));
 
-		if (isset($_POST['category']) && is_array($_POST['category'])) {
+		if (isset($_POST['category']) && \is_array($_POST['category'])) {
 			$validSeverityIds = $app->db()->selectColumn(
 				'SELECT id FROM severities WHERE available_as_annotation = 1'
 			);
@@ -88,7 +88,7 @@ class PrefsController extends Controller {
 				$categoryId = (int) $categoryId;
 				$severityId = (int) $severityId;
 
-				if (in_array($severityId, $validSeverityIds)) {
+				if (\in_array($severityId, $validSeverityIds)) {
 					$categoriesToUpdate[$categoryId] = $severityId;
 				}
 				else {
@@ -96,22 +96,22 @@ class PrefsController extends Controller {
 				}
 			}
 
-			if (count($categoryIdsToRemove) > 0) {
+			if (\count($categoryIdsToRemove) > 0) {
 				$app->db()->exec(
-					'DELETE FROM preferences WHERE user_id = ? AND category_id IN ('.implode(',', $categoryIdsToRemove).')',
+					'DELETE FROM preferences WHERE user_id = ? AND category_id IN (' . \implode(',', $categoryIdsToRemove) . ')',
 					[ $app->auth()->id() ]
 				);
 			}
 
-			if (count($categoriesToUpdate) > 0) {
+			if (\count($categoriesToUpdate) > 0) {
 				$categoryUpdateValues = [];
 
 				foreach ($categoriesToUpdate as $categoryId => $severityId) {
-					$categoryUpdateValues[] = '('.$app->auth()->id().', '.$categoryId.', '.$severityId.')';
+					$categoryUpdateValues[] = '(' . $app->auth()->id() . ', ' . $categoryId . ', ' . $severityId . ')';
 				}
 
 				$app->db()->exec(
-					'INSERT INTO preferences (user_id, category_id, severity_id) VALUES '.implode(',', $categoryUpdateValues).' ON DUPLICATE KEY UPDATE severity_id = VALUES(severity_id)'
+					'INSERT INTO preferences (user_id, category_id, severity_id) VALUES ' . \implode(',', $categoryUpdateValues) . ' ON DUPLICATE KEY UPDATE severity_id = VALUES(severity_id)'
 				);
 			}
 

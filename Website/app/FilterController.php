@@ -41,7 +41,7 @@ class FilterController extends Controller {
 			exit;
 		}
 
-		$id = $app->ids()->decode(trim($id));
+		$id = $app->ids()->decode(\trim($id));
 
 		$work = $app->db()->selectRow(
 			'SELECT type, title, year, canonical_start_time, canonical_end_time FROM works WHERE id = ?',
@@ -66,7 +66,7 @@ class FilterController extends Controller {
 				[ $id ]
 			);
 
-			$params['suggestedFilename'] = $params['series']['parent_title']. ' - Season ' . sprintf('%02d', $params['series']['season']) . ' - Episode ' . sprintf('%02d', $params['series']['episode_in_season']);
+			$params['suggestedFilename'] = $params['series']['parent_title']. ' - Season ' . \sprintf('%02d', $params['series']['season']) . ' - Episode ' . \sprintf('%02d', $params['series']['episode_in_season']);
 		}
 		else {
 			$params['suggestedFilename'] = $work['title'];
@@ -78,7 +78,7 @@ class FilterController extends Controller {
 	public static function sendDownload(App $app, $id) {
 		self::ensureAuthenticated($app);
 
-		$id = $app->ids()->decode(trim($id));
+		$id = $app->ids()->decode(\trim($id));
 
 		$format = $app->input()->post('format');
 		$videoFileUri = $app->input()->post('video-source');
@@ -113,7 +113,7 @@ class FilterController extends Controller {
 			if ($annotations !== null) {
 				foreach ($annotations as $annotation) {
 					// encode annotation IDs in content
-					$annotation['content_list'] = preg_replace_callback('/(?<=\/)([0-9]+)(?=,|$)/', function ($match) use ($app) {
+					$annotation['content_list'] = \preg_replace_callback('/(?<=\/)([0-9]+)(?=,|$)/', function ($match) use ($app) {
 						return $app->ids()->encode($match[1]);
 					}, $annotation['content_list']);
 
@@ -124,7 +124,7 @@ class FilterController extends Controller {
 						)
 					);
 
-					$contentEntries = explode(',', $annotation['content_list']);
+					$contentEntries = \explode(',', $annotation['content_list']);
 
 					foreach ($contentEntries as $contentEntry) {
 						$annotationObj->addContent(
@@ -156,25 +156,25 @@ class FilterController extends Controller {
 			$filenameModeInfix = ($mode === 'preview' ? 'Preview' : 'Filter');
 
 			if ($format === 'xspf') {
-				$suggestedFilenameWithExtension = $suggestedFilename . ' - '.$filenameModeInfix.' - XSPF.xspf';
+				$suggestedFilenameWithExtension = $suggestedFilename . ' - ' . $filenameModeInfix . ' - XSPF.xspf';
 				$downloadMimeType = 'application/xspf+xml';
 
 				$out = new Xspf($videoFileUri, $app->url('/works/' . $app->ids()->encode($id)));
 			}
 			elseif ($format === 'm3u') {
-				$suggestedFilenameWithExtension = $suggestedFilename . ' - '.$filenameModeInfix.' - M3U.m3u';
+				$suggestedFilenameWithExtension = $suggestedFilename . ' - ' . $filenameModeInfix . ' - M3U.m3u';
 				$downloadMimeType = 'audio/x-mpegurl';
 
 				$out = new M3u($videoFileUri, $app->url('/works/' . $app->ids()->encode($id)));
 			}
 			elseif ($format === 'edl') {
-				$suggestedFilenameWithExtension = $suggestedFilename . ' - '.$filenameModeInfix.' - EDL.edl';
+				$suggestedFilenameWithExtension = $suggestedFilename . ' - ' . $filenameModeInfix . ' - EDL.edl';
 				$downloadMimeType = 'text/plain';
 
 				$out = new Edl($app->url('/works/' . $app->ids()->encode($id)));
 			}
 			else {
-				throw new \RuntimeException('Unknown format `'.$format.'`');
+				throw new \RuntimeException('Unknown format `' . $format . '`');
 			}
 
 			if ($annotations !== null) {
@@ -187,7 +187,7 @@ class FilterController extends Controller {
 						)
 					);
 
-					$channels = explode(',', $annotation['channel_list']);
+					$channels = \explode(',', $annotation['channel_list']);
 
 					foreach ($channels as $channel) {
 						$annotationObj->addChannel($channel);

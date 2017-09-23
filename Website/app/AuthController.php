@@ -34,10 +34,10 @@ class AuthController extends Controller {
 
 	private static function sendEmail(App $app, $template, $subject, $toAddress, $toName = null, $params = null) {
 		// since we’re sending an email, this request *may* take a bit longer in some rare cases
-		set_time_limit(60);
+		\set_time_limit(60);
 
 		// never stop execution before the email has been sent just because the client disconnected
-		ignore_user_abort(true);
+		\ignore_user_abort(true);
 
 		// if no parameters have been provided
 		if ($params === null) {
@@ -47,7 +47,7 @@ class AuthController extends Controller {
 
 		// add the general parameters that are passed to all email templates
 		$params['projectName'] = $_ENV['COM_MOVIECONTENTFILTER_PROJECT_NAME'];
-		$params['projectUrl'] = parse_url($_ENV['APP_PUBLIC_URL'], PHP_URL_HOST);
+		$params['projectUrl'] = \parse_url($_ENV['APP_PUBLIC_URL'], PHP_URL_HOST);
 		$params['projectEmail'] = $_ENV['COM_MOVIECONTENTFILTER_MAIL_REPLY_TO'];
 		$params['projectPostalAddress'] = $_ENV['COM_MOVIECONTENTFILTER_PROJECT_POSTAL'];
 		$params['recipientEmailAddress'] = $toAddress;
@@ -88,12 +88,12 @@ class AuthController extends Controller {
 		$displayName = $app->input()->post('display-name');
 
 		if (!empty($email)) {
-			if (!empty($password1) && strlen($password1) >= self::MIN_PASSWORT_LENGTH) {
+			if (!empty($password1) && \strlen($password1) >= self::MIN_PASSWORT_LENGTH) {
 				if ($password1 === $password2) {
 					try {
 						$app->auth()->register($email, $password1, $displayName, function ($selector, $token) use ($app, $email) {
 							// build the URL for the confirmation link
-							$confirmationUrl = $app->url('/confirm/'.urlencode($selector).'/'.urlencode($token));
+							$confirmationUrl = $app->url('/confirm/' . \urlencode($selector) . '/' . \urlencode($token));
 
 							// send the link to the user
 							self::sendEmail(
@@ -160,7 +160,7 @@ class AuthController extends Controller {
 			// if a desired target path to redirect to has been specified
 			if (!empty($continueToPath)) {
 				// if the target path is a local path
-				if (s($continueToPath)->matches('/^\\/[^\\/]/')) {
+				if (\s($continueToPath)->matches('/^\\/[^\\/]/')) {
 					// redirect to the requested path
 					$app->redirect($continueToPath);
 					exit;

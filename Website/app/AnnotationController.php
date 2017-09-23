@@ -19,7 +19,7 @@ use Delight\Foundation\App;
 class AnnotationController extends Controller {
 
 	public static function launchEditor(App $app, $id) {
-		$id = $app->ids()->decode(trim($id));
+		$id = $app->ids()->decode(\trim($id));
 
 		$work = $app->db()->selectRow(
 			'SELECT title, year FROM works WHERE id = ?',
@@ -52,16 +52,16 @@ class AnnotationController extends Controller {
 
 	public static function receiveFromEditor(App $app, $id) {
 		// do not lose user input when the connection is dropped by the client
-		ignore_user_abort(true);
+		\ignore_user_abort(true);
 
 		// if the user is logged in
 		if ($app->auth()->check()) {
-			$id = $app->ids()->decode(trim($id));
+			$id = $app->ids()->decode(\trim($id));
 
 			if (isset($_POST['start']) && isset($_POST['end'])) {
-				if (isset($_POST['annotations']) && is_array($_POST['annotations']) && !empty($_POST['annotations'])) {
-					$fileStartTime = floatval(trim($_POST['start']));
-					$fileEndTime = floatval(trim($_POST['end']));
+				if (isset($_POST['annotations']) && \is_array($_POST['annotations']) && !empty($_POST['annotations'])) {
+					$fileStartTime = \floatval(trim($_POST['start']));
+					$fileEndTime = \floatval(trim($_POST['end']));
 
 					// update the canonical timing and duration of the work
 					$app->db()->exec(

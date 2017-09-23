@@ -23,7 +23,7 @@ class Controller {
 
 			// redirect back to the index and tell the user to sign in
 			$app->flash()->warning('Please sign in to view the requested page. If you don’t have an account yet, you may sign up for free.');
-			$app->redirect('/?continue='.urlencode($targetPath));
+			$app->redirect('/?continue=' . \urlencode($targetPath));
 			exit;
 		}
 	}

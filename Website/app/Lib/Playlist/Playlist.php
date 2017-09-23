@@ -54,7 +54,7 @@ class Playlist extends Filter {
 
 	/** Fills all gaps between individual annotations so that a continuous description is available */
 	public function fillUp() {
-		$count = count($this->annotations);
+		$count = \count($this->annotations);
 
 		$newAnnotations = [];
 

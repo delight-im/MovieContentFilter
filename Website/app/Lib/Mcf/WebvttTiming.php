@@ -36,7 +36,7 @@ final class WebvttTiming extends Timing {
 	 * @throws InvalidWebvttTimingException
 	 */
 	public static function parse($str) {
-		if (preg_match(self::REGEX, $str, $parts)) {
+		if (\preg_match(self::REGEX, $str, $parts)) {
 			$start = WebvttTimestamp::parse($parts[1]);
 			$end = WebvttTimestamp::parse($parts[2]);
 

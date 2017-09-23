@@ -17,7 +17,7 @@ class Timestamp extends \App\Lib\Timestamp {
 	 * @return string the string representation
 	 */
 	public function __toString() {
-		return number_format($this->seconds, 3, '.', '');
+		return \number_format($this->seconds, 3, '.', '');
 	}
 
 }

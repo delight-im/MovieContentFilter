@@ -46,11 +46,11 @@ final class Edl extends Playlist {
 			}
 		}
 
-		if (count($lines) > 0) {
+		if (\count($lines) > 0) {
 			$lines[] = '';
 		}
 
-		return implode("\n", $lines);
+		return \implode("\n", $lines);
 	}
 
 }

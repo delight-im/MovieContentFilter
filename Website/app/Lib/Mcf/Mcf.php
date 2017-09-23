@@ -71,7 +71,7 @@ final class Mcf extends Filter {
 	public function __toString() {
 		$lines = [];
 
-		$lines[] = 'WEBVTT MovieContentFilter '.((string) $this->version);
+		$lines[] = 'WEBVTT MovieContentFilter ' . ((string) $this->version);
 		$lines[] = '';
 		$lines[] = 'NOTE';
 		$lines[] = 'TITLE ' . (string) $this->metaTitle;
@@ -85,15 +85,15 @@ final class Mcf extends Filter {
 		$lines[] = 'COMMENT ' . (string) $this->metaComment;
 		$lines[] = '';
 		$lines[] = 'NOTE';
-		$lines[] = 'START '.((string) $this->startTime);
-		$lines[] = 'END '.((string) $this->endTime);
+		$lines[] = 'START ' . ((string) $this->startTime);
+		$lines[] = 'END ' . ((string) $this->endTime);
 		$lines[] = '';
 
 		foreach ($this->annotations as $annotation) {
 			$lines[] = (string) $annotation;
 		}
 
-		return implode("\n", $lines);
+		return \implode("\n", $lines);
 	}
 
 	/**
@@ -107,7 +107,7 @@ final class Mcf extends Filter {
 	 * @throws InvalidFileStartTimeException
 	 */
 	public static function parse($str) {
-		if (preg_match(self::CONTAINER_REGEX, $str, $container)) {
+		if (\preg_match(self::CONTAINER_REGEX, $str, $container)) {
 			$version = Version::parse($container[1]);
 
 			try {
@@ -126,7 +126,7 @@ final class Mcf extends Filter {
 
 			$out = new static($version, $fileStartTime, $fileEndTime);
 
-			if (preg_match_all(self::ANNOTATION_BLOCKS_REGEX, $container[4], $annotationBlocks)) {
+			if (\preg_match_all(self::ANNOTATION_BLOCKS_REGEX, $container[4], $annotationBlocks)) {
 				foreach ($annotationBlocks[1] as $annotationBlock) {
 					$out->addAnnotation(Annotation::parse($annotationBlock));
 				}

@@ -28,26 +28,26 @@ final class WebvttTimestamp extends Timestamp {
 		$secondsFloat = $this->seconds;
 
 		// calculate the hours portion
-		$hours = floor($secondsFloat / 3600);
-		$hours = min($hours, 99);
+		$hours = \floor($secondsFloat / 3600);
+		$hours = \min($hours, 99);
 
 		// consume the hours
-		$secondsFloat = fmod($secondsFloat, 3600);
+		$secondsFloat = \fmod($secondsFloat, 3600);
 
 		// calculate the minutes portion
-		$minutes = floor($secondsFloat / 60);
+		$minutes = \floor($secondsFloat / 60);
 
 		// consume the minutes
-		$secondsFloat = fmod($secondsFloat, 60);
+		$secondsFloat = \fmod($secondsFloat, 60);
 
 		// calculate the seconds portion
-		$seconds = floor($secondsFloat);
+		$seconds = \floor($secondsFloat);
 
 		// consume the seconds
-		$secondsFloat = fmod($secondsFloat, 1);
+		$secondsFloat = \fmod($secondsFloat, 1);
 
 		// calculate the milliseconds portion
-		$milliseconds = (int) round($secondsFloat * 1000);
+		$milliseconds = (int) \round($secondsFloat * 1000);
 
 		// return the formatted composite string
 		return self::pad($hours, 2) . ':' . self::pad($minutes, 2) . ':' . self::pad($seconds, 2) . '.' . self::pad($milliseconds, 3);
@@ -61,7 +61,7 @@ final class WebvttTimestamp extends Timestamp {
 	 * @throws InvalidWebvttTimestampException
 	 */
 	public static function parse($str) {
-		if (preg_match(self::REGEX, $str, $parts)) {
+		if (\preg_match(self::REGEX, $str, $parts)) {
 			$hour = (int) $parts[1];
 			$minute = (int) $parts[2];
 			$second = (int) $parts[3];
@@ -82,7 +82,7 @@ final class WebvttTimestamp extends Timestamp {
 	 * @return string the padded number as a string
 	 */
 	private static function pad($number, $length) {
-		return str_pad($number, $length, self::PAD_CHAR, STR_PAD_LEFT);
+		return \str_pad($number, $length, self::PAD_CHAR, STR_PAD_LEFT);
 	}
 
 }

@@ -16,15 +16,15 @@ final class Xml {
 
 	public static function escape($text) {
 		// ampersand
-		$text = str_replace('&', '&amp;', $text);
+		$text = \str_replace('&', '&amp;', $text);
 		// less-than
-		$text = str_replace('<', '&lt;', $text);
+		$text = \str_replace('<', '&lt;', $text);
 		// greater-than
-		$text = str_replace('>', '&gt;', $text);
+		$text = \str_replace('>', '&gt;', $text);
 		// quotation mark
-		$text = str_replace('"', '&quot;', $text);
+		$text = \str_replace('"', '&quot;', $text);
 		// apostrophe
-		$text = str_replace('\'', '&apos;', $text);
+		$text = \str_replace('\'', '&apos;', $text);
 
 		return $text;
 	}

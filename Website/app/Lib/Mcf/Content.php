@@ -105,7 +105,7 @@ final class Content {
 	 * @throws InvalidContentException
 	 */
 	public static function parse($str) {
-		if (preg_match(self::REGEX, trim($str), $parts)) {
+		if (\preg_match(self::REGEX, \trim($str), $parts)) {
 			$channel = isset($parts[3]) ? $parts[3] : self::CHANNEL_DEFAULT;
 			$comment = isset($parts[4]) ? $parts[4] : null;
 

@@ -25,7 +25,7 @@ final class Xspf extends FilePlaylist {
 		$lines[] = '<?xml version="1.0" encoding="utf-8"?>';
 		$lines[] = '<playlist version="1" xmlns="http://xspf.org/ns/0/" xmlns:vlc="http://www.videolan.org/vlc/playlist/ns/0/">';
 		$lines[] = "\t".'<creator>MovieContentFilter</creator>';
-		$lines[] = "\t".'<info>'.Xml::escape($this->publicInfoUrl).'</info>';
+		$lines[] = "\t".'<info>' . Xml::escape($this->publicInfoUrl) . '</info>';
 		$lines[] = "\t".'<trackList>';
 
 		$counter = 0;
@@ -34,7 +34,7 @@ final class Xspf extends FilePlaylist {
 			$lines[] = "\t\t".'<track>';
 
 			if ($annotation instanceof PlaylistItem) {
-				$lines[] = "\t\t\t".'<title>'.Xml::escape($annotation->getDetailsUrl()).'</title>';
+				$lines[] = "\t\t\t".'<title>' . Xml::escape($annotation->getDetailsUrl()) . '</title>';
 			}
 			else {
 				$lines[] = "\t\t\t".'<title></title>';
@@ -51,11 +51,11 @@ final class Xspf extends FilePlaylist {
 				$endTimestamp = $annotation->getTiming()->getEnd();
 			}
 
-			$lines[] = "\t\t\t".'<location>'.Xml::escape($this->mediaFileUri).'</location>';
+			$lines[] = "\t\t\t".'<location>' . Xml::escape($this->mediaFileUri) . '</location>';
 			$lines[] = "\t\t\t".'<extension application="http://www.videolan.org/vlc/playlist/0">';
-			$lines[] = "\t\t\t\t".'<vlc:id>'.$counter.'</vlc:id>';
-			$lines[] = "\t\t\t\t".'<vlc:option>start-time='.((string) $annotation->getTiming()->getStart()).'</vlc:option>';
-			$lines[] = "\t\t\t\t".'<vlc:option>stop-time='.((string) $endTimestamp).'</vlc:option>';
+			$lines[] = "\t\t\t\t".'<vlc:id>' . $counter . '</vlc:id>';
+			$lines[] = "\t\t\t\t".'<vlc:option>start-time=' . ((string) $annotation->getTiming()->getStart()) . '</vlc:option>';
+			$lines[] = "\t\t\t\t".'<vlc:option>stop-time=' . ((string) $endTimestamp) . '</vlc:option>';
 
 			if ($annotation instanceof FilterableAnnotation xor $this->inverted) {
 				if ($annotation instanceof PlaylistItem) {
@@ -83,7 +83,7 @@ final class Xspf extends FilePlaylist {
 		$lines[] = '</playlist>';
 		$lines[] = '';
 
-		return implode("\n", $lines);
+		return \implode("\n", $lines);
 	}
 
 }

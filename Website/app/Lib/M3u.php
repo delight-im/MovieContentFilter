@@ -23,20 +23,20 @@ final class M3u extends FilePlaylist {
 		$lines = [];
 
 		$lines[] = '# MovieContentFilter';
-		$lines[] = '# '.$this->publicInfoUrl;
+		$lines[] = '# ' . $this->publicInfoUrl;
 
 		foreach ($this->annotations as $annotation) {
 			if ($annotation instanceof FilterableAnnotation xor $this->inverted) {
 				if ($annotation instanceof PlaylistItem) {
 					$lines[] = '';
-					$lines[] = '# '.$annotation->getDetailsUrl();
+					$lines[] = '# ' . $annotation->getDetailsUrl();
 				}
 			}
 			else {
 				$lines[] = '';
 
 				if ($annotation instanceof PlaylistItem) {
-					$lines[] = '# '.$annotation->getDetailsUrl();
+					$lines[] = '# ' . $annotation->getDetailsUrl();
 				}
 
 				// if the end of this annotation extends up to the very end of the file
@@ -50,15 +50,15 @@ final class M3u extends FilePlaylist {
 					$endTimestamp = $annotation->getTiming()->getEnd();
 				}
 
-				$lines[] = '#EXTVLCOPT:start-time='.((string) $annotation->getTiming()->getStart());
-				$lines[] = '#EXTVLCOPT:stop-time='.((string) $endTimestamp);
+				$lines[] = '#EXTVLCOPT:start-time=' . ((string) $annotation->getTiming()->getStart());
+				$lines[] = '#EXTVLCOPT:stop-time=' . ((string) $endTimestamp);
 				$lines[] = $this->mediaFileUri;
 			}
 		}
 
 		$lines[] = '';
 
-		return implode("\n", $lines);
+		return \implode("\n", $lines);
 	}
 
 }

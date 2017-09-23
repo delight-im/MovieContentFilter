@@ -59,7 +59,7 @@ final class Annotation extends \App\Lib\Annotation {
 		$out .= (string) $this->timing;
 		$out .= "\n";
 
-		$numContent = count($this->content);
+		$numContent = \count($this->content);
 
 		for ($i = 0; $i < $numContent; $i++) {
 			$out .= (string) $this->content[$i];
@@ -77,8 +77,8 @@ final class Annotation extends \App\Lib\Annotation {
 	 * @throws InvalidAnnotationException
 	 */
 	public static function parse($str) {
-		$components = preg_split(self::NEWLINE_REGEX, $str);
-		$numComponents = count($components);
+		$components = \preg_split(self::NEWLINE_REGEX, $str);
+		$numComponents = \count($components);
 
 		if ($numComponents >= 2) {
 			$timing = WebvttTiming::parse($components[0]);

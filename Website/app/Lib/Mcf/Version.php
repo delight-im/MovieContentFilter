@@ -53,7 +53,7 @@ final class Version {
 	 * @throws InvalidVersionException
 	 */
 	public static function parse($str) {
-		if (preg_match(self::REGEX, $str, $parts)) {
+		if (\preg_match(self::REGEX, $str, $parts)) {
 			$major = (int) $parts[1];
 			$minor = (int) $parts[2];
 			$patch = (int) $parts[3];
