@@ -153,7 +153,7 @@ class AuthController extends Controller {
 		$continueToPath = $app->input()->post('continue');
 
 		try {
-			$app->auth()->login($email, $password, true);
+			$app->auth()->login($email, $password, (int) (60 * 60 * 24 * 365.25));
 
 			// if a desired target path to redirect to has been specified
 			if (!empty($continueToPath)) {
@@ -188,7 +188,7 @@ class AuthController extends Controller {
 
 	public static function confirmEmail(App $app, $selector, $token) {
 		try {
-			$app->auth()->confirmEmailAndSignIn($selector, $token);
+			$app->auth()->confirmEmailAndSignIn($selector, $token, (int) (60 * 60 * 24 * 365.25));
 
 			$app->flash()->success('Your email address has been verified successfully. Thank you!');
 			$app->redirect('/');
