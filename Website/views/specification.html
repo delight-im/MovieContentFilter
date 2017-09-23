@@ -46,12 +46,12 @@
 						<ol>
 							<li>The first line must be the string <code>NOTE</code>. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>TITLE</code>, a single <code>U+0020 SPACE</code> character and the name or title of the work that is described by the document. After that, the line must end with a WebVTT line terminator.</li>
-							<li>The next line may be the string <code>YEAR</code>, a single <code>U+0020 SPACE</code> character and the year of the work's first publication as a non-negative integer as per ISO 8601. After that, the line must end with a WebVTT line terminator.</li>
+							<li>The next line may be the string <code>YEAR</code>, a single <code>U+0020 SPACE</code> character and the year of the work’s first publication as a non-negative integer as per ISO 8601. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>TYPE</code>, a single <code>U+0020 SPACE</code> character and one of the strings <code>movie</code>, <code>series</code> or <code>episode</code> to denote the type of the work. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>SEASON</code>, a single <code>U+0020 SPACE</code> character and the number of the season within the overall series as a positive integer. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>EPISODE</code>, a single <code>U+0020 SPACE</code> character and the number of the episode within the season as a positive integer. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>SOURCE</code>, a single <code>U+0020 SPACE</code> character and a URL pointing to additional information about the work on a website implementing the <a href="https://github.com/delight-im/MovieContentFilter">MovieContentFilter</a> project. After that, the line must end with a WebVTT line terminator.</li>
-							<li>The next line may be the string <code>IMDB</code>, a single <code>U+0020 SPACE</code> character and a URL pointing to the work's <a href="http://www.imdb.com/">IMDb</a> page. After that, the line must end with a WebVTT line terminator.</li>
+							<li>The next line may be the string <code>IMDB</code>, a single <code>U+0020 SPACE</code> character and a URL pointing to the work’s <a href="http://www.imdb.com/">IMDb</a> page. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>RELEASE</code>, a single <code>U+0020 SPACE</code> character and a description of the specific release of the work that is described. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>COMMENT</code>, a single <code>U+0020 SPACE</code> character and a custom comment. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The last line must be a blank line ending with a WebVTT line terminator.</li>
@@ -66,9 +66,9 @@
 				<li>WebVTT cue texts must consist of one or more WebVTT cue text spans exclusively.</li>
 				<li>WebVTT cue text spans must consist of a <em>category</em>, a single <code>U+003D EQUALS SIGN</code> character and the <em>severity</em>. Optionally, after another single <code>U+003D EQUALS SIGN</code> character as the divider, a <em>channel</em> may be included. Optionally as well, after the character sequence <code>U+0020 SPACE</code>, <code>U+0023 NUMBER SIGN</code>, <code>U+0020 SPACE</code>, there may be a comment.
 					<ul>
-						<li>The <em>category</em> must be one of the strings from the "Categories" section below. The second-level entries listed in that section represent the valid values for this property.</li>
-						<li>The <em>severity</em> must be one of the strings from the "Severities" section below.</li>
-						<li>The optional <em>channel</em> describes what part of the source material is affected by the current entry. It must be one of the strings from the "Channels" section below.</li>
+						<li>The <em>category</em> must be one of the strings from the “Categories” section below. The second-level entries listed in that section represent the valid values for this property.</li>
+						<li>The <em>severity</em> must be one of the strings from the “Severities” section below.</li>
+						<li>The optional <em>channel</em> describes what part of the source material is affected by the current entry. It must be one of the strings from the “Channels” section below.</li>
 						<li>The optional <em>comment</em> may contain arbitrary text. However, if it is present, it must neither be empty nor contain any line breaks or the character sequence <code>U+002D HYPHEN-MINUS</code>, <code>U+002D HYPHEN-MINUS</code>, <code>U+003E GREATER-THAN SIGN</code>.</li>
 					</ul>
 				</li>

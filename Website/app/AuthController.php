@@ -33,7 +33,7 @@ class AuthController extends Controller {
 	}
 
 	private static function sendEmail(App $app, $template, $subject, $toAddress, $toName = null, $params = null) {
-		// since we're sending an email, this request *may* take a bit longer in some rare cases
+		// since we’re sending an email, this request *may* take a bit longer in some rare cases
 		set_time_limit(60);
 
 		// never stop execution before the email has been sent just because the client disconnected
@@ -102,7 +102,7 @@ class AuthController extends Controller {
 								'Please confirm your email address',
 								$email,
 
-								// we can't be sure just yet that the supplied name (if any) is acceptable to the owner of the email address
+								// we can’t be sure just yet that the supplied name (if any) is acceptable to the owner of the email address
 								null,
 
 								[
@@ -243,7 +243,7 @@ class AuthController extends Controller {
 					$displayName,
 					[
 						'requestedByIpAddress' => $app->getClientIp(),
-						'reasonForEmailDelivery' => 'You’re receiving this email because you recently requested to reset your password on our website. If that wasn’t you, please ignore this email and accept our excuses.',
+						'reasonForEmailDelivery' => 'You’re receiving this email because you recently requested your password to be reset on our website. If that wasn’t you, please ignore this email and accept our excuses.',
 						'resetUrl' => $resetUrl,
 					]
 				);

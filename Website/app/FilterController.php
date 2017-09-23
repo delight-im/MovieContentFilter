@@ -36,7 +36,7 @@ class FilterController extends Controller {
 		// if no preferences have been set up yet
 		if ($numberOfPreferences === 0) {
 			// ask the user to do so first
-			$app->flash()->warning('Looks like you haven\'t set up any preferences yet. Please do so first, which allows for customized filters that are just for you.');
+			$app->flash()->warning('Looks like you haven’t set up any preferences yet. Please do so first, which allows for customized filters to be generated just for you.');
 			$app->redirect('/preferences');
 			exit;
 		}
