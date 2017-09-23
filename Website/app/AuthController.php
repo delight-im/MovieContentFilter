@@ -148,7 +148,7 @@ class AuthController extends Controller {
 	}
 
 	public static function processLogin(App $app) {
-		$email = $app->input()->post('email', TYPE_EMAIL);
+		$email = $app->input()->post('email', TYPE_STRING);
 		$password = $app->input()->post('password');
 		$continueToPath = $app->input()->post('continue');
 
