@@ -105,7 +105,7 @@ class AuthController extends Controller {
 
 								[
 									'requestedByIpAddress' => $app->getClientIp(),
-									'reasonForEmailDelivery' => 'You\'re receiving this email because you recently created a free account on our website. If that wasn\'t you, please ignore this email and accept our excuses.',
+									'reasonForEmailDelivery' => 'You’re receiving this email because you recently created a free account on our website. If that wasn’t you, please ignore this email and accept our excuses.',
 									'confirmationUrl' => $confirmationUrl,
 								]
 							);
@@ -115,7 +115,7 @@ class AuthController extends Controller {
 						$app->redirect('/');
 					}
 					catch (InvalidEmailException $e) {
-						$app->flash()->warning('Please check the email address that you\'ve entered and try again. Thank you!');
+						$app->flash()->warning('Please check the email address that you’ve entered and try again. Thank you!');
 						$app->redirect($app->currentRoute());
 					}
 					catch (InvalidPasswordException $e) {
@@ -132,7 +132,7 @@ class AuthController extends Controller {
 					}
 				}
 				else {
-					$app->flash()->warning('The two passwords didn\'t match. Please try again. Thank you!');
+					$app->flash()->warning('The two passwords didn’t match. Please try again. Thank you!');
 					$app->redirect($app->currentRoute());
 				}
 			}
@@ -142,7 +142,7 @@ class AuthController extends Controller {
 			}
 		}
 		else {
-			$app->flash()->warning('Please check the email address that you\'ve entered and try again. Thank you!');
+			$app->flash()->warning('Please check the email address that you’ve entered and try again. Thank you!');
 			$app->redirect($app->currentRoute());
 		}
 	}
@@ -194,7 +194,7 @@ class AuthController extends Controller {
 			$app->redirect('/');
 		}
 		catch (InvalidSelectorTokenPairException $e) {
-			$app->flash()->warning('The confirmation link that you followed was invalid. Confirmation links are valid only once. Did you use yours before? Otherwise, please try again!');
+			$app->flash()->warning('The confirmation link that you followed was invalid. Did you already use up your link? Otherwise, please try again!');
 			$app->redirect('/');
 		}
 		catch (TokenExpiredException $e) {
