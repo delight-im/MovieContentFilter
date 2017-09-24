@@ -87,7 +87,6 @@ CREATE TABLE `severities` (
   `available_as_preference` tinyint(1) unsigned NOT NULL,
   `label_in_preferences` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `inclusiveness` tinyint(3) unsigned NOT NULL,
-  `coefficient` decimal(4,3) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `available_as_annotation_id` (`available_as_annotation`,`id`),

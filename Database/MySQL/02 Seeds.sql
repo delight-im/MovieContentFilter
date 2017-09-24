@@ -125,10 +125,10 @@ UNLOCK TABLES;
 
 LOCK TABLES `severities` WRITE;
 /*!40000 ALTER TABLE `severities` DISABLE KEYS */;
-INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`, `coefficient`) VALUES (1,'low','Low',1,1,'Filter low, medium and high severity',3,0.250);
-INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`, `coefficient`) VALUES (2,'medium','Medium',1,1,'Filter medium and high severity',2,1.000);
-INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`, `coefficient`) VALUES (3,'high','High',1,1,'Filter high severity',1,1.750);
-INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`, `coefficient`) VALUES (4,'none','None',0,1,'Do not filter anything',0,0.000);
+INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`) VALUES (1,'low','Low',1,1,'Filter low, medium and high severity',3);
+INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`) VALUES (2,'medium','Medium',1,1,'Filter medium and high severity',2);
+INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`) VALUES (3,'high','High',1,1,'Filter high severity',1);
+INSERT INTO `severities` (`id`, `name`, `label`, `available_as_annotation`, `available_as_preference`, `label_in_preferences`, `inclusiveness`) VALUES (4,'none','None',0,1,'Do not filter anything',0);
 /*!40000 ALTER TABLE `severities` ENABLE KEYS */;
 UNLOCK TABLES;
 
