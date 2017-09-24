@@ -43,10 +43,43 @@ class WorkController extends Controller {
 				);
 			}
 
-			$params['topics'] = $app->db()->select(
-				'SELECT c.topic_id AS id, SUM(a.end_position - a.start_position) AS share, SUM((a.end_position - a.start_position) * b.coefficient) AS share_weighted, d.label FROM annotations AS a JOIN severities AS b ON a.severity_id = b.id JOIN categories AS c ON a.category_id = c.id JOIN topics AS d ON c.topic_id = d.id WHERE a.work_id = ? GROUP BY c.topic_id ORDER BY d.label ASC',
+			$topicsAndSeverities = $app->db()->select(
+				'SELECT c.topic_id AS id, SUM(a.end_position - a.start_position) AS share, d.label, b.name AS severity FROM annotations AS a JOIN severities AS b ON a.severity_id = b.id JOIN categories AS c ON a.category_id = c.id JOIN topics AS d ON c.topic_id = d.id WHERE a.work_id = ? GROUP BY c.topic_id, a.severity_id ORDER BY d.label ASC, b.inclusiveness DESC',
 				[ $id ]
 			);
+
+			$params['topics'] = [];
+			$params['max_total_share'] = 0;
+
+			if ($topicsAndSeverities !== null) {
+				// for each pair of topic and severity level along with corresponding data
+				foreach ($topicsAndSeverities as $topicAndSeverity) {
+					// if there is no record for the current topic yet
+					if (!isset($params['topics'][$topicAndSeverity['id']])) {
+						// create a (still incomplete) record
+						$params['topics'][$topicAndSeverity['id']] = [
+							'sharesBySeverity' => []
+						];
+					}
+
+					// add the topic’s label to the record (repeatedly)
+					$params['topics'][$topicAndSeverity['id']]['label'] = $topicAndSeverity['label'];
+					// add the mapping from the severity to the runtime share to the list
+					$params['topics'][$topicAndSeverity['id']]['sharesBySeverity'][$topicAndSeverity['severity']] = $topicAndSeverity['share'];
+				}
+
+				// for each unique topic with its corresponding data
+				foreach ($params['topics'] as $topicId => $topic) {
+					// calculate the total runtime share of the topic (across severity levels)
+					$params['topics'][$topicId]['total_share'] = \array_sum($topic['sharesBySeverity']);
+
+					// if the runtime share of the current topic is the highest overall so far
+					if ($params['topics'][$topicId]['total_share'] > $params['max_total_share']) {
+						// update the highest recorded runtime share
+						$params['max_total_share'] = $params['topics'][$topicId]['total_share'];
+					}
+				}
+			}
 
 			echo $app->view('view_single.html', $params);
 		}

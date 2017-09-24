@@ -52,28 +52,21 @@
 						<li class="list-group-item">
 							<h4 class="list-group-item-heading">
 								{{ topic.label }}
+								<small>
+									{{ (topic.total_share * 100) | number_format(1, '.', ',') }}%
+									<span class="hidden-xs">
+										of running time
+									</span>
+								</small>
 							</h4>
 							<div class="progress list-group-item-text">
-								<div
-									{% if topic.share_weighted < 0.05 %}
-										class="progress-bar progress-bar-success"
-									{% elseif topic.share_weighted < 0.10 %}
-										class="progress-bar progress-bar-info"
-									{% elseif topic.share_weighted < 0.15 %}
-										class="progress-bar"
-									{% elseif topic.share_weighted < 0.20 %}
-										class="progress-bar progress-bar-warning"
-									{% else %}
-										class="progress-bar progress-bar-danger"
-									{% endif %}
-									role="progressbar" aria-valuenow="{{ (topic.share_weighted * 100 * 4) | round }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ (topic.share_weighted * 100 * 4) | round }}%;"
-								>
-									<span
-										title="{{ (topic.share_weighted * 100) | number_format(1, '.', ',') }}% adjusted for severity"
-									>
-										{{ (topic.share * 100) | number_format(1, '.', ',') }}% of running time
-									</span>
-								</div>
+								{% for severity, share in topic.sharesBySeverity %}
+									<div class="progress-bar{% if severity == 'low' %} progress-bar-warning{% elseif severity == 'medium' %} progress-bar-caution{% elseif severity == 'high' %} progress-bar-danger{% endif %}" role="progressbar" aria-valuenow="{{ (share * (100 / max_total_share)) | round }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ (share * (100 / max_total_share)) | round }}%;">
+										<span class="sr-only">
+											Severity: {{ severity }} &ndash; {{ (share * 100) | number_format(1, '.', ',') }}% of running time
+										</span>
+									</div>
+								{% endfor %}
 							</div>
 						</li>
 					{% endfor %}
