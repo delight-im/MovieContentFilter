@@ -60,8 +60,8 @@ class AnnotationController extends Controller {
 
 			if (isset($_POST['start']) && isset($_POST['end'])) {
 				if (isset($_POST['annotations']) && \is_array($_POST['annotations']) && !empty($_POST['annotations'])) {
-					$fileStartTime = \floatval(trim($_POST['start']));
-					$fileEndTime = \floatval(trim($_POST['end']));
+					$fileStartTime = \floatval(\trim($_POST['start']));
+					$fileEndTime = \floatval(\trim($_POST['end']));
 
 					// update the canonical timing and duration of the work
 					$app->db()->exec(

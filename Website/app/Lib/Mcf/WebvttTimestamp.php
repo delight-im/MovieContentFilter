@@ -82,7 +82,7 @@ final class WebvttTimestamp extends Timestamp {
 	 * @return string the padded number as a string
 	 */
 	private static function pad($number, $length) {
-		return \str_pad($number, $length, self::PAD_CHAR, STR_PAD_LEFT);
+		return \str_pad($number, $length, self::PAD_CHAR, \STR_PAD_LEFT);
 	}
 
 }

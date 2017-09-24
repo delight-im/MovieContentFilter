@@ -12,6 +12,7 @@ use App\Lib\Imdb;
 use Delight\Auth\TooManyRequestsException;
 use Delight\Db\Throwable\IntegrityConstraintViolationException;
 use Delight\Foundation\App;
+use Delight\Str\Str;
 
 class WorkController extends Controller {
 
@@ -104,12 +105,12 @@ class WorkController extends Controller {
 		if ($primaryType === 'movie' || $primaryType === 'series') {
 			$secondaryType = $app->input()->post('secondary-type');
 			$title = $app->input()->post('title');
-			$year = $app->input()->post('year', TYPE_INT);
+			$year = $app->input()->post('year', \TYPE_INT);
 			$imdbUrl = $app->input()->post('imdb-url');
 
 			if (!empty($year) && !empty($imdbUrl)) {
 				if ($year >= self::YEAR_MIN && $year <= self::YEAR_MAX) {
-					if (\s($imdbUrl)->matches(Imdb::WORK_URL_REGEX, $imdbUrlParts)) {
+					if (Str::from($imdbUrl)->matches(Imdb::WORK_URL_REGEX, $imdbUrlParts)) {
 						if (!empty($title) || $secondaryType === 'episode') {
 							try {
 								$app->auth()->throttle([ 'createWork', 'user', $app->auth()->id() ], 1, (60 * 60 * 6), 3);
@@ -164,8 +165,8 @@ class WorkController extends Controller {
 
 						if ($primaryType === 'series' && $secondaryType === 'episode') {
 							$parent = $app->ids()->decode(\trim($_POST['parent']));
-							$season = $app->input()->post('season', TYPE_INT);
-							$episode = $app->input()->post('episode', TYPE_INT);
+							$season = $app->input()->post('season', \TYPE_INT);
+							$episode = $app->input()->post('episode', \TYPE_INT);
 
 							$app->db()->insert(
 								'works_relations',
