@@ -62,3 +62,16 @@ div.progress span {
 .im-delight-moviecontentfilter-privacy-policy dd {
 	margin-left: 40px;
 }
+
+/* Contextual color for progress bars that is somewhere between "warning" and "danger" */
+.progress-bar-caution {
+	background-color: #e5884f;
+}
+.progress-bar-caution {
+	background-image: -webkit-linear-gradient(top, #e5884f 0, #db7026 100%);
+	background-image: -o-linear-gradient(top, #e5884f 0, #db7026 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e5884f), to(#db7026));
+	background-image: linear-gradient(to bottom, #e5884f 0, #db7026 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe5884f', endColorstr='#ffdb7026', GradientType=0);
+}
