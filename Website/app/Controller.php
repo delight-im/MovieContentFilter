@@ -15,17 +15,22 @@ class Controller {
 	protected static function ensureAuthenticated(App $app, $targetPath = null) {
 		// if the user is not logged in
 		if (!$app->auth()->check()) {
-			// if the requested target path has not been provided
-			if (empty($targetPath)) {
-				// use the current route as the default
-				$targetPath = $app->currentRoute();
-			}
-
-			// redirect back to the index and tell the user to sign in
-			$app->flash()->warning('Please sign in to view the requested page. If you don’t have an account yet, you may sign up for free.');
-			$app->redirect('/?continue=' . \urlencode($targetPath));
-			exit;
+			// fail with a proper response for non-authenticated users
+			self::failNotSignedIn($app, $targetPath);
 		}
+	}
+
+	public static function failNotSignedIn(App $app, $targetPath = null) {
+		// if the requested target path has not been provided
+		if (empty($targetPath)) {
+			// use the current route as the default
+			$targetPath = $app->currentRoute();
+		}
+
+		// redirect back to the index and tell the user to sign in
+		$app->flash()->warning('Please sign in to view the requested page. If you don’t have an account yet, you may sign up for free.');
+		$app->redirect('/?continue=' . \urlencode($targetPath));
+		exit;
 	}
 
 	public static function failNotFound(App $app) {
