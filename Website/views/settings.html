@@ -15,6 +15,7 @@
 			<div class="list-group text-center">
 				<a href="#change-password" class="list-group-item">Change password</a>
 				<a href="#change-email" class="list-group-item">Change email address</a>
+				<a href="#control-password-reset" class="list-group-item">Control password reset</a>
 			</div>
 			<div class="page-header"><h3 class="text-center" id="change-password">Change password</h3></div>
 			<form method="post" action="{{ app.url('/settings/change-password') }}" class="form-horizontal" onsubmit="$(this).find('button').prop('disabled', true);">
@@ -46,6 +47,24 @@
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-success">Change email address</button>
+					</div>
+				</div>
+			</form>
+			<div class="page-header"><h3 class="text-center" id="control-password-reset">Control password reset</h3></div>
+			<form method="post" action="{{ app.url('/settings/control-password-reset') }}" class="form-horizontal" onsubmit="$(this).find('button').prop('disabled', true);">
+				{% include 'includes/old_password_1x.html' with { 'id': 'password-reset-password', 'name': 'password-reset-password', 'isReset': false } only %}
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="password-reset-enabled" value="1"{% if passwordResetEnabled %} checked="checked"{% endif %}> Allow password resets via email for my account
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-success">Control password reset</button>
 					</div>
 				</div>
 			</form>

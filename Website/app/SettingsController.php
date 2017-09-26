@@ -26,7 +26,8 @@ class SettingsController extends Controller {
 		echo $app->view(
 			'settings.html',
 			[
-				'passwordMinLength' => AuthController::MIN_PASSWORT_LENGTH
+				'passwordMinLength' => AuthController::MIN_PASSWORT_LENGTH,
+				'passwordResetEnabled' => $app->auth()->isPasswordResetEnabled()
 			]
 		);
 	}
@@ -166,6 +167,33 @@ class SettingsController extends Controller {
 		}
 		else {
 			$app->flash()->warning('Please check the email addresses that you’ve entered and try again.');
+			$app->redirect('/settings');
+		}
+	}
+
+	public static function postControlPasswordReset(App $app) {
+		self::ensureAuthenticated($app);
+
+		$password = $app->input()->post('password-reset-password', \TYPE_STRING);
+		$enabled = $app->input()->post('password-reset-enabled', \TYPE_INT) === 1;
+
+		try {
+			if ($app->auth()->reconfirmPassword($password)) {
+				$app->auth()->setPasswordResetEnabled($enabled);
+
+				$app->flash()->success('Your settings for the password reset have been changed successfully.');
+				$app->redirect('/settings');
+			}
+			else {
+				$app->flash()->warning('It seems the password that you entered was not correct. Please try again!');
+				$app->redirect('/settings');
+			}
+		}
+		catch (NotLoggedInException $e) {
+			self::failNotSignedIn($app);
+		}
+		catch (TooManyRequestsException $e) {
+			$app->flash()->warning('Please try again later!');
 			$app->redirect('/settings');
 		}
 	}
