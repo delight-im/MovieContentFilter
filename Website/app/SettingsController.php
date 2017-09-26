@@ -57,14 +57,14 @@ class SettingsController extends Controller {
 							]
 						);
 
-						$app->flash()->success('Your password has been changed successfully. Thank you!');
+						$app->flash()->success('Your password has been changed successfully.');
 						$app->redirect('/settings');
 					}
 					catch (NotLoggedInException $e) {
 						self::failNotSignedIn($app);
 					}
 					catch (InvalidPasswordException $e) {
-						$app->flash()->warning('It seems the old password that you entered was not correct. Please try again. Thank you!');
+						$app->flash()->warning('It seems the old password that you entered was not correct. Please try again!');
 						$app->redirect('/settings');
 					}
 					catch (TooManyRequestsException $e) {
@@ -73,17 +73,17 @@ class SettingsController extends Controller {
 					}
 				}
 				else {
-					$app->flash()->warning('The two new passwords didn’t match. Please try again. Thank you!');
+					$app->flash()->warning('The two new passwords didn’t match. Please try again!');
 					$app->redirect('/settings');
 				}
 			}
 			else {
-				$app->flash()->warning('Please check the requirements for the new password and try again. Thank you!');
+				$app->flash()->warning('Please check the requirements for the new password and try again.');
 				$app->redirect('/settings');
 			}
 		}
 		else {
-			$app->flash()->warning('Please enter your old password once and your new password twice. Thank you!');
+			$app->flash()->warning('Please enter your old password once and twice your new password.');
 			$app->redirect('/settings');
 		}
 	}
