@@ -40,6 +40,9 @@
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu">
+									{% if app.auth().getUsername() %}
+										<li class="dropdown-header">{{ app.auth().getEmail() }}</li>
+									{% endif %}
 									<li><a href="{{ app.url('/settings') }}">Settings</a></li>
 									<li><a href="{{ app.url('/logout') }}">Sign out</a></li>
 								</ul>
