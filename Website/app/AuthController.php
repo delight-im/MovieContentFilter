@@ -157,6 +157,10 @@ class AuthController extends Controller {
 			$app->flash()->warning('Your confirmation link has already expired. Please request a new confirmation email.');
 			$app->redirect('/');
 		}
+		catch (UserAlreadyExistsException $e) {
+			$app->flash()->warning('The email address that you wanted to use has become occupied in the meantime. Please try another one!');
+			$app->redirect('/');
+		}
 		catch (TooManyRequestsException $e) {
 			$app->flash()->warning('Please try again later!');
 			$app->redirect('/');

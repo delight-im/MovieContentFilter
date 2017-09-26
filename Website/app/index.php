@@ -29,6 +29,7 @@ $app->post('/login', '\App\AuthController::processLogin');
 $app->get('/logout', '\App\AuthController::logout');
 $app->get('/settings', '\App\SettingsController::getSettings');
 $app->post('/settings/change-password', '\App\SettingsController::postChangePassword');
+$app->post('/settings/change-email', '\App\SettingsController::postChangeEmail');
 $app->get('/forgot-password', '\App\AuthController::getForgotPassword');
 $app->post('/forgot-password', '\App\AuthController::postForgotPassword');
 $app->get('/reset/:selector/:token', '\App\AuthController::getResetPassword');

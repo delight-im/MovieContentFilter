@@ -14,6 +14,7 @@
 			<div class="page-header"><h1 class="text-center">Settings</h1></div>
 			<div class="list-group text-center">
 				<a href="#change-password" class="list-group-item">Change password</a>
+				<a href="#change-email" class="list-group-item">Change email address</a>
 			</div>
 			<div class="page-header"><h3 class="text-center" id="change-password">Change password</h3></div>
 			<form method="post" action="{{ app.url('/settings/change-password') }}" class="form-horizontal" onsubmit="$(this).find('button').prop('disabled', true);">
@@ -22,6 +23,29 @@
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-success">Change password</button>
+					</div>
+				</div>
+			</form>
+			<div class="page-header"><h3 class="text-center" id="change-email">Change email address</h3></div>
+			<form method="post" action="{{ app.url('/settings/change-email') }}" class="form-horizontal" onsubmit="$(this).find('button').prop('disabled', true);">
+				{% include 'includes/old_password_1x.html' with { 'id': 'email-password', 'name': 'email-password', 'isReset': false } only %}
+				<div class="form-group">
+					<label for="email-1" class="col-sm-2 control-label">New email</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" id="email-1" name="email-1" placeholder="e.g. jane@example.com" required>
+						<p class="help-block">Please enter your new email address here. You will use this to sign in afterwards. Make sure you can receive emails at this address, please.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="email-2" class="col-sm-2 control-label">Repeat email</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" id="email-2" name="email-2" placeholder="e.g. jane@example.com" required>
+						<p class="help-block">Please repeat your email address here, just to prevent any typing errors.</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-success">Change email address</button>
 					</div>
 				</div>
 			</form>
