@@ -61,7 +61,7 @@
 							</h4>
 							<div class="progress list-group-item-text">
 								{% for severity, share in topic.sharesBySeverity %}
-									<div class="progress-bar{% include 'includes/progress_bar_class_by_severity.html' with { 'severity': severity } only %}" role="progressbar" aria-valuenow="{{ (share * (100 / max_total_share)) | round }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ (share * (100 / max_total_share)) | round }}%;">
+									<div class="progress-bar{% include 'includes/progress_bar_class_by_severity.html' with { 'severity': severity } only %}" style="width:{{ (share * (100 / max_total_share)) | round }}%;" role="progressbar">
 										<span class="sr-only">
 											Severity: {{ severity }} &ndash; {{ (share * 100) | number_format(1, '.', ',') }}% of running time
 										</span>
