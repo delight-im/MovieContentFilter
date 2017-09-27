@@ -54,6 +54,8 @@ div.progress.progress-center-label span {
 }
 div.progress.progress-dark {
 	background-color: #c2c2c2;
+}
+div.progress.progress-dark {
 	background-image: -webkit-linear-gradient(top, #b8b8b8 0, #c2c2c2 100%);
 	background-image: -o-linear-gradient(top, #b8b8b8 0, #c2c2c2 100%);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #b8b8b8), to(#c2c2c2));
