@@ -46,6 +46,8 @@ div.progress.progress-center-label {
 }
 div.progress.progress-center-label span {
 	position: absolute;
+	left: 0;
+	top: 0;
 	display: block;
 	width: 100%;
 	color: #fff;
