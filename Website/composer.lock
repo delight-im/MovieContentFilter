@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "delight-im/auth",
-            "version": "v6.0.0",
+            "version": "v6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-Auth.git",
-                "reference": "05567acc7cf6985e01636e007a5edb43cea5bad9"
+                "reference": "61041cc6fd3c973c818ed148b20e20e9862f863d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-Auth/zipball/05567acc7cf6985e01636e007a5edb43cea5bad9",
-                "reference": "05567acc7cf6985e01636e007a5edb43cea5bad9",
+                "url": "https://api.github.com/repos/delight-im/PHP-Auth/zipball/61041cc6fd3c973c818ed148b20e20e9862f863d",
+                "reference": "61041cc6fd3c973c818ed148b20e20e9862f863d",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 "login",
                 "security"
             ],
-            "time": "2017-08-18T22:47:42+00:00"
+            "time": "2017-09-27T19:58:28+00:00"
         },
         {
             "name": "delight-im/base64",
@@ -673,16 +673,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.34.4",
+            "version": "v1.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "f878bab48edb66ad9c6ed626bf817f60c6c096ee"
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/f878bab48edb66ad9c6ed626bf817f60c6c096ee",
-                "reference": "f878bab48edb66ad9c6ed626bf817f60c6c096ee",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/daa657073e55b0a78cce8fdd22682fddecc6385f",
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f",
                 "shasum": ""
             },
             "require": {
@@ -696,7 +696,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.34-dev"
+                    "dev-master": "1.35-dev"
                 }
             },
             "autoload": {
@@ -734,7 +734,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-07-04T13:19:31+00:00"
+            "time": "2017-09-27T18:06:46+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
