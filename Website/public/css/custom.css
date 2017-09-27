@@ -51,6 +51,8 @@ div.progress.progress-center-label span {
 	display: block;
 	width: 100%;
 	color: #fff;
+}
+div.progress.progress-label-backdrop span {
 	background-color: rgba(0, 0, 0, 0.25);
 }
 
