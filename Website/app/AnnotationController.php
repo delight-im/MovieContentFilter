@@ -18,6 +18,8 @@ use Delight\Foundation\App;
 
 class AnnotationController extends Controller {
 
+	use AnnotationViewerTrait;
+
 	public static function launchEditor(App $app, $id) {
 		$id = $app->ids()->decode(\trim($id));
 
@@ -146,6 +148,76 @@ class AnnotationController extends Controller {
 			$app->setStatus(401);
 			exit;
 		}
+	}
+
+	public static function showAnnotation(App $app, $id) {
+		$id = $app->ids()->decode(\trim($id));
+
+		$params = [];
+
+		$params['annotation'] = $app->db()->selectRow(
+			'SELECT a.work_id, a.start_position, a.end_position, a.author_user_id, a.voting_score, b.label AS category_label, b.is_general AS category_is_general, b.topic_id, e.label AS topic_label, c.name AS severity, d.label AS channel_label FROM annotations AS a JOIN categories AS b ON b.id = a.category_id JOIN severities AS c ON c.id = a.severity_id JOIN channels AS d ON d.id = a.channel_id JOIN topics AS e ON e.id = b.topic_id WHERE a.id = ?',
+			[ $id ]
+		);
+
+		// add the ID of this annotation to the view parameters
+		$params['id'] = $id;
+
+		// if the user is currently signed in
+		if ($app->auth()->check()) {
+			// if the current user is the author of this annotation
+			if ($app->auth()->id() === $params['annotation']['author_user_id']) {
+				// the author’s vote has implicitly been cast when creating the annotation
+				$params['voted'] = true;
+			}
+			// if the current user is not the author of this annotation
+			else {
+				// check if the user’s vote has already been cast
+				$castVotesFound = $app->db()->selectValue(
+					'SELECT COUNT(*) FROM annotations_votes WHERE annotation_id = ? AND user_id = ?',
+					[
+						$id,
+						$app->auth()->id()
+					]
+				);
+
+				// the database result tells us whether the user has already voted
+				$params['voted'] = $castVotesFound === 1;
+			}
+		}
+		// if the user is not signed in yet
+		else {
+			// let the voting appear to be available
+			$params['voted'] = false;
+		}
+
+		// drop author’s user ID which is not needed anymore
+		unset($params['annotation']['author_user_id']);
+
+		$params['work'] = $app->db()->selectRow(
+			'SELECT type, title, canonical_start_time, canonical_end_time FROM works WHERE id = ?',
+			[ $params['annotation']['work_id'] ]
+		);
+
+		// move the work’s ID from the annotation’s record to the work’s record itself
+		$params['work']['id'] = $params['annotation']['work_id'];
+		unset($params['annotation']['work_id']);
+
+		if ($params['work']['type'] === 'episode') {
+			$params['series'] = $app->db()->selectRow(
+				'SELECT b.id AS parent_id, b.title AS parent_title, a.season, a.episode_in_season FROM works_relations AS a JOIN works AS b ON a.parent_work_id = b.id WHERE a.child_work_id = ? LIMIT 0, 1',
+				[ $params['work']['id'] ]
+			);
+		}
+
+		// prepare the annotation for display
+		$params['annotation'] = self::prepareAnnotationForDisplay($params['annotation'], $params['work']['canonical_start_time'], $params['work']['canonical_end_time']);
+
+		// drop timings for overall work which are not needed anymore
+		unset($params['work']['canonical_start_time']);
+		unset($params['work']['canonical_end_time']);
+
+		echo $app->view('annotation.html', $params);
 	}
 
 }
