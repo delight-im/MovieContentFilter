@@ -9,13 +9,14 @@
 namespace App;
 
 use App\Lib\Imdb;
-use App\Lib\Mcf\WebvttTimestamp;
 use Delight\Auth\TooManyRequestsException;
 use Delight\Db\Throwable\IntegrityConstraintViolationException;
 use Delight\Foundation\App;
 use Delight\Str\Str;
 
 class WorkController extends Controller {
+
+	use AnnotationViewerTrait;
 
 	const YEAR_MIN = 1900;
 	const YEAR_MAX = 2099;
@@ -136,23 +137,8 @@ class WorkController extends Controller {
 		if ($params['annotations'] !== null) {
 			// iterate over all annotations
 			$params['annotations'] = \array_map(function ($each) use ($params) {
-				// add approximate timings in addition to relative start and end positions
-				$each['start_time'] = (string) WebvttTimestamp::fromPositionInRuntime($params['work']['canonical_start_time'], $params['work']['canonical_end_time'], $each['start_position']);
-				$each['end_time'] = (string) WebvttTimestamp::fromPositionInRuntime($params['work']['canonical_start_time'], $params['work']['canonical_end_time'], $each['end_position']);
-
-				// calculate the sizes of partitions symbolizing the runtime shares
-				$each['partitions'] = [];
-				$each['partitions']['before'] = (int) \round($each['start_position'] * 100);
-				$each['partitions']['self'] = (int) \round(($each['end_position'] - $each['start_position']) * 100);
-				$each['partitions']['self'] += 2;
-				$each['partitions']['before'] -= 1;
-				$each['partitions']['after'] = 100 - $each['partitions']['before'] - $each['partitions']['self'];
-
-				// drop relative start and end positions which are not needed anymore
-				unset($each['start_position']);
-				unset($each['end_position']);
-
-				return $each;
+				// and prepare them for display
+				return self::prepareAnnotationForDisplay($each, $params['work']['canonical_start_time'], $params['work']['canonical_end_time']);
 			}, $params['annotations']);
 		}
 
