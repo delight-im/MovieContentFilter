@@ -36,9 +36,9 @@
 			{% if annotations %}
 				<div class="list-group">
 					{% for annotation in annotations %}
-						<div class="list-group-item">
+						<a class="list-group-item" href="{{ app.url('/annotations/' ~ app.ids().encode(annotation.id)) }}">
 							{% include 'includes/annotation_list_group_item_content.html' with { 'annotation': annotation } only %}
-						</div>
+						</a>
 					{% endfor %}
 				</div>
 			{% else %}
