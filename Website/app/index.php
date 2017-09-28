@@ -26,6 +26,7 @@ $app->post('/resend-confirmation', '\App\AuthController::postResendConfirmation'
 $app->get('/add', '\App\WorkController::prepareWork');
 $app->post('/add', '\App\WorkController::saveWork');
 $app->post('/login', '\App\AuthController::processLogin');
+$app->get('/works/:workId/topics/:topicId', '\App\WorkController::showTopicInWork');
 $app->get('/logout', '\App\AuthController::logout');
 $app->get('/settings', '\App\SettingsController::getSettings');
 $app->post('/settings/change-password', '\App\SettingsController::postChangePassword');

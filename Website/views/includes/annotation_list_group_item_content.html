@@ -1,0 +1,27 @@
+{#
+* MovieContentFilter (https://www.moviecontentfilter.com/)
+* Copyright (c) delight.im (https://www.delight.im/)
+* Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+<h4 class="list-group-item-heading">
+	{% if annotation.category_is_general %}
+		General
+	{% else %}
+		{{ annotation.category_label }}
+	{% endif %}
+	<small>
+		{{ annotation.channel_label }}
+	</small>
+</h4>
+<div class="progress progress-dark progress-center-label list-group-item-text">
+	<div class="progress-bar progress-bar-transparent" style="width:{{ annotation.partitions.before }}%;" role="progressbar"></div>
+	<div class="progress-bar{% include 'includes/progress_bar_class_by_severity.html' with { 'severity': annotation.severity } only %} progress-bar-borderless" style="width:{{ annotation.partitions.self }}%;" role="progressbar">
+		<span class="sr-only">
+			Severity: {{ annotation.severity }}
+		</span>
+		<span>
+			{{ annotation.start_time }} &ndash; {{ annotation.end_time }}
+		</span>
+	</div>
+	<div class="progress-bar progress-bar-transparent" style="width:{{ annotation.partitions.after }}%;" role="progressbar"></div>
+</div>

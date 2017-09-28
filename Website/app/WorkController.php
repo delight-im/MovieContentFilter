@@ -9,6 +9,7 @@
 namespace App;
 
 use App\Lib\Imdb;
+use App\Lib\Mcf\WebvttTimestamp;
 use Delight\Auth\TooManyRequestsException;
 use Delight\Db\Throwable\IntegrityConstraintViolationException;
 use Delight\Foundation\App;
@@ -94,6 +95,72 @@ class WorkController extends Controller {
 
 			echo $app->view('view_multiple.html', $params);
 		}
+	}
+
+	public static function showTopicInWork(App $app, $workId, $topicId) {
+		$workId = $app->ids()->decode(\trim($workId));
+		$topicId = $app->ids()->decode(\trim($topicId));
+
+		$params = [];
+
+		$params['work'] = $app->db()->selectRow(
+			'SELECT type, title, canonical_start_time, canonical_end_time FROM works WHERE id = ?',
+			[ $workId ]
+		);
+
+		$params['work']['id'] = $workId;
+
+		if ($params['work']['type'] === 'episode') {
+			$params['series'] = $app->db()->selectRow(
+				'SELECT b.id AS parent_id, b.title AS parent_title, a.season, a.episode_in_season FROM works_relations AS a JOIN works AS b ON a.parent_work_id = b.id WHERE a.child_work_id = ? LIMIT 0, 1',
+				[ $workId ]
+			);
+		}
+
+		$params['topic'] = [];
+
+		$params['topic']['label'] = $app->db()->selectValue(
+			'SELECT label FROM topics WhERE id = ?',
+			[ $topicId ]
+		);
+
+		$params['annotations'] = $app->db()->select(
+			'SELECT a.id, a.start_position, a.end_position, b.label AS category_label, b.is_general AS category_is_general, c.name AS severity, d.label AS channel_label FROM annotations AS a JOIN categories AS b ON b.id = a.category_id JOIN severities AS c ON c.id = a.severity_id JOIN channels AS d ON d.id = a.channel_id WHERE a.work_id = ? AND b.topic_id = ? ORDER BY a.start_position ASC LIMIT 0, 500',
+			[
+				$workId,
+				$topicId
+			]
+		);
+
+		// if annotations have been found for this topic
+		if ($params['annotations'] !== null) {
+			// iterate over all annotations
+			$params['annotations'] = \array_map(function ($each) use ($params) {
+				// add approximate timings in addition to relative start and end positions
+				$each['start_time'] = (string) WebvttTimestamp::fromPositionInRuntime($params['work']['canonical_start_time'], $params['work']['canonical_end_time'], $each['start_position']);
+				$each['end_time'] = (string) WebvttTimestamp::fromPositionInRuntime($params['work']['canonical_start_time'], $params['work']['canonical_end_time'], $each['end_position']);
+
+				// calculate the sizes of partitions symbolizing the runtime shares
+				$each['partitions'] = [];
+				$each['partitions']['before'] = (int) \round($each['start_position'] * 100);
+				$each['partitions']['self'] = (int) \round(($each['end_position'] - $each['start_position']) * 100);
+				$each['partitions']['self'] += 2;
+				$each['partitions']['before'] -= 1;
+				$each['partitions']['after'] = 100 - $each['partitions']['before'] - $each['partitions']['self'];
+
+				// drop relative start and end positions which are not needed anymore
+				unset($each['start_position']);
+				unset($each['end_position']);
+
+				return $each;
+			}, $params['annotations']);
+		}
+
+		// drop timings for overall work which are not needed anymore
+		unset($params['work']['canonical_start_time']);
+		unset($params['work']['canonical_end_time']);
+
+		echo $app->view('topic_in_work.html', $params);
 	}
 
 	public static function prepareWork(App $app) {

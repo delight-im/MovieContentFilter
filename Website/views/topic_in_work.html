@@ -1,0 +1,51 @@
+{#
+ * MovieContentFilter (https://www.moviecontentfilter.com/)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the GNU AGPL v3 (https://www.gnu.org/licenses/agpl-3.0.txt)
+#}
+{% include 'includes/page_top.html' %}
+<ol class="breadcrumb">
+	<li><a href="{{ app.url('/') }}">Home</a></li>
+	{% if work.type == 'movie' %}
+		<li><a href="{{ app.url('/browse/movies') }}">Movies</a></li>
+	{% else %}
+		<li><a href="{{ app.url('/browse/series') }}">TV series</a></li>
+	{% endif %}
+	{% if series %}
+		{% if series.parent_id and series.parent_title %}
+			<li><a href="{{ app.url('/works/' ~ app.ids().encode(series.parent_id)) }}">{{ series.parent_title }}</a></li>
+		{% endif %}
+		<li><a href="{{ app.url('/works/' ~ app.ids().encode(work.id)) }}">Season {{ series.season }}</a></li>
+		<li><a href="{{ app.url('/works/' ~ app.ids().encode(work.id)) }}">Episode {{ series.episode_in_season }}</a></li>
+	{% else %}
+		<li><a href="{{ app.url('/works/' ~ app.ids().encode(work.id)) }}">{{ work.title }}</a></li>
+	{% endif %}
+	<li class="active">{{ topic.label }}</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1 class="text-center">
+					{{ topic.label }}
+					{% if work.title %}
+						in “{{ work.title }}”
+					{% endif %}
+				</h1>
+			</div>
+			{% if annotations %}
+				<div class="list-group">
+					{% for annotation in annotations %}
+						<div class="list-group-item">
+							{% include 'includes/annotation_list_group_item_content.html' with { 'annotation': annotation } only %}
+						</div>
+					{% endfor %}
+				</div>
+			{% else %}
+				<p class="text-center">No annotations of “{{ topic.label }}” available 😞</p>
+				<p class="text-center">Be the first to <a href="{{ app.url('/works/' ~ app.ids().encode(work.id) ~ '/contribute') }}">mark occurrences</a> in “{{ work.title }}”.</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% include 'includes/page_bottom.html' %}
