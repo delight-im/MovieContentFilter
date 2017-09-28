@@ -94,3 +94,8 @@ div.progress.progress-dark {
 	background-image: none;
 	box-shadow: none;
 }
+
+/* Removes any border, outline or shadow from the progress bar that this is applied to */
+.progress-bar-borderless {
+	box-shadow: none;
+}
