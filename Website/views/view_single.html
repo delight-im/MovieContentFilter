@@ -47,9 +47,9 @@
 				</div>
 			</div>
 			{% if topics %}
-				<ul class="list-group">
-					{% for topic in topics %}
-						<li class="list-group-item">
+				<div class="list-group">
+					{% for topicId, topic in topics %}
+						<a class="list-group-item" href="{{ app.url('/works/' ~ app.ids().encode(id) ~ '/topics/' ~ app.ids().encode(topicId)) }}">
 							<h4 class="list-group-item-heading">
 								{{ topic.label }}
 								<small>
@@ -68,9 +68,9 @@
 									</div>
 								{% endfor %}
 							</div>
-						</li>
+						</a>
 					{% endfor %}
-				</ul>
+				</div>
 			{% else %}
 				<p class="text-center">No annotations of filterable content available 😞</p>
 				<p class="text-center">Be the first to contribute above.</p>
