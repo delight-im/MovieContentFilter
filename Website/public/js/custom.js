@@ -91,6 +91,40 @@ function updateFilterPropertiesElements(formatElementsName, videoSourceContainer
 	}
 }
 
+function voteForAnnotation(url, clickedButton, scoreAddend, votingContainerId, scoreContainerId) {
+	// first disable the clicked button
+	$(clickedButton).prop("disabled", true);
+
+	$.post({
+		type: "POST",
+		url: url
+	}).done(function () {
+		// the user's vote has been cast so we can disable the voting now
+		$("#"+votingContainerId).find("button").prop("disabled", true);
+
+		// and update the score
+		var scoreContainer = $("#"+scoreContainerId);
+		var oldScore = parseInt(scoreContainer.text(), 10);
+		var newScore = oldScore + scoreAddend;
+		var newScoreStr = (newScore > 0 ? "+" : "") + newScore;
+		scoreContainer.text(newScoreStr);
+	}).fail(function (jqXHR) {
+		// the user has to sign in first
+		if (jqXHR.status === 401) {
+			// tell them what to do
+			alert("Please sign in to your account in order to vote!\n\nYou can find the login on the top of this page.\n\nThank you!");
+		}
+		// any other error occurred
+		else {
+			// we've probably just lost the connection
+			alert("Please check your internet connection!");
+		}
+
+		// finally re-enable the clicked button
+		$(clickedButton).prop("disabled", false);
+	});
+}
+
 // when the DOM is ready
 $(document).ready(function () {
 	// if we're on the page for adding a new episode to a series

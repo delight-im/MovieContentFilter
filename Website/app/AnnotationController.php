@@ -220,4 +220,56 @@ class AnnotationController extends Controller {
 		echo $app->view('annotation.html', $params);
 	}
 
+	public static function voteForAnnotation(App $app, $id, $direction) {
+		// if the user is logged in
+		if ($app->auth()->check()) {
+			$id = $app->ids()->decode(\trim($id));
+
+			// determine in what way to alter the voting score
+			if ($direction === 'up') {
+				$addend = 1;
+			}
+			elseif ($direction === 'down') {
+				$addend = -1;
+			}
+			else {
+				// fail with a proper HTTP response code
+				$app->setStatus(400);
+				exit;
+			}
+
+			// prevent the user from voting again
+			try {
+				$app->db()->insert(
+					'annotations_votes',
+					[
+						'annotation_id' => $id,
+						'user_id' => $app->auth()->id(),
+						'addend' => $addend
+					]
+				);
+			}
+			catch (IntegrityConstraintViolationException $e) {
+				// fail with a proper HTTP response code
+				$app->setStatus(403);
+				exit;
+			}
+
+			// and record the vote
+			$app->db()->exec(
+				'UPDATE annotations SET voting_score = voting_score + ? WHERE id = ?',
+				[
+					$addend,
+					$id
+				]
+			);
+		}
+		// if the user is not logged in
+		else {
+			// fail with a proper HTTP response code
+			$app->setStatus(401);
+			exit;
+		}
+	}
+
 }

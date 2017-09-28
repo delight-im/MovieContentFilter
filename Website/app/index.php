@@ -27,6 +27,7 @@ $app->get('/add', '\App\WorkController::prepareWork');
 $app->post('/add', '\App\WorkController::saveWork');
 $app->post('/login', '\App\AuthController::processLogin');
 $app->get('/annotations/:id', '\App\AnnotationController::showAnnotation');
+$app->post('/annotations/:id/vote/:direction', '\App\AnnotationController::voteForAnnotation');
 $app->get('/works/:workId/topics/:topicId', '\App\WorkController::showTopicInWork');
 $app->get('/logout', '\App\AuthController::logout');
 $app->get('/settings', '\App\SettingsController::getSettings');

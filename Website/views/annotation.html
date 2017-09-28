@@ -37,13 +37,13 @@
 			</div>
 			<div class="text-center">
 				<div class="btn-group-vertical btn-group-lg" role="group" aria-label="Options" id="voting-container">
-					<button type="button" class="btn btn-primary" {% if voted %}disabled{% endif %}>
+					<button type="button" class="btn btn-primary" onclick="voteForAnnotation('{{ app.url('/annotations/' ~ app.ids().encode(id) ~ '/vote/up') }}', this, 1, 'voting-container', 'voting-score-container');" {% if voted %}disabled{% endif %}>
 						<i class="fa fa-thumbs-up" aria-hidden="true"></i> This is correct and precise!
 					</button>
 					<button type="button" class="btn btn-default" id="voting-score-container" disabled>
 						{% if annotation.voting_score > 0 %}+{% endif %}{{ annotation.voting_score }}
 					</button>
-					<button type="button" class="btn btn-primary" {% if voted %}disabled{% endif %}>
+					<button type="button" class="btn btn-primary" onclick="voteForAnnotation('{{ app.url('/annotations/' ~ app.ids().encode(id) ~ '/vote/down') }}', this, -1, 'voting-container', 'voting-score-container');" {% if voted %}disabled{% endif %}>
 						<i class="fa fa-thumbs-down" aria-hidden="true"></i> This is wrong or inaccurate!
 					</button>
 				</div>
