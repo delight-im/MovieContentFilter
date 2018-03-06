@@ -11,8 +11,8 @@ willkommen bei {{ projectName|raw }}!
 
 {{ confirmationUrl|raw }}
 
-Nachdem du deine Adresse bestätigt hast, kannst du dich{% else %}Du kannst dich jetzt{% endif %} mit dieser E-Mail-Adresse und dem Passwort, das du während der Registrierung gewählt hast, anmelden.
+Nachdem du die Bestätigung abgeschlossen hast, kannst du dich{% else %}Du kannst dich jetzt{% endif %} mit dieser E-Mail-Adresse und dem Passwort, das du während der Registrierung gewählt hast, anmelden.
 
-Wenn du irgendwelche Fragen hast, kannst du uns gerne um Hilfe bitten.
+Wenn du Fragen hast, kannst du uns gerne um Hilfe bitten.
 
 {% include 'mail/de-DE/includes/footer.txt' %}

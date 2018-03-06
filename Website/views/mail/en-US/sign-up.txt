@@ -11,7 +11,7 @@ Welcome to {{ projectName|raw }}!
 
 {{ confirmationUrl|raw }}
 
-After confirming your address, you can{% else %}You can now{% endif %} sign in with this email address and the password that you chose during sign up.
+After completing the confirmation, you can{% else %}You can now{% endif %} sign in with this email address and the password that you chose during sign up.
 
 If you have any questions, please feel free to ask us for help.
 

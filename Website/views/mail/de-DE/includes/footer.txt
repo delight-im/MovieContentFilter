@@ -3,7 +3,7 @@
  * Copyright (c) delight.im (https://www.delight.im/)
  * Licensed under the MIT License (https://opensource.org/licenses/MIT)
 #}
-Grüße,
+Mit freundlichen Grüßen
 {{ projectName|raw }}
 {{ projectUrl|raw }}
 
@@ -11,8 +11,8 @@ Grüße,
 
 {% if reasonForEmailDelivery %}{{ reasonForEmailDelivery|raw }}
 
-{% endif %}Diese Nachricht wurde an <{{ recipientEmailAddress|raw }}> gesendet{% if requestedByIpAddress %} und wurde durch jemanden mit der IP-Adresse "{{ requestedByIpAddress|raw }}" verursacht{% endif %}.
+{% endif %}Diese Nachricht wurde an <{{ recipientEmailAddress|raw }}> gesendet{% if requestedByIpAddress %} und wurde durch jemanden mit der IP-Adresse „{{ requestedByIpAddress|raw }}“ verursacht{% endif %}.
 
 Bitte antworte nicht direkt auf diese Nachricht, da wir von dieser E-Mail-Adresse aus nicht antworten können. Kontaktiere uns bitte stattdessen unter <{{ projectEmail|raw }}>.
 
-© {{ projectName|raw }}, {{ projectPostalAddress|raw }}.
+© {{ projectName|raw }}, {{ projectPostalAddress|raw }}
