@@ -87,6 +87,8 @@ define('TYPE_FLOAT', \Delight\Foundation\Input::DATA_TYPE_FLOAT);
 define('TYPE_EMAIL', \Delight\Foundation\Input::DATA_TYPE_EMAIL);
 define('TYPE_URL', \Delight\Foundation\Input::DATA_TYPE_URL);
 define('TYPE_IP', \Delight\Foundation\Input::DATA_TYPE_IP);
+define('TYPE_TEXT', \Delight\Foundation\Input::DATA_TYPE_TEXT);
+define('TYPE_RAW', \Delight\Foundation\Input::DATA_TYPE_RAW);
 
 // include the actual application code
 require __DIR__.'/app/index.php';

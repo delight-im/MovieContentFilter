@@ -78,11 +78,13 @@ else
 fi
 
 # Verify that the public key for asymmetric encryption exists and can be read
-if [ -f "${CONTAINER_DIRECTORY}/${ASYMMETRIC_PUBLIC_KEY_FILENAME}" ] && [ -r "${CONTAINER_DIRECTORY}/${ASYMMETRIC_PUBLIC_KEY_FILENAME}" ]; then
-	echo " * Public key for asymmetric encryption found ..."
-else
-	echo " * Error: Public key for asymmetric encryption could not be found"
-	exit 6
+if [ "$1" != "unencrypted" ]; then
+	if [ -f "${CONTAINER_DIRECTORY}/${ASYMMETRIC_PUBLIC_KEY_FILENAME}" ] && [ -r "${CONTAINER_DIRECTORY}/${ASYMMETRIC_PUBLIC_KEY_FILENAME}" ]; then
+		echo " * Public key for asymmetric encryption found ..."
+	else
+		echo " * Error: Public key for asymmetric encryption could not be found"
+		exit 6
+	fi
 fi
 
 # Read the database configuration
@@ -271,53 +273,57 @@ rm -f "${BACKUP_DIRECTORY}/${DATABASE_FULL_FILENAME}"
 rm -f "${BACKUP_DIRECTORY}/${FILE_SYSTEM_ARCHIVE_FILENAME}"
 rm -f "${BACKUP_DIRECTORY}/${LOGS_ARCHIVE_FILENAME}"
 
-# Generate random bytes to be used as the key for symmetric encryption
-echo " * Generating random key for symmetric encryption ..."
-touch "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}"
-chmod 0600 "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}"
-openssl rand -out "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}" 32
+if [ "$1" == "unencrypted" ]; then
+	echo " * Skipping encryption as desired"
+else
+	# Generate random bytes to be used as the key for symmetric encryption
+	echo " * Generating random key for symmetric encryption ..."
+	touch "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}"
+	chmod 0600 "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}"
+	openssl rand -out "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}" 32
 
-# Symmetrically encrypt the exported data with the generated key
-echo " * Symmetrically encrypting exported data ..."
-touch "${BACKUP_DIRECTORY}/${DATA_ENCRYPTED_FILENAME}"
-chmod 0644 "${BACKUP_DIRECTORY}/${DATA_ENCRYPTED_FILENAME}"
-openssl enc \
-	-aes-256-cbc \
-	-e \
-	-in "${BACKUP_DIRECTORY}/${DATA_ARCHIVE_FILENAME}" \
-	-out "${BACKUP_DIRECTORY}/${DATA_ENCRYPTED_FILENAME}" \
-	-pass "file:${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}" \
-	-salt
+	# Symmetrically encrypt the exported data with the generated key
+	echo " * Symmetrically encrypting exported data ..."
+	touch "${BACKUP_DIRECTORY}/${DATA_ENCRYPTED_FILENAME}"
+	chmod 0644 "${BACKUP_DIRECTORY}/${DATA_ENCRYPTED_FILENAME}"
+	openssl enc \
+		-aes-256-cbc \
+		-e \
+		-in "${BACKUP_DIRECTORY}/${DATA_ARCHIVE_FILENAME}" \
+		-out "${BACKUP_DIRECTORY}/${DATA_ENCRYPTED_FILENAME}" \
+		-pass "file:${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}" \
+		-salt
 
-# Delete the unencrypted version of the data again
-echo " * Deleting unencrypted data ..."
-rm -f "${BACKUP_DIRECTORY}/${DATA_ARCHIVE_FILENAME}"
+	# Delete the unencrypted version of the data again
+	echo " * Deleting unencrypted data ..."
+	rm -f "${BACKUP_DIRECTORY}/${DATA_ARCHIVE_FILENAME}"
 
-# Asymmetrically encrypt the symmetric encryption key
-echo " * Asymmetrically encrypting symmetric key ..."
-touch "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_ENCRYPTED_FILENAME}"
-chmod 0644 "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_ENCRYPTED_FILENAME}"
-openssl pkeyutl \
-	-encrypt \
-	-in "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}" \
-	-out "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_ENCRYPTED_FILENAME}" \
-	-inkey "${CONTAINER_DIRECTORY}/${ASYMMETRIC_PUBLIC_KEY_FILENAME}" \
-	-keyform PEM \
-	-pubin
+	# Asymmetrically encrypt the symmetric encryption key
+	echo " * Asymmetrically encrypting symmetric key ..."
+	touch "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_ENCRYPTED_FILENAME}"
+	chmod 0644 "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_ENCRYPTED_FILENAME}"
+	openssl pkeyutl \
+		-encrypt \
+		-in "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}" \
+		-out "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_ENCRYPTED_FILENAME}" \
+		-inkey "${CONTAINER_DIRECTORY}/${ASYMMETRIC_PUBLIC_KEY_FILENAME}" \
+		-keyform PEM \
+		-pubin
 
-# Delete the unencrypted version of the symmetric encryption key again
-echo " * Deleting unencrypted symmetric key ..."
-rm -f "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}"
+	# Delete the unencrypted version of the symmetric encryption key again
+	echo " * Deleting unencrypted symmetric key ..."
+	rm -f "${BACKUP_DIRECTORY}/${SYMMETRIC_KEY_FILENAME}"
 
-# Add an exemplary script that shows how to decrypt the symmetric key and the data
-echo " * Adding manual for decryption"
-decryption="openssl pkeyutl -decrypt -in \"symmetric-key.bin.crypt\""
-decryption+=" -out \"symmetric-key.bin\" -inkey \"asymmetric-key.private.pem\""
-decryption+=" -keyform PEM"
-decryption+="\n"
-decryption+="openssl enc -aes-256-cbc -d -in \"data.tar.gz.crypt\""
-decryption+=" -out \"data.tar.gz\" -pass \"file:symmetric-key.bin\""
-echo -e $decryption > "${BACKUP_DIRECTORY}/${DECRYPTION_SAMPLE_SCRIPT_FILENAME}"
+	# Add an exemplary script that shows how to decrypt the symmetric key and the data
+	echo " * Adding manual for decryption"
+	decryption="openssl pkeyutl -decrypt -in \"symmetric-key.bin.crypt\""
+	decryption+=" -out \"symmetric-key.bin\" -inkey \"asymmetric-key.private.pem\""
+	decryption+=" -keyform PEM"
+	decryption+="\n"
+	decryption+="openssl enc -aes-256-cbc -d -in \"data.tar.gz.crypt\""
+	decryption+=" -out \"data.tar.gz\" -pass \"file:symmetric-key.bin\""
+	echo -e $decryption > "${BACKUP_DIRECTORY}/${DECRYPTION_SAMPLE_SCRIPT_FILENAME}"
+fi
 
 # Pack the results into a single file
 echo " * Packing results ..."
