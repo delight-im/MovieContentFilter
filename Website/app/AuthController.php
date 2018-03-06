@@ -195,7 +195,7 @@ class AuthController extends Controller {
 				// send the link to the user
 				self::sendEmail(
 					$app,
-					'mail/en-US/forgot_password.txt',
+					'mail/en-US/forgot-password.txt',
 					'Resetting your password',
 					$email,
 					$displayName,
@@ -308,7 +308,7 @@ class AuthController extends Controller {
 				// send the link to the user
 				self::sendEmail(
 					$app,
-					'mail/en-US/confirm_email.txt',
+					'mail/en-US/confirm-email.txt',
 					'Confirming your email address',
 					$email,
 					$displayName,

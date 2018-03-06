@@ -48,7 +48,7 @@ class SettingsController extends Controller {
 						// inform the user about this critical change via email
 						self::sendEmail(
 							$app,
-							'mail/en-US/password_changed.txt',
+							'mail/en-US/password-changed.txt',
 							'Your password has been changed',
 							$app->auth()->getEmail(),
 							$app->auth()->getUsername(),
@@ -107,7 +107,7 @@ class SettingsController extends Controller {
 							// send the link to the user
 							self::sendEmail(
 								$app,
-								'mail/en-US/confirm_email.txt',
+								'mail/en-US/confirm-email.txt',
 								'Confirming your email address',
 								$email,
 								$app->auth()->getUsername(),
@@ -122,7 +122,7 @@ class SettingsController extends Controller {
 						// inform the user about this critical change via an email to their *old* address
 						self::sendEmail(
 							$app,
-							'mail/en-US/email_changed.txt',
+							'mail/en-US/email-changed.txt',
 							'Your email address has been changed',
 							$app->auth()->getEmail(),
 							$app->auth()->getUsername(),
