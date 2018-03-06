@@ -199,8 +199,8 @@ class WorkController extends Controller {
 					if (Str::from($imdbUrl)->matches(Imdb::WORK_URL_REGEX, $imdbUrlParts)) {
 						if (!empty($title) || $secondaryType === 'episode') {
 							try {
-								$app->auth()->throttle([ 'createWork', 'user', $app->auth()->id() ], 1, (60 * 60 * 6), 3);
-								$app->auth()->throttle([ 'createWork', 'ipAddress', $_SERVER['REMOTE_ADDR'] ], 1, (60 * 60 * 6), 4);
+								$app->auth()->throttle([ 'createWork', 'user', $app->auth()->id() ], 1, (60 * 60 * 4), 6);
+								$app->auth()->throttle([ 'createWork', 'ipAddress', $_SERVER['REMOTE_ADDR'] ], 1, (60 * 60 * 4), 8);
 							}
 							catch (TooManyRequestsException $e) {
 								\http_response_code(429);
