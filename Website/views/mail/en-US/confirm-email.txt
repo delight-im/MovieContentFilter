@@ -1,0 +1,16 @@
+{#
+ * PHP-Foundation (https://github.com/delight-im/PHP-Foundation)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+#}
+{% include 'mail/en-US/includes/header.txt' %}
+
+In order to confirm your email address for {{ projectName|raw }}, please open the link below:
+
+{{ confirmationUrl|raw }}
+
+After completing the confirmation, you can sign in with this email address and your password.
+
+If you have any questions, please feel free to ask us for help.
+
+{% include 'mail/en-US/includes/footer.txt' %}

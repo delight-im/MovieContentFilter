@@ -1,0 +1,14 @@
+{#
+ * PHP-Foundation (https://github.com/delight-im/PHP-Foundation)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+#}
+{% include 'mail/en-US/includes/header.txt' %}
+
+We wanted to let you know that your email address for {{ projectName|raw }} has recently been changed{% if oldEmailAddress %} from <{{ oldEmailAddress|raw }}>{% endif %}{% if newEmailAddress %} to <{{ newEmailAddress|raw }}>{% endif %}.
+
+If you didn’t make this change, please contact us at our email address that you find below.
+
+Feel free to ask us for help if you have any other questions as well.
+
+{% include 'mail/en-US/includes/footer.txt' %}
