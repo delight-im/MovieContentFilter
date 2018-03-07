@@ -31,7 +31,7 @@
 					</div>
 				</nav>
 			</div>
-			<p>The MCF format is a strict subset of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format">W3C WebVTT</a> format ("Draft Community Group Report, 17 February 2016").</p>
+			<p>The MCF format is a strict subset of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Video_Text_Tracks_Format" rel="noopener noreferrer">W3C WebVTT</a> format ("Draft Community Group Report, 17 February 2016").</p>
 			<p>Files with content in the MCF format are saved with the filename extension <code>.mcf</code> and must be encoded in UTF-8 (without BOM) exclusively.</p>
 			<p>The MIME type for files in the MCF format <em>should be</em> <code>text/mcf+vtt</code> but currently is <code>text/plain</code> for compatibility.</p>
 
@@ -50,8 +50,8 @@
 							<li>The next line may be the string <code>TYPE</code>, a single <code>U+0020 SPACE</code> character and one of the strings <code>movie</code>, <code>series</code> or <code>episode</code> to denote the type of the work. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>SEASON</code>, a single <code>U+0020 SPACE</code> character and the number of the season within the overall series as a positive integer. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>EPISODE</code>, a single <code>U+0020 SPACE</code> character and the number of the episode within the season as a positive integer. After that, the line must end with a WebVTT line terminator.</li>
-							<li>The next line may be the string <code>SOURCE</code>, a single <code>U+0020 SPACE</code> character and a URL pointing to additional information about the work on a website implementing the <a href="https://github.com/delight-im/MovieContentFilter">MovieContentFilter</a> project. After that, the line must end with a WebVTT line terminator.</li>
-							<li>The next line may be the string <code>IMDB</code>, a single <code>U+0020 SPACE</code> character and a URL pointing to the work’s <a href="http://www.imdb.com/">IMDb</a> page. After that, the line must end with a WebVTT line terminator.</li>
+							<li>The next line may be the string <code>SOURCE</code>, a single <code>U+0020 SPACE</code> character and a URL pointing to additional information about the work on a website implementing the <a href="https://github.com/delight-im/MovieContentFilter" rel="noopener noreferrer">MovieContentFilter</a> project. After that, the line must end with a WebVTT line terminator.</li>
+							<li>The next line may be the string <code>IMDB</code>, a single <code>U+0020 SPACE</code> character and a URL pointing to the work’s <a href="http://www.imdb.com/" rel="noopener noreferrer">IMDb</a> page. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>RELEASE</code>, a single <code>U+0020 SPACE</code> character and a description of the specific release of the work that is described. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The next line may be the string <code>COMMENT</code>, a single <code>U+0020 SPACE</code> character and a custom comment. After that, the line must end with a WebVTT line terminator.</li>
 							<li>The last line must be a blank line ending with a WebVTT line terminator.</li>

@@ -38,14 +38,14 @@
 					<label for="title" class="col-sm-2 control-label">Title</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" id="title" name="title" placeholder="e.g. {% if primaryType == 'movie' %}The Shawshank Redemption{% else %}Breaking Bad{% endif %}" required pattern=".{3,248}">
-						<p class="help-block">Please enter the work’s original title from its country of origin. If in doubt, you may search online, e.g. on <a target="_blank" rel="noopener" href="http://www.imdb.com/" tabindex="-1">IMDb</a>. Do not use any translated titles here, please. Our filters work for every language, so let’s keep this collection free from language barriers and borders.</p>
+						<p class="help-block">Please enter the work’s original title from its country of origin. If in doubt, you may search online, e.g. on <a target="_blank" rel="noopener noreferrer" href="http://www.imdb.com/" tabindex="-1">IMDb</a>. Do not use any translated titles here, please. Our filters work for every language, so let’s keep this collection free from language barriers and borders.</p>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="year" class="col-sm-2 control-label">Year</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" id="year" name="year" placeholder="e.g. {% if primaryType == 'movie' %}1994{% else %}2008{% endif %}" required pattern="(19|20)[0-9]{2}">
-						<p class="help-block">Do you know the year of first publication? If not, please look it up, e.g. on <a target="_blank" rel="noopener" href="http://www.imdb.com/" tabindex="-1">IMDb</a>. Thank you! Providing the year helps everybody search the collection faster and find available movies and TV shows more easily.</p>
+						<p class="help-block">Do you know the year of first publication? If not, please look it up, e.g. on <a target="_blank" rel="noopener noreferrer" href="http://www.imdb.com/" tabindex="-1">IMDb</a>. Thank you! Providing the year helps everybody search the collection faster and find available movies and TV shows more easily.</p>
 					</div>
 				</div>
 				{% if primaryType == 'series' %}
@@ -92,7 +92,7 @@
 					<label for="imdb-url" class="col-sm-2 control-label">IMDb page</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" id="imdb-url" name="imdb-url" placeholder="e.g. {% if primaryType == 'movie' %}http://www.imdb.com/title/tt0111161/{% else %}http://www.imdb.com/title/tt0903747/{% endif %}" required pattern="\s*(http(s)?:\/\/)?(www\.)?imdb\.com\/title\/[^\/]+\/.*">
-						<p class="help-block">Please enter the address (URL) of this title’s <a target="_blank" rel="noopener" href="http://www.imdb.com/" tabindex="-1">IMDb</a> page. This will allow other people to look up additional information easily.</p>
+						<p class="help-block">Please enter the address (URL) of this title’s <a target="_blank" rel="noopener noreferrer" href="http://www.imdb.com/" tabindex="-1">IMDb</a> page. This will allow other people to look up additional information easily.</p>
 					</div>
 				</div>
 				<div class="form-group">

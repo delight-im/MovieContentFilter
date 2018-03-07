@@ -16,7 +16,7 @@
 			<div class="text-center">
 				<div class="btn-group" role="group" aria-label="Options">
 					<a class="btn btn-{% if episodes %}default{% else %}primary{% endif %}" href="{{ app.url('/add?primary-type=series&secondary-type=episode&parent-work-id=' ~ app.ids().encode(id)) }}">Add episode</a>
-					<a class="btn btn-default" href="http://www.imdb.com/{{ imdbUrl }}/">More information</a>
+					<a class="btn btn-default" href="http://www.imdb.com/{{ imdbUrl }}/" rel="noopener noreferrer">More information</a>
 				</div>
 			</div>
 			{% if episodes %}
