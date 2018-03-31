@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "52d57e5afcace735447e99e5e05451b5",
+    "content-hash": "680775f623d6c44021e87e608fa0759d",
     "packages": [
         {
             "name": "delight-im/auth",
@@ -211,23 +211,23 @@
         },
         {
             "name": "delight-im/foundation-core",
-            "version": "v3.0.0",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-Foundation-Core.git",
-                "reference": "2c1604185ff6254802e699e90e833f320e270cc0"
+                "reference": "5ab8e69ad8f2c4574342f0a257ddb493e41e28c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-Foundation-Core/zipball/2c1604185ff6254802e699e90e833f320e270cc0",
-                "reference": "2c1604185ff6254802e699e90e833f320e270cc0",
+                "url": "https://api.github.com/repos/delight-im/PHP-Foundation-Core/zipball/5ab8e69ad8f2c4574342f0a257ddb493e41e28c7",
+                "reference": "5ab8e69ad8f2c4574342f0a257ddb493e41e28c7",
                 "shasum": ""
             },
             "require": {
-                "delight-im/auth": "^7.1",
+                "delight-im/auth": "^7.6 || ^8.0",
                 "delight-im/cookie": "^3.1",
                 "delight-im/db": "^1.2",
-                "delight-im/file-upload": "^1.0",
+                "delight-im/file-upload": "^1.2",
                 "delight-im/ids": "^1.0",
                 "delight-im/router": "^3.1",
                 "delight-im/str": "^2.4",
@@ -235,7 +235,7 @@
                 "filp/whoops": "^2.1",
                 "php": ">=5.6.0",
                 "swiftmailer/swiftmailer": "^5.4",
-                "twig/twig": "^1.28",
+                "twig/twig": "^1.35",
                 "vlucas/phpdotenv": "^2.4"
             },
             "type": "library",
@@ -254,7 +254,7 @@
                 "bootstrap",
                 "framework"
             ],
-            "time": "2017-11-07T20:53:47+00:00"
+            "time": "2018-03-31T23:19:17+00:00"
         },
         {
             "name": "delight-im/http",
