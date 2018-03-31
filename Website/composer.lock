@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "delight-im/auth",
-            "version": "v7.2.0",
+            "version": "v7.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-Auth.git",
-                "reference": "7bcf201972e4635168e73dbfb2c7c5e1756834f4"
+                "reference": "095b8ccc70e15d3fb75efb054f8a79b897ef8974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-Auth/zipball/7bcf201972e4635168e73dbfb2c7c5e1756834f4",
-                "reference": "7bcf201972e4635168e73dbfb2c7c5e1756834f4",
+                "url": "https://api.github.com/repos/delight-im/PHP-Auth/zipball/095b8ccc70e15d3fb75efb054f8a79b897ef8974",
+                "reference": "095b8ccc70e15d3fb75efb054f8a79b897ef8974",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 "login",
                 "security"
             ],
-            "time": "2017-11-08T20:34:50+00:00"
+            "time": "2018-03-21T02:24:06+00:00"
         },
         {
             "name": "delight-im/base64",
@@ -172,16 +172,16 @@
         },
         {
             "name": "delight-im/file-upload",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-FileUpload.git",
-                "reference": "023f812226673ac9e0696d8a3579bb7380606dda"
+                "reference": "a793f4b9d6d2fc4ce57487c324a1547cce942cb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-FileUpload/zipball/023f812226673ac9e0696d8a3579bb7380606dda",
-                "reference": "023f812226673ac9e0696d8a3579bb7380606dda",
+                "url": "https://api.github.com/repos/delight-im/PHP-FileUpload/zipball/a793f4b9d6d2fc4ce57487c324a1547cce942cb6",
+                "reference": "a793f4b9d6d2fc4ce57487c324a1547cce942cb6",
                 "shasum": ""
             },
             "require": {
@@ -207,7 +207,7 @@
                 "upload",
                 "validation"
             ],
-            "time": "2017-12-04T16:58:44+00:00"
+            "time": "2018-03-13T18:36:56+00:00"
         },
         {
             "name": "delight-im/foundation-core",
@@ -673,16 +673,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.35.2",
+            "version": "v1.35.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9c24f2cd39dc1906b76879e099970b7e53724601"
+                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9c24f2cd39dc1906b76879e099970b7e53724601",
-                "reference": "9c24f2cd39dc1906b76879e099970b7e53724601",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
+                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
                 "shasum": ""
             },
             "require": {
@@ -690,8 +690,8 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.3@dev"
+                "symfony/debug": "^2.7",
+                "symfony/phpunit-bridge": "^3.3"
             },
             "type": "library",
             "extra": {
@@ -734,7 +734,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-03-03T16:21:29+00:00"
+            "time": "2018-03-20T04:25:58+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
