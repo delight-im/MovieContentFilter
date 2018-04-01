@@ -156,6 +156,8 @@ class AuthController extends Controller {
 					$oldAndNewEmail[0],
 					$app->auth()->isLoggedIn() ? $app->auth()->getUsername() : null,
 					[
+						'oldEmailAddress' => $oldAndNewEmail[0],
+						'newEmailAddress' => $oldAndNewEmail[1],
 						'requestedByIpAddress' => $app->getClientIp(),
 						'reasonForEmailDelivery' => 'You’re receiving this email because an attempt has recently been made to change the email address for your account. This email address is the address previously associated with that account.'
 					]
