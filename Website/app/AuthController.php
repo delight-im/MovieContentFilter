@@ -168,7 +168,7 @@ class AuthController extends Controller {
 	}
 
 	public static function logout(App $app) {
-		$app->auth()->logOutAndDestroySession();
+		$app->auth()->logOut();
 
 		$app->flash()->success('You have been successfully logged out. See you next time!');
 		$app->redirect('/');
