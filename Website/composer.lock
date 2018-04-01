@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "delight-im/auth",
-            "version": "v7.6.0",
+            "version": "v8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-Auth.git",
-                "reference": "095b8ccc70e15d3fb75efb054f8a79b897ef8974"
+                "reference": "50c284fff72f84ced73998749eeb9687c659f76e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-Auth/zipball/095b8ccc70e15d3fb75efb054f8a79b897ef8974",
-                "reference": "095b8ccc70e15d3fb75efb054f8a79b897ef8974",
+                "url": "https://api.github.com/repos/delight-im/PHP-Auth/zipball/50c284fff72f84ced73998749eeb9687c659f76e",
+                "reference": "50c284fff72f84ced73998749eeb9687c659f76e",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 "login",
                 "security"
             ],
-            "time": "2018-03-21T02:24:06+00:00"
+            "time": "2018-03-25T03:34:37+00:00"
         },
         {
             "name": "delight-im/base64",
