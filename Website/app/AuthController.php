@@ -144,7 +144,23 @@ class AuthController extends Controller {
 
 	public static function confirmEmail(App $app, $selector, $token) {
 		try {
-			$app->auth()->confirmEmailAndSignIn($selector, $token, (int) (60 * 60 * 24 * 365.25));
+			$oldAndNewEmail = $app->auth()->confirmEmailAndSignIn($selector, $token, (int) (60 * 60 * 24 * 365.25));
+
+			// if an *old* email address is available (i.e. this has been an address change)
+			if ($oldAndNewEmail[0] !== null) {
+				// inform the user about this critical change via an email to their *old* address
+				self::sendEmail(
+					$app,
+					'mail/en-US/email-changed.txt',
+					'Your email address has been changed',
+					$oldAndNewEmail[0],
+					$app->auth()->isLoggedIn() ? $app->auth()->getUsername() : null,
+					[
+						'requestedByIpAddress' => $app->getClientIp(),
+						'reasonForEmailDelivery' => 'You’re receiving this email because an attempt has recently been made to change the email address for your account. This email address is the address previously associated with that account.'
+					]
+				);
+			}
 
 			$app->flash()->success('Your email address has been verified successfully. Thank you!');
 			$app->redirect('/');

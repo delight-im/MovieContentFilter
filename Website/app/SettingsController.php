@@ -119,19 +119,6 @@ class SettingsController extends Controller {
 							);
 						});
 
-						// inform the user about this critical change via an email to their *old* address
-						self::sendEmail(
-							$app,
-							'mail/en-US/email-changed.txt',
-							'Your email address has been changed',
-							$app->auth()->getEmail(),
-							$app->auth()->getUsername(),
-							[
-								'requestedByIpAddress' => $app->getClientIp(),
-								'reasonForEmailDelivery' => 'You’re receiving this email because an attempt has recently been made to change the email address for your account. This email address is the address previously associated with that account.'
-							]
-						);
-
 						$app->flash()->success('Please check your inbox for a confirmation email soon. As soon as confirmed, your new email address will be active.');
 						$app->redirect('/settings');
 					}
