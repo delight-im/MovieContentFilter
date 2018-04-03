@@ -185,4 +185,25 @@ class SettingsController extends Controller {
 		}
 	}
 
+	public static function postLogOutEverywhere(App $app) {
+		self::ensureAuthenticated($app, '/settings');
+
+		$includeCurrentDevice = $app->input()->post('current-device', \TYPE_INT);
+
+		try {
+			if ($includeCurrentDevice === 1) {
+				$app->auth()->logOutEverywhere();
+			}
+			else {
+				$app->auth()->logOutEverywhereElse();
+			}
+
+			$app->flash()->success('You will be logged out from all sessions within the next five minutes.');
+			$app->redirect('/');
+		}
+		catch (NotLoggedInException $e) {
+			self::failNotSignedIn($app, '/settings');
+		}
+	}
+
 }

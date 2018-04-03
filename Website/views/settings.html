@@ -16,6 +16,7 @@
 				<a href="#change-password" class="list-group-item">Change password</a>
 				<a href="#change-email" class="list-group-item">Change email address</a>
 				<a href="#control-password-reset" class="list-group-item">Control password reset</a>
+				<a href="#sign-out-everywhere" class="list-group-item">Sign out everywhere</a>
 			</div>
 			<div class="page-header"><h3 class="text-center" id="change-password">Change password</h3></div>
 			<form method="post" action="{{ app.url('/settings/change-password') }}" class="form-horizontal" onsubmit="$(this).find('button').prop('disabled', true);">
@@ -65,6 +66,23 @@
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-success">Control password reset</button>
+					</div>
+				</div>
+			</form>
+			<div class="page-header"><h3 class="text-center" id="sign-out-everywhere">Sign out everywhere</h3></div>
+			<form method="post" action="{{ app.url('/settings/sign-out-everywhere') }}" class="form-horizontal" onsubmit="$(this).find('button').prop('disabled', true);">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="current-device" value="1"> Include the current session on this device
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-success">Logout</button>
 					</div>
 				</div>
 			</form>
