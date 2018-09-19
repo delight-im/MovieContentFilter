@@ -25,7 +25,7 @@ class WorkController extends Controller {
 		$id = $app->ids()->decode(\trim($id));
 
 		$work = $app->db()->selectRow(
-			'SELECT type, title, year, imdb_url FROM works WHERE id = ?',
+			'SELECT type, title, year, imdb_url, author_user_id FROM works WHERE id = ?',
 			[ $id ]
 		);
 
@@ -34,7 +34,8 @@ class WorkController extends Controller {
 			'type' => $work['type'],
 			'title' => $work['title'],
 			'year' => $work['year'],
-			'imdbUrl' => $work['imdb_url']
+			'imdbUrl' => $work['imdb_url'],
+			'authorUserId' => $work['author_user_id']
 		];
 
 		if ($work['type'] === 'movie' || $work['type'] === 'episode') {
@@ -105,7 +106,7 @@ class WorkController extends Controller {
 		$params = [];
 
 		$params['work'] = $app->db()->selectRow(
-			'SELECT type, title, canonical_start_time, canonical_end_time FROM works WHERE id = ?',
+			'SELECT type, title, canonical_start_time, canonical_end_time, author_user_id AS authorUserId FROM works WHERE id = ?',
 			[ $workId ]
 		);
 

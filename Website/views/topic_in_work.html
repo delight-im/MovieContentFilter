@@ -43,7 +43,9 @@
 				</div>
 			{% else %}
 				<p class="text-center">No annotations of “{{ topic.label }}” available 😞</p>
-				<p class="text-center">Be the first to <a href="{{ app.url('/works/' ~ app.ids().encode(work.id) ~ '/contribute') }}">mark occurrences</a> in “{{ work.title }}”.</p>
+				{% if app.auth().isLoggedIn() and app.auth().getUserId() == work.authorUserId %}
+					<p class="text-center">Be the first to <a href="{{ app.url('/works/' ~ app.ids().encode(work.id) ~ '/contribute') }}">mark occurrences</a> in “{{ work.title }}”.</p>
+				{% endif %}
 			{% endif %}
 		</div>
 	</div>
