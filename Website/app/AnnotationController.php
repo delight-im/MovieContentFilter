@@ -21,6 +21,8 @@ class AnnotationController extends Controller {
 	use AnnotationViewerTrait;
 
 	public static function launchEditor(App $app, $id) {
+		self::ensureAuthenticated($app, '/works/' . \urlencode($id));
+
 		$id = $app->ids()->decode(\trim($id));
 
 		$work = $app->db()->selectRow(
