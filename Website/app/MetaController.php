@@ -247,7 +247,10 @@ class MetaController extends Controller {
 		echo $app->view(
 			'contact.html',
 			[
-				'htmlSource' => $_ENV['COM_MOVIECONTENTFILTER_CONTACT_HTML']
+				'imageUrlFull' => $_ENV['COM_MOVIECONTENTFILTER_CONTACT_IMAGE_URL_FULL'],
+				'imageWidthFull' => $_ENV['COM_MOVIECONTENTFILTER_CONTACT_IMAGE_WIDTH_FULL'],
+				'imageAlt' => $_ENV['COM_MOVIECONTENTFILTER_CONTACT_IMAGE_ALT'],
+				'audioUrlFull' => $_ENV['COM_MOVIECONTENTFILTER_CONTACT_AUDIO_URL_FULL']
 			]
 		);
 	}
