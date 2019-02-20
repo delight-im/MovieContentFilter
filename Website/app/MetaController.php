@@ -9,9 +9,11 @@
 namespace App;
 
 use Delight\Foundation\App;
+use Delight\PrivacyPolicy\Data\DataBasis;
 use Delight\PrivacyPolicy\Data\DataGroup;
 use Delight\PrivacyPolicy\Data\DataPurpose;
 use Delight\PrivacyPolicy\Data\DataRequirement;
+use Delight\PrivacyPolicy\Data\DataType;
 use Delight\PrivacyPolicy\Language\EnglishPrivacyPolicy;
 
 class MetaController extends Controller {
@@ -80,27 +82,40 @@ class MetaController extends Controller {
 	public static function showPrivacyPolicy(App $app) {
 		$policy = new EnglishPrivacyPolicy();
 
-		$policy->setLastUpdated(1493301040);
+		$policy->setPublishedAt(1550698066);
 		$policy->setCanonicalUrl($app->url('/privacy'));
 		$policy->setContactUrl($app->url('/contact'));
 
 		$policy->setUserDataTraded(false);
 		$policy->setDataMinimizationGoal(true);
-		$policy->setChildrenMinimumAge(13);
+		$policy->setChildrenMinimumAge(16);
 		$policy->setPromotionalEmailOptOut(false);
 		$policy->setFirstPartyCookies(true);
 		$policy->setThirdPartyCookies(false);
 		$policy->setAccountDeletable(false);
 		$policy->setPreservationInBackups(true);
 		$policy->setThirdPartyServiceProviders(true);
+		$policy->setInternationalTransfers(true);
 		$policy->setTransferUponMergerOrAcquisition(true);
 		$policy->setTlsEverywhere(true);
-		$policy->setRightToInformation(true);
+		$policy->setCompetentSupervisoryAuthority($_ENV['COM_MOVIECONTENTFILTER_DATA_PROTECTION_SUPERVISORY_AUTHORITY_NAME'], $_ENV['COM_MOVIECONTENTFILTER_DATA_PROTECTION_SUPERVISORY_AUTHORITY_URL']);
 		$policy->setNotificationPeriod(30);
+		$policy->setRightOfAccess(true);
+		$policy->setRightToRectification(true);
+		$policy->setRightToErasure(true);
+		$policy->setRightToRestrictProcessing(true);
+		$policy->setRightToDataPortability(true);
+		$policy->setRightToObject(true);
+		$policy->setRightsRelatedToAutomatedDecisions(true);
 
 		$policy->addDataGroup(
 			'Account information',
 			'When you create an account by signing up, and whenever you use that account by signing in afterwards, we collect the data that you provide to us voluntarily in the course of that process.',
+			[
+				DataBasis::CONTRACT,
+				DataBasis::LEGITIMATE_INTERESTS,
+			],
+			null,
 			[
 				DataPurpose::ADMINISTRATION,
 				DataPurpose::FULFILLMENT,
@@ -110,43 +125,51 @@ class MetaController extends Controller {
 
 			function (DataGroup $group) {
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::USER_EMAIL,
+					DataType::USER_EMAIL,
 					DataRequirement::ALWAYS,
-					null,
-					true,
-					false
+					null
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::USER_PASSWORD_HASHED_STRONG,
+					DataType::USER_PASSWORD_HASHED_STRONG,
 					DataRequirement::ALWAYS,
-					null,
-					false,
-					false
+					null
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::USER_NAME_ALIAS,
+					DataType::USER_NAME_ALIAS,
 					DataRequirement::OPT_IN,
-					null,
-					true,
-					false
+					null
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::USER_REGISTRATION_DATETIME,
+					DataType::USER_ACCESS_PRIVILEGES,
 					DataRequirement::ALWAYS,
-					null,
-					false,
-					false
+					null
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::USER_LOGIN_DATETIME,
+					DataType::USER_EMAIL_VERIFIED,
 					DataRequirement::ALWAYS,
-					null,
-					false,
-					false
+					null
+				);
+
+				$group->addElement(
+					DataType::USER_PASSWORD_RESETTABLE,
+					DataRequirement::ALWAYS,
+					null
+				);
+
+				$group->addElement(
+					DataType::USER_REGISTRATION_DATETIME,
+					DataRequirement::ALWAYS,
+					null
+				);
+
+				$group->addElement(
+					DataType::USER_LOGIN_DATETIME,
+					DataRequirement::ALWAYS,
+					null
 				);
 			}
 		);
@@ -154,6 +177,8 @@ class MetaController extends Controller {
 		$policy->addDataGroup(
 			'Server logs',
 			'Whenever you access our services, including your access of any individual part or section of our services, we record certain information about the nature of your access. That information is never combined with information from other data sources and will not be associated with the identity of any account. However, we reserve the right to review the data retrospectively if there is specific evidence supporting the suspicion of a case of fraud or any other illegal activity or illegal use of our services.',
+			[ DataBasis::LEGITIMATE_INTERESTS ],
+			null,
 			[ DataPurpose::ADMINISTRATION ],
 			DataRequirement::ALWAYS,
 
@@ -161,67 +186,51 @@ class MetaController extends Controller {
 				$retentionTimeHours = 24 * 14;
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_HTTP_METHOD,
+					DataType::ACCESS_HTTP_METHOD,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_HTTP_STATUS,
+					DataType::ACCESS_HTTP_STATUS,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_IP_ADDRESS,
+					DataType::ACCESS_IP_ADDRESS,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_REFERER,
+					DataType::ACCESS_REFERER,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_SIZE,
+					DataType::ACCESS_SIZE,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_DATETIME,
+					DataType::ACCESS_DATETIME,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_URL,
+					DataType::ACCESS_URL,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 
 				$group->addElement(
-					\Delight\PrivacyPolicy\Data\DataType::ACCESS_USERAGENT_STRING,
+					DataType::ACCESS_USERAGENT_STRING,
 					DataRequirement::ALWAYS,
-					$retentionTimeHours,
-					false,
-					false
+					$retentionTimeHours
 				);
 			}
 		);
