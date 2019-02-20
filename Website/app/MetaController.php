@@ -82,7 +82,7 @@ class MetaController extends Controller {
 
 		$policy->setLastUpdated(1493301040);
 		$policy->setCanonicalUrl($app->url('/privacy'));
-		$policy->setContactUrl('https://www.delight.im/contact');
+		$policy->setContactUrl($app->url('/contact'));
 
 		$policy->setUserDataTraded(false);
 		$policy->setDataMinimizationGoal(true);
