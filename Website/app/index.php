@@ -42,6 +42,7 @@ $app->post('/reset/:selector/:token', '\App\AuthController::postResetPassword');
 $app->get('/specification', '\App\MetaController::showSpecification');
 $app->get('/help', '\App\MetaController::getHelp');
 $app->get('/privacy', '\App\MetaController::showPrivacyPolicy');
+$app->get('/contact', '\App\MetaController::showContactInformation');
 
 // otherwise fail with "not found"
 \App\Controller::failNotFound($app);

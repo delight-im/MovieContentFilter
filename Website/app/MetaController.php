@@ -234,6 +234,15 @@ class MetaController extends Controller {
 		);
 	}
 
+	public static function showContactInformation(App $app) {
+		echo $app->view(
+			'contact.html',
+			[
+				'htmlSource' => $_ENV['COM_MOVIECONTENTFILTER_CONTACT_HTML']
+			]
+		);
+	}
+
 	public static function getHelp(App $app) {
 		echo $app->view('help.html');
 	}
