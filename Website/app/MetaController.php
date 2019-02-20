@@ -84,7 +84,12 @@ class MetaController extends Controller {
 
 		$policy->setPublishedAt(1550698066);
 		$policy->setCanonicalUrl($app->url('/privacy'));
-		$policy->setContactUrl($app->url('/contact'));
+		$policy->setContactImage(
+			$_ENV['COM_MOVIECONTENTFILTER_CONTACT_IMAGE_URL_MINIMAL'],
+			$_ENV['COM_MOVIECONTENTFILTER_CONTACT_IMAGE_ALT'],
+			$_ENV['COM_MOVIECONTENTFILTER_CONTACT_IMAGE_WIDTH_MINIMAL']
+		);
+		$policy->setContactUrl($_ENV['COM_MOVIECONTENTFILTER_CONTACT_AUDIO_URL_MINIMAL']);
 
 		$policy->setUserDataTraded(false);
 		$policy->setDataMinimizationGoal(true);
