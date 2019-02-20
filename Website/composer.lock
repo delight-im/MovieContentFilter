@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "680775f623d6c44021e87e608fa0759d",
+    "content-hash": "43301745d7a221e9893c384162dc3505",
     "packages": [
         {
             "name": "delight-im/auth",
@@ -342,19 +342,20 @@
         },
         {
             "name": "delight-im/privacy-policy",
-            "version": "v1.0.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/delight-im/PHP-PrivacyPolicy.git",
-                "reference": "46c5abe6bb6523bd2da3cba2c6b7c8563465e5f9"
+                "reference": "c8d05eaedc13890d3ce6c7b216cb8c8d2fa23187"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-PrivacyPolicy/zipball/46c5abe6bb6523bd2da3cba2c6b7c8563465e5f9",
-                "reference": "46c5abe6bb6523bd2da3cba2c6b7c8563465e5f9",
+                "url": "https://api.github.com/repos/delight-im/PHP-PrivacyPolicy/zipball/c8d05eaedc13890d3ce6c7b216cb8c8d2fa23187",
+                "reference": "c8d05eaedc13890d3ce6c7b216cb8c8d2fa23187",
                 "shasum": ""
             },
             "require": {
+                "ext-intl": "*",
                 "php": ">=5.6.0"
             },
             "type": "library",
@@ -377,7 +378,7 @@
                 "privacy-policy",
                 "user-data"
             ],
-            "time": "2017-04-27T22:30:24+00:00"
+            "time": "2018-08-02T23:59:02+00:00"
         },
         {
             "name": "delight-im/router",
