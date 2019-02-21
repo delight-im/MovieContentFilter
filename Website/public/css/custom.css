@@ -29,6 +29,20 @@ div.jumbotron .btn {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+/* Patch `abbr` appearance to prevent browsers from showing double underline */
+abbr[title] {
+	border-bottom: 1px dotted;
+	text-decoration: none;
+	/*
+	going forward, the following solution will be preferable as soon as browser
+	support for the `text-decoration` shorthand with two values has improved
+		border-bottom: none;
+		text-decoration: underline;
+		text-decoration: underline dotted;
+	 */
+}
+
 select.im-delight-moviecontentfilter-severity-1, select.im-delight-moviecontentfilter-severity-1 option {
 	background-color: #ff6680;
 	color: #fff;
