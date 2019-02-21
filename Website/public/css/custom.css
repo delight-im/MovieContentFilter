@@ -64,15 +64,20 @@ div.progress.progress-dark {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffb8b8b8', endColorstr='#ffc2c2c2', GradientType=0);
 }
 
-/* Fix display of privacy policy by resetting certain properties of definition/description lists */
+/* Improve display of privacy policy by adjusting certain properties of definition/description lists */
 .im-delight-moviecontentfilter-privacy-policy dl {
-	margin: 1.12em 0;
+	margin-top: 0;
+	margin-bottom: 16px;
 }
 .im-delight-moviecontentfilter-privacy-policy dl dl {
-	margin: 0;
+	margin-left: 24px;
 }
 .im-delight-moviecontentfilter-privacy-policy dd {
-	margin-left: 40px;
+	margin-bottom: 8px;
+	margin-left: 0;
+}
+.im-delight-moviecontentfilter-privacy-policy dl dl dl dd {
+	margin-bottom: 0;
 }
 
 /* Contextual color for progress bars that is somewhere between "warning" and "danger" */
