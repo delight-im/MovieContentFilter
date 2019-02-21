@@ -80,6 +80,13 @@ div.progress.progress-dark {
 	margin-bottom: 0;
 }
 
+/* Remove visual hints that elements representing contact information with accessibility targets are links */
+.im-delight-moviecontentfilter-contact-information a,
+.im-delight-moviecontentfilter-privacy-policy > dl > dd:last-child > a,
+.im-delight-moviecontentfilter-privacy-policy > dl > dd:last-child > a > img {
+	cursor: default;
+}
+
 /* Contextual color for progress bars that is somewhere between "warning" and "danger" */
 .progress-bar-caution {
 	background-color: #e5884f;
