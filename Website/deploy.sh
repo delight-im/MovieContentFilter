@@ -103,7 +103,7 @@ ssh -p "$TARGET_SSH_PORT" "${TARGET_SSH_USER}@${TARGET_SSH_HOST}" /bin/bash <<- 
 	fi
 
 	# Verify that the target directory is a valid project root by looking for some important files and directories
-	if [ -d "config" ] && [ -f ".htaccess" ] && [ -d "storage" ]; then
+	if [ -f ".htaccess" ] && [ -d "storage" ]; then
 		echo " * Verified target directory ..."
 	else
 		echo " * Target directory could not be verified ..."
