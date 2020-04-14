@@ -180,6 +180,7 @@ class WorkController extends Controller {
 			}
 			else {
 				self::failNotFound($app);
+				exit;
 			}
 		}
 	}
