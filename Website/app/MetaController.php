@@ -36,7 +36,7 @@ class MetaController extends Controller {
 				$selectedVersion = \trim($_GET['v']);
 			}
 			else {
-				$app->setStatus(404);
+				self::failNotFound($app);
 				exit;
 			}
 		}
