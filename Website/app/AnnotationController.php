@@ -179,6 +179,11 @@ class AnnotationController extends Controller {
 			[ $id ]
 		);
 
+		if (empty($params['annotation'])) {
+			self::failNotFound($app);
+			exit;
+		}
+
 		// add the ID of this annotation to the view parameters
 		$params['id'] = $id;
 
