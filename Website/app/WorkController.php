@@ -29,6 +29,11 @@ class WorkController extends Controller {
 			[ $id ]
 		);
 
+		if (empty($work)) {
+			self::failNotFound($app);
+			exit;
+		}
+
 		$params = [
 			'id' => $id,
 			'type' => $work['type'],
