@@ -131,6 +131,11 @@ class WorkController extends Controller {
 			[ $topicId ]
 		);
 
+		if (empty($params['topic']['label'])) {
+			self::failNotFound($app);
+			exit;
+		}
+
 		$params['annotations'] = $app->db()->select(
 			'SELECT a.id, a.start_position, a.end_position, b.label AS category_label, b.is_general AS category_is_general, c.name AS severity, d.label AS channel_label FROM annotations AS a JOIN categories AS b ON b.id = a.category_id JOIN severities AS c ON c.id = a.severity_id JOIN channels AS d ON d.id = a.channel_id WHERE a.work_id = ? AND b.topic_id = ? ORDER BY a.start_position ASC LIMIT 0, 500',
 			[
@@ -138,6 +143,11 @@ class WorkController extends Controller {
 				$topicId
 			]
 		);
+
+		if (empty($params['annotations'])) {
+			self::failNotFound($app);
+			exit;
+		}
 
 		// if annotations have been found for this topic
 		if ($params['annotations'] !== null) {
