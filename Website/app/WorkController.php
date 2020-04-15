@@ -40,7 +40,8 @@ class WorkController extends Controller {
 			'title' => $work['title'],
 			'year' => $work['year'],
 			'imdbUrl' => $work['imdb_url'],
-			'authorUserId' => $work['author_user_id']
+			'authorUserId' => $work['author_user_id'],
+			'deletable' => self::canDeleteWorks($app)
 		];
 
 		if ($work['type'] === 'movie' || $work['type'] === 'episode') {

@@ -45,6 +45,9 @@
 					{% if app.auth().isLoggedIn() and app.auth().getUserId() == authorUserId %}
 						<a class="btn btn-primary" href="{{ app.url('/works/' ~ app.ids().encode(id) ~ '/contribute') }}">Contribute</a>
 					{% endif %}
+					{% if deletable %}
+						<a class="btn btn-danger" href="{{ app.url('/works/' ~ app.ids().encode(id) ~ '/delete') }}">Delete</a>
+					{% endif %}
 					<a class="btn btn-default" href="http://www.imdb.com/{{ imdbUrl }}/" rel="noopener noreferrer">More information</a>
 				</div>
 			</div>
