@@ -115,6 +115,11 @@ class WorkController extends Controller {
 			[ $workId ]
 		);
 
+		if (empty($params['work'])) {
+			self::failNotFound($app);
+			exit;
+		}
+
 		$params['work']['id'] = $workId;
 
 		if ($params['work']['type'] === 'episode') {
