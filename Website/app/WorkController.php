@@ -298,6 +298,62 @@ class WorkController extends Controller {
 		$app->redirect('/add');
 	}
 
+	public static function getDelete(App $app, $id) {
+		self::ensureAuthenticated($app);
+
+		if (!self::canDeleteWorks($app)) {
+			$app->setStatus(403);
+			exit;
+		}
+
+		$id = $app->ids()->decode(\trim($id));
+
+		$work = $app->db()->selectRow(
+			'SELECT type, title FROM works WHERE id = ?',
+			[ $id ]
+		);
+
+		if (empty($work)) {
+			self::failNotFound($app);
+			exit;
+		}
+
+		$work['id'] = $id;
+		$series = null;
+
+		if ($work['type'] === 'episode') {
+			$series = $app->db()->selectRow(
+				'SELECT b.id AS parent_id, b.title AS parent_title, a.season, a.episode_in_season FROM works_relations AS a JOIN works AS b ON a.parent_work_id = b.id WHERE a.child_work_id = ? LIMIT 0, 1',
+				[ $id ]
+			);
+		}
+
+		$numberOfSubordinateWorks = $app->db()->selectValue(
+			'SELECT COUNT(*) FROM works_relations WHERE parent_work_id = ?',
+			[ $id ]
+		);
+
+		if ($work['type'] === 'series') {
+			$numberOfAnnotations = $app->db()->selectValue(
+				'SELECT COUNT(*) FROM annotations WHERE work_id IN (SELECT child_work_id FROM works_relations WHERE parent_work_id = ?)',
+				[ $id ]
+			);
+		}
+		else {
+			$numberOfAnnotations = $app->db()->selectValue(
+				'SELECT COUNT(*) FROM annotations WHERE work_id = ?',
+				[ $id ]
+			);
+		}
+
+		echo $app->view('work_delete.html', [
+			'work' => $work,
+			'series' => $series,
+			'numberOfSubordinateWorks' => $numberOfSubordinateWorks,
+			'numberOfAnnotations' => $numberOfAnnotations,
+		]);
+	}
+
 	private static function canDeleteWorks(App $app) {
 		return $app->auth()->hasRole(\Delight\Auth\Role::ADMIN);
 	}

@@ -15,6 +15,7 @@ $app->get('/works/:id/download', '\App\FilterController::customizeDownload');
 $app->post('/works/:id/download', '\App\FilterController::sendDownload');
 $app->get('/works/:id/contribute', '\App\AnnotationController::launchEditor');
 $app->post('/works/:id/contribute', '\App\AnnotationController::receiveFromEditor');
+$app->get('/works/:id/delete', '\App\WorkController::getDelete');
 $app->get('/preferences', '\App\PrefsController::showOverview');
 $app->get('/preferences/:topicId', '\App\PrefsController::showTopic');
 $app->post('/preferences/:topicId', '\App\PrefsController::saveTopic');
