@@ -186,8 +186,8 @@ class WorkController extends Controller {
 
 				if ($primaryType === 'series') {
 					$params['seriesParents'] = $app->db()->select(
-						'SELECT id, year, title FROM works WHERE type = ? ORDER BY year ASC, title ASC LIMIT 0, 1000',
-						[ 'series' ]
+						'SELECT id, year, title FROM works WHERE (is_public = 1 OR author_user_id = ?) AND type = \'series\' ORDER BY year ASC, title ASC LIMIT 0, 1000',
+						[ $app->auth()->getUserId() ]
 					);
 
 					// add an optional suggestion on which parent should be selected by default
