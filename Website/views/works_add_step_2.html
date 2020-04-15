@@ -44,7 +44,7 @@
 				<div class="form-group">
 					<label for="year" class="col-sm-2 control-label">Year</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="year" name="year" placeholder="e.g. {% if primaryType == 'movie' %}1994{% else %}2008{% endif %}" required pattern="(19|20)[0-9]{2}">
+						<input type="text" class="form-control" id="year" name="year" pattern="(19|20)[0-9]{2}" placeholder="e.g. {% if primaryType == 'movie' %}1994{% else %}2008{% endif %}" required>
 						<p class="help-block">Do you know the year of first publication? If not, please look it up, e.g. on <a target="_blank" rel="noopener noreferrer" href="http://www.imdb.com/" tabindex="-1">IMDb</a>. Thank you! Providing the year helps everybody search the collection faster and find available movies and TV shows more easily.</p>
 					</div>
 				</div>
@@ -91,7 +91,7 @@
 				<div class="form-group">
 					<label for="imdb-url" class="col-sm-2 control-label">IMDb page</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="imdb-url" name="imdb-url" placeholder="e.g. {% if primaryType == 'movie' %}http://www.imdb.com/title/tt0111161/{% else %}http://www.imdb.com/title/tt0903747/{% endif %}" required pattern="\s*(http(s)?:\/\/)?(www\.)?imdb\.com\/title\/[^\/]+\/.*">
+						<input type="text" class="form-control" id="imdb-url" name="imdb-url" pattern="\s*(http(s)?:\/\/)?(www\.)?imdb\.com\/title\/[^\/]+\/.*" placeholder="e.g. {% if primaryType == 'movie' %}http://www.imdb.com/title/tt0111161/{% else %}http://www.imdb.com/title/tt0903747/{% endif %}" required>
 						<p class="help-block">Please enter the address (URL) of this title’s <a target="_blank" rel="noopener noreferrer" href="http://www.imdb.com/" tabindex="-1">IMDb</a> page. This will allow other people to look up additional information easily.</p>
 					</div>
 				</div>
