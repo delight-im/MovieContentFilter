@@ -37,7 +37,7 @@
 				<div class="form-group im-delight-moviecontentfilter-title-container">
 					<label for="title" class="col-sm-2 control-label">Title</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="title" name="title" minlength="3" maxlength="248" placeholder="e.g. {% if primaryType == 'movie' %}The Shawshank Redemption{% else %}Breaking Bad{% endif %}" required>
+						<input type="text" class="form-control" id="title" name="title" minlength="3" maxlength="248" placeholder="e.g. {% if primaryType == 'movie' %}The Shawshank Redemption{% else %}Breaking Bad{% endif %}"{% if primaryType == 'series' %} data-placeholder-series="e.g. Breaking Bad" data-placeholder-episode="e.g. Ozymandias"{% endif %} required>
 						<p class="help-block">Please enter the work’s original title from its country of origin. If in doubt, you may search online, e.g. on <a target="_blank" rel="noopener noreferrer" href="http://www.imdb.com/" tabindex="-1">IMDb</a>. Do not use any translated titles here, please. Our filters work for every language, so let’s keep this collection free from language barriers and borders.</p>
 					</div>
 				</div>

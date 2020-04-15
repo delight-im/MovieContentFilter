@@ -10,6 +10,9 @@ function setSecondaryWorkTypeEpisode(episode) {
 	// don't require the title information for episodes of a series
 	$("#title").prop("required", !episode);
 
+	// set a meaningful placeholder for a series or for an episode
+	$("#title").attr("placeholder", $("#title").data(episode ? "placeholder-episode" : "placeholder-series"));
+
 	// change the opacity of the title field to show that it becomes optional for episodes
 	$(".im-delight-moviecontentfilter-title-container").fadeTo(400, episode ? 0.5 : 1.0);
 
