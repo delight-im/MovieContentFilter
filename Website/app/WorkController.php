@@ -298,4 +298,8 @@ class WorkController extends Controller {
 		$app->redirect('/add');
 	}
 
+	private static function canDeleteWorks(App $app) {
+		return $app->auth()->hasRole(\Delight\Auth\Role::ADMIN);
+	}
+
 }
