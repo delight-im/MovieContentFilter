@@ -26,9 +26,19 @@ class AnnotationController extends Controller {
 		$id = $app->ids()->decode(\trim($id));
 
 		$work = $app->db()->selectRow(
-			'SELECT title, year, author_user_id AS authorUserId FROM works WHERE id = ?',
+			'SELECT title, year, type, author_user_id AS authorUserId FROM works WHERE id = ?',
 			[ $id ]
 		);
+
+		if ($work['type'] === 'episode') {
+			$series = $app->db()->selectRow(
+				'SELECT season, episode_in_season AS episodeInSeason FROM works_relations WHERE child_work_id = ? LIMIT 0, 1',
+				[ $id ]
+			);
+		}
+		else {
+			$series = null;
+		}
 
 		if ($app->auth()->getUserId() !== $work['authorUserId']) {
 			$app->flash()->warning('You are not allowed to contribute to this entry.');
@@ -52,6 +62,7 @@ class AnnotationController extends Controller {
 			'id' => $id,
 			'title' => $work['title'],
 			'year' => $work['year'],
+			'series' => $series,
 			'topics' => $topics,
 			'categories' => $categories,
 			'severities' => $severities,
