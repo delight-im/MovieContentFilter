@@ -354,6 +354,105 @@ class WorkController extends Controller {
 		]);
 	}
 
+	public static function postDelete(App $app, $id) {
+		self::ensureAuthenticated($app);
+
+		if (!self::canDeleteWorks($app)) {
+			$app->setStatus(403);
+			exit;
+		}
+
+		if (!empty($_POST['mode'])) {
+			$id = $app->ids()->decode(\trim($id));
+
+			$type = $app->db()->selectValue(
+				'SELECT type FROM works WHERE id = ?',
+				[ $id ]
+			);
+
+			if ($_POST['mode'] === 'hide') {
+				if ($type === 'series') {
+					$annotationsAffected = 0;
+					$subordinateWorksAffected = $app->db()->exec(
+						'UPDATE works SET is_public = 0, imdb_url = CONCAT(\'404/\', LOWER(HEX(RANDOM_BYTES(16)))) WHERE id IN (SELECT child_work_id FROM works_relations WHERE parent_work_id = ?)',
+						[ $id ]
+					);
+				}
+				else {
+					$annotationsAffected = 0;
+					$subordinateWorksAffected = 0;
+				}
+
+				$worksAffected = $app->db()->exec(
+					'UPDATE works SET is_public = 0, imdb_url = CONCAT(\'404/\', LOWER(HEX(RANDOM_BYTES(16)))) WHERE id = ?',
+					[ $id ]
+				);
+			}
+			elseif ($_POST['mode'] === 'delete') {
+				if ($type === 'series') {
+					$annotationsAffected = $app->db()->exec(
+						'DELETE FROM annotations WHERE work_id IN (SELECT child_work_id FROM works_relations WHERE parent_work_id = ?)',
+						[ $id ]
+					);
+					$subordinateWorksAffected = $app->db()->exec(
+						'DELETE FROM works WHERE id IN (SELECT child_work_id FROM works_relations WHERE parent_work_id = ?)',
+						[ $id ]
+					);
+					$app->db()->exec(
+						'DELETE FROM works_relations WHERE parent_work_id = ?',
+						[ $id ]
+					);
+				}
+				else {
+					$annotationsAffected = $app->db()->delete(
+						'annotations',
+						[ 'work_id' => $id ]
+					);
+					$subordinateWorksAffected = 0;
+
+					if ($type === 'episode') {
+						$app->db()->exec(
+							'DELETE FROM works_relations WHERE child_work_id = ?',
+							[ $id ]
+						);
+					}
+				}
+
+				$worksAffected = $app->db()->delete(
+					'works',
+					[ 'id' => $id ]
+				);
+			}
+			else {
+				$app->setStatus(400);
+				exit;
+			}
+
+			// hide old works that are still in draft status and have no annotations (also releasing their IMDb URLs)
+			$app->db()->exec('UPDATE works SET is_public = 0, imdb_url = CONCAT(\'404/\', LOWER(HEX(RANDOM_BYTES(16)))) WHERE is_public IS NULL AND created_at < FROM_UNIXTIME(UNIX_TIMESTAMP() - 60 * 60 * 24 * 30) AND (SELECT COUNT(*) FROM annotations WHERE work_id = works.id) = 0');
+
+			$app->flash()->success(
+				\sprintf(
+					($_POST['mode'] === 'delete' ? 'Deleting' : 'Hiding') . ' %1$s ' . ($type === 'series' ? 'series' : ($type === 'episode' ? 'episodes' : 'movies')) . ($_POST['mode'] === 'delete' ? ', ' : ' and ') . '%2$s ' . ($type === 'series' ? 'episodes' : 'subordinate works') . ($_POST['mode'] === 'delete' ? ' and %3$s annotations' : '') . ' has been successful',
+					$worksAffected,
+					$subordinateWorksAffected,
+					$annotationsAffected
+				)
+			);
+
+			if ($type === 'movie') {
+				$app->redirect('/browse/movies');
+			}
+			else {
+				$app->redirect('/browse/series');
+			}
+		}
+		else {
+			$app->setStatus(400);
+			exit;
+		}
+	}
+
 	private static function canDeleteWorks(App $app) {
 		return $app->auth()->hasRole(\Delight\Auth\Role::ADMIN);
 	}
