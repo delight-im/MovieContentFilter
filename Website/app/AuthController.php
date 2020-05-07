@@ -335,7 +335,10 @@ class AuthController extends Controller {
 					'mail/en-US/confirm-email.txt',
 					'Confirming your email address',
 					$email,
-					$displayName,
+
+					// we can’t be sure just yet that the supplied name (if any) is acceptable to the owner of the (new) email address
+					null,
+
 					[
 						'requestedByIpAddress' => $app->getClientIp(),
 						'reasonForEmailDelivery' => 'You’re receiving this email because you recently requested a new confirmation email on our website. If that wasn’t you, please ignore this email and accept our excuses.',

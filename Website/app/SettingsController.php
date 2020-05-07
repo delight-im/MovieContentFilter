@@ -110,7 +110,10 @@ class SettingsController extends Controller {
 								'mail/en-US/confirm-email.txt',
 								'Confirming your email address',
 								$email,
-								$app->auth()->getUsername(),
+
+								// we can’t be sure just yet that the supplied name (if any) is acceptable to the owner of the *new* email address
+								null,
+
 								[
 									'requestedByIpAddress' => $app->getClientIp(),
 									'reasonForEmailDelivery' => 'You’re receiving this email because this email address has been designated as the new address for your account on our website. If that wasn’t you, please ignore this email and accept our excuses.',
