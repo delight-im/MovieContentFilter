@@ -44,46 +44,52 @@ class AuthController extends Controller {
 		if (!empty($email)) {
 			if (!empty($password1) && \strlen($password1) >= self::MIN_PASSWORT_LENGTH) {
 				if ($password1 === $password2) {
-					try {
-						$app->auth()->register($email, $password1, $displayName, function ($selector, $token) use ($app, $email) {
-							// build the URL for the confirmation link
-							$confirmationUrl = $app->url('/confirm/' . \urlencode($selector) . '/' . \urlencode($token));
+					if (\preg_match('/[\x00-\x1f\x7f$\/:\\\\]/', $displayName) === 0) {
+						try {
+							$app->auth()->register($email, $password1, $displayName, function ($selector, $token) use ($app, $email) {
+								// build the URL for the confirmation link
+								$confirmationUrl = $app->url('/confirm/' . \urlencode($selector) . '/' . \urlencode($token));
 
-							// send the link to the user
-							self::sendEmail(
-								$app,
-								'mail/en-US/sign-up.txt',
-								'Please confirm your email address',
-								$email,
+								// send the link to the user
+								self::sendEmail(
+									$app,
+									'mail/en-US/sign-up.txt',
+									'Please confirm your email address',
+									$email,
 
-								// we can’t be sure just yet that the supplied name (if any) is acceptable to the owner of the email address
-								null,
+									// we can’t be sure just yet that the supplied name (if any) is acceptable to the owner of the email address
+									null,
 
-								[
-									'requestedByIpAddress' => $app->getClientIp(),
-									'reasonForEmailDelivery' => 'You’re receiving this email because you recently created a free account on our website. If that wasn’t you, please ignore this email and accept our excuses.',
-									'confirmationUrl' => $confirmationUrl,
-								]
-							);
-						});
+									[
+										'requestedByIpAddress' => $app->getClientIp(),
+										'reasonForEmailDelivery' => 'You’re receiving this email because you recently created a free account on our website. If that wasn’t you, please ignore this email and accept our excuses.',
+										'confirmationUrl' => $confirmationUrl,
+									]
+								);
+							});
 
-						$app->flash()->success('Thanks for signing up! Please check your inbox for a confirmation email soon.');
-						$app->redirect('/');
+							$app->flash()->success('Thanks for signing up! Please check your inbox for a confirmation email soon.');
+							$app->redirect('/');
+						}
+						catch (InvalidEmailException $e) {
+							$app->flash()->warning('Please check the email address that you’ve entered and try again. Thank you!');
+							$app->redirect($app->currentRoute());
+						}
+						catch (InvalidPasswordException $e) {
+							$app->flash()->warning('Please check the requirements for the password and try again. Thank you!');
+							$app->redirect($app->currentRoute());
+						}
+						catch (UserAlreadyExistsException $e) {
+							$app->flash()->warning('An account with that email address does already exist. Do you want to sign in instead?');
+							$app->redirect($app->currentRoute());
+						}
+						catch (TooManyRequestsException $e) {
+							$app->flash()->warning('Please try again later!');
+							$app->redirect($app->currentRoute());
+						}
 					}
-					catch (InvalidEmailException $e) {
-						$app->flash()->warning('Please check the email address that you’ve entered and try again. Thank you!');
-						$app->redirect($app->currentRoute());
-					}
-					catch (InvalidPasswordException $e) {
-						$app->flash()->warning('Please check the requirements for the password and try again. Thank you!');
-						$app->redirect($app->currentRoute());
-					}
-					catch (UserAlreadyExistsException $e) {
-						$app->flash()->warning('An account with that email address does already exist. Do you want to sign in instead?');
-						$app->redirect($app->currentRoute());
-					}
-					catch (TooManyRequestsException $e) {
-						$app->flash()->warning('Please try again later!');
+					else {
+						$app->flash()->warning('Please choose a public name without (most) special characters. Thank you!');
 						$app->redirect($app->currentRoute());
 					}
 				}
