@@ -26,7 +26,7 @@ class SettingsController extends Controller {
 		echo $app->view(
 			'settings.html',
 			[
-				'passwordMinLength' => AuthController::MIN_PASSWORT_LENGTH,
+				'passwordMinLength' => AuthController::MIN_PASSWORD_LENGTH,
 				'passwordResetEnabled' => $app->auth()->isPasswordResetEnabled()
 			]
 		);
@@ -40,7 +40,7 @@ class SettingsController extends Controller {
 		$newPasswordRepeated = $app->input()->post('password-2', \TYPE_STRING);
 
 		if ($oldPassword !== null && $newPassword !== null && $newPasswordRepeated !== null) {
-			if (\strlen($newPassword) >= AuthController::MIN_PASSWORT_LENGTH) {
+			if (\strlen($newPassword) >= AuthController::MIN_PASSWORD_LENGTH) {
 				if ($newPasswordRepeated === $newPassword) {
 					try {
 						$app->auth()->changePassword($oldPassword, $newPassword);

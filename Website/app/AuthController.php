@@ -24,13 +24,13 @@ class AuthController extends Controller {
 
 	use EmailSenderTrait;
 
-	const MIN_PASSWORT_LENGTH = 8;
+	const MIN_PASSWORD_LENGTH = 8;
 
 	public static function showSignUp(App $app) {
 		echo $app->view(
 			'sign-up.html',
 			[
-				'passwordMinLength' => self::MIN_PASSWORT_LENGTH
+				'passwordMinLength' => self::MIN_PASSWORD_LENGTH
 			]
 		);
 	}
@@ -42,7 +42,7 @@ class AuthController extends Controller {
 		$displayName = $app->input()->post('display-name');
 
 		if (!empty($email)) {
-			if (!empty($password1) && \strlen($password1) >= self::MIN_PASSWORT_LENGTH) {
+			if (!empty($password1) && \strlen($password1) >= self::MIN_PASSWORD_LENGTH) {
 				if ($password1 === $password2) {
 					if (\preg_match('/[\x00-\x1f\x7f$\/:\\\\]/', $displayName) === 0) {
 						try {
@@ -257,7 +257,7 @@ class AuthController extends Controller {
 			echo $app->view(
 				'reset_password.html',
 				[
-					'passwordMinLength' => self::MIN_PASSWORT_LENGTH
+					'passwordMinLength' => self::MIN_PASSWORD_LENGTH
 				]
 			);
 		}
@@ -271,7 +271,7 @@ class AuthController extends Controller {
 		$password1 = $app->input()->post('password-1');
 		$password2 = $app->input()->post('password-2');
 
-		if (!empty($password1) && \strlen($password1) >= self::MIN_PASSWORT_LENGTH) {
+		if (!empty($password1) && \strlen($password1) >= self::MIN_PASSWORD_LENGTH) {
 			if ($password1 === $password2) {
 				try {
 					$app->auth()->resetPassword($selector, $token, $password1);
